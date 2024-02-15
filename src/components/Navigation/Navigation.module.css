@@ -1,0 +1,13 @@
+.navigation {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 95vh;
+    width: 300px;
+    border-top-right-radius: var(--mantine-radius-md);
+    border-bottom-right-radius: var(--mantine-radius-md);
+
+    background-color: alpha(var(--mantine-color-dark-8), 0.5);
+    border: 1px solid alpha(var(--mantine-color-dark-8), 0.6);
+}
