@@ -5,10 +5,10 @@
     transform: translateY(-50%);
     height: 95vh;
     width: 700px;
-    padding: var(--mantine-spacing-md) var(--mantine-spacing-md);
+    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
     border-top-left-radius: var(--mantine-radius-md);
     border-bottom-left-radius: var(--mantine-radius-md);
     text-align: justify;
-    background-color: alpha(var(--mantine-color-dark-8), 0.5);
-    border: 1px solid alpha(var(--mantine-color-dark-8), 0.6);
+    background-color: alpha(var(--mantine-color-dark-8), 0.95);
+
 }

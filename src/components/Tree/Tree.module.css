@@ -1,3 +1,16 @@
+.dragArea {
+    width: 100vw !important;
+    height: 100vh !important;
+}
+
+.draggable {
+    width: 100vw !important;
+    height: 100vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 /*
     =================== TREE STRUCTURE =================
 
@@ -5,12 +18,11 @@
         https://codepen.io/navin_sh/pen/mdbLebg
 */
 
-div.tree {
-    margin-left: 600px;
-    margin-top: 350px;
+.tree {
+    /* Simulate centering (the most performant way) */
+    padding-right: 20%;
 }
 
-.tree div,
 .tree ul,
 .tree li {
     margin: 0;

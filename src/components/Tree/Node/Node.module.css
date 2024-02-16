@@ -1,0 +1,13 @@
+.button {
+    color: var(--mantine-color-white);
+    box-shadow: 0 0 40px -8px alpha(var(--mantine-primary-color-filled), 0.4);
+
+    &[data-disabled] {
+        cursor: default;
+        box-shadow: none;
+    }
+
+    &[data-active="true"] {
+        border: 2px solid var(--mantine-color-orange-3);
+    }
+}

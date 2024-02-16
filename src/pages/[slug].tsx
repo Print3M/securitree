@@ -27,16 +27,12 @@ export const getStaticProps = (async context => {
     }
 }) satisfies GetStaticProps<{ data: TreeItem }>
 
-const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
-    const [selectedData, setSelectedData] = useState(data)
-
-    return (
-        <>
-            <Navigation />
-            <Tree data={data} onClick={v => setSelectedData(v)} />
-            <Reader data={selectedData} />
-        </>
-    )
-}
+const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => (
+    <>
+        <Tree item={data} />
+        <Navigation />
+        <Reader defaultItem={data} />
+    </>
+)
 
 export default Page

@@ -1,22 +1,19 @@
 import { FC } from "react"
-import { Button } from "@mantine/core"
 import { TreeItem } from "@/data/types"
+import Node from "../Node/Node"
 
 interface Props {
-    data: TreeItem
-    onClick: (data: TreeItem) => void
+    item: TreeItem
 }
 
-const SubTree: FC<Props> = ({ data, onClick }) => (
+const SubTree: FC<Props> = ({ item }) => (
     <li>
-        <Button variant="light" onClick={() => onClick(data)}>
-            {data.label}
-        </Button>
+        <Node item={item} />
 
-        {data.children?.items && (
+        {item.children?.items && (
             <ul>
-                {data.children?.items.map((item, idx) => (
-                    <SubTree key={idx} data={item} onClick={onClick} />
+                {item.children?.items.map((item, idx) => (
+                    <SubTree key={idx} item={item} />
                 ))}
             </ul>
         )}

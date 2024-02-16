@@ -4,12 +4,28 @@ const zipDecription: TreeItem = {
     label: "ZIP Decription",
     markdown: {
         path: "zip-decription.md",
+        hash: "zip-decription"
     },
     children: {
         type: "choices",
         items: [
             {
                 label: "Password cracking",
+                markdown: {
+                    path: "password-cracking.md",
+                    hash: "password-cracking"
+                },
+                children: {
+                    type: "choices",
+                    items: [
+                        {
+                            label: "Brute-force attack",
+                        },
+                        {
+                            label: "Dictionary attack",
+                        },
+                    ],
+                },
             },
             {
                 label: "Password sniffing",
@@ -21,6 +37,9 @@ const zipDecription: TreeItem = {
                         },
                         {
                             label: "Malware",
+                        },
+                        {
+                            label: "Wireless keyboard sniffing",
                         },
                     ],
                 },

@@ -14,7 +14,8 @@
     "next": "14.1.0",
     "next-mdx-remote": "^4.4.1",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-zoom-pan-pinch": "^3.4.2"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -24,13 +24,13 @@ export const prepareData = async (data: TreeItem) => {
         ...data,
         markdown: data.markdown
             ? {
-                  path: data.markdown.path,
+                  ...data.markdown,
                   mdx: await getMarkdown(data.markdown.path),
               }
             : null,
         children: data.children
             ? {
-                  type: data.children.type,
+                  ...data.children,
                   items: await Promise.all(data.children.items.map(async i => prepareData(i))),
               }
             : null,

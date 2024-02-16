@@ -8,6 +8,9 @@ import Layout from "@/components/Layout/Layout"
 
 const theme = createTheme({
     /** Put your mantine theme override here */
+    primaryShade: 9,
+    primaryColor: "orange",
+    cursorType: "pointer",
 })
 
 export default function App({ Component, pageProps }: AppProps) {
