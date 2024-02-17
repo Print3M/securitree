@@ -1,26 +1,35 @@
 import DB from "@/data/db"
 import classes from "./Navigation.module.css"
-import { Button, Flex } from "@mantine/core"
+import { Box, Button, Flex, Space } from "@mantine/core"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import SearchBar from "./SearchBar"
+import { useState } from "react"
+import { allNavLinks } from "./data"
+
 
 const Navigation = () => {
     const router = useRouter()
+    const [navLinks, setNavLinks] = useState(allNavLinks)
 
     return (
         <nav className={classes.navigation}>
+            <Box className={classes.logoBox}>Securitree</Box>
+            <Space h="xs" />
+            <SearchBar setItems={setNavLinks} />
+            <Space h="lg" />
             <Flex direction="column" gap={4}>
-                {Object.entries(DB).map(([key, value]) => (
+                {navLinks.map(i => (
                     <Button
-                        key={key}
+                        key={i.href}
+                        href={i.href}
                         variant="subtle"
                         component={Link}
-                        href={`/${key}`}
                         justify="left"
                         className={classes.navButton}
-                        data-selected={router.query.slug == key}
+                        data-selected={router.query.slug == i.href}
                     >
-                        {value.label}
+                        {i.label}
                     </Button>
                 ))}
             </Flex>

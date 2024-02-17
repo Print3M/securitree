@@ -8,10 +8,16 @@
     border-top-right-radius: var(--mantine-radius-md);
     border-bottom-right-radius: var(--mantine-radius-md);
     background-color: alpha(var(--mantine-color-dark-8), 0.95);
+    padding: var(--mantine-spacing-xs);
 }
 
 .navButton {
     &[data-selected="true"] {
         background-color: var(--mantine-color-orange-light-hover);
     }
+}
+
+.logoBox {
+    font-weight: bold;
+    font-size: 2.2rem;
 }
