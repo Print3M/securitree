@@ -1,0 +1,10 @@
+.codeRoot {
+}
+
+.codePre {
+    background-color: var(--mantine-color-dark-9) !important;
+}
+
+.codeCode {
+    background-color: transparent !important;
+}

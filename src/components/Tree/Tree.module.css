@@ -1,6 +1,7 @@
 .dragArea {
     width: 100vw !important;
     height: 100vh !important;
+    cursor: grab;
 }
 
 .draggable {
@@ -20,7 +21,8 @@
 
 .tree {
     /* Simulate centering (the most performant way) */
-    padding-right: 20%;
+    padding-right: 28%;
+    padding-bottom: 10%;
 }
 
 .tree ul,
@@ -42,8 +44,7 @@
     padding: 20px 5px 0 5px;
 }
 
-/*We will use ::before and ::after to draw the connectors*/
-
+/* Use pseudo-elements to draw the connectors */
 .tree li::before,
 .tree li::after {
     content: "";
@@ -60,25 +61,24 @@
     border-left: 1px solid #ccc;
 }
 
-/*We need to remove left-right connectors from elements without 
-any siblings*/
+/* Remove left-right connectors from elements without any siblings */
 .tree li:only-child::after,
 .tree li:only-child::before {
     display: none;
 }
 
-/*Remove space from the top of single children*/
+/* Remove space from the top of single children */
 .tree li:only-child {
     padding-top: 0;
 }
 
-/*Remove left connector from first child and 
-right connector from last child*/
+/* Remove left connector from first child and  right connector from last child */
 .tree li:first-child::before,
 .tree li:last-child::after {
     border: 0 none;
 }
-/*Adding back the vertical connector to the last nodes*/
+
+/* Add back the vertical connector to the last nodes */
 .tree li:last-child::before {
     border-right: 1px solid #ccc;
     border-radius: 0 5px 0 0;
@@ -91,8 +91,8 @@ right connector from last child*/
     -moz-border-radius: 5px 0 0 0;
 }
 
-/*Time to add downward connectors from parents*/
-.tree ul ul::before {
+/* Add downward connectors from parents */
+.tree ul ul::after {
     content: "";
     position: absolute;
     top: 0;
@@ -100,32 +100,4 @@ right connector from last child*/
     border-left: 1px solid #ccc;
     width: 0;
     height: 20px;
-}
-
-.tree li a {
-    border: 1px solid #ccc;
-    padding: 5px 10px;
-    text-decoration: none;
-    color: white;
-    font-family: arial, verdana, tahoma;
-    font-size: 11px;
-    display: inline-block;
-    border-radius: 5px;
-}
-
-/*Time for some hover effects*/
-/*We will apply the hover effect the the lineage of the element also*/
-.tree li a:hover,
-.tree li a:hover + ul li a {
-    background: #c8e4f8;
-    color: #000;
-    border: 1px solid #94a0b4;
-}
-
-/*Connector styles on hover*/
-.tree li a:hover + ul li::after,
-.tree li a:hover + ul li::before,
-.tree li a:hover + ul::before,
-.tree li a:hover + ul ul::before {
-    border-color: #94a0b4;
 }

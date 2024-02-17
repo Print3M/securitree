@@ -4,11 +4,15 @@
     top: 50%;
     transform: translateY(-50%);
     height: 95vh;
-    width: 700px;
-    padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+    width: 800px;
+    padding: var(--mantine-spacing-lg);
+    padding-right: 0;
     border-top-left-radius: var(--mantine-radius-md);
     border-bottom-left-radius: var(--mantine-radius-md);
     text-align: justify;
     background-color: alpha(var(--mantine-color-dark-8), 0.95);
+}
 
+.content {
+    padding-right: var(--mantine-spacing-lg);
 }

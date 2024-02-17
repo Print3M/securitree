@@ -4,7 +4,7 @@ const zipDecription: TreeItem = {
     label: "ZIP Decription",
     markdown: {
         path: "zip-decription.md",
-        hash: "zip-decription"
+        hash: "zip-decription",
     },
     children: {
         type: "choices",
@@ -13,7 +13,7 @@ const zipDecription: TreeItem = {
                 label: "Password cracking",
                 markdown: {
                     path: "password-cracking.md",
-                    hash: "password-cracking"
+                    hash: "password-cracking",
                 },
                 children: {
                     type: "choices",
@@ -63,7 +63,54 @@ const networkIntrusion: TreeItem = {
     },
 }
 
+const malwareDelivery: TreeItem = {
+    label: "Malware delivery",
+    children: {
+        type: "choices",
+        items: [
+            {
+                label: "File type",
+                children: {
+                    type: "choices",
+                    items: [
+                        {
+                            label: ".exe",
+                        },
+                        {
+                            label: ".js & .vbs",
+                        },
+                        {
+                            label: "HTA",
+                        },
+                        {
+                            label: "MS Office VBA",
+                        },
+                        {
+                            label: "Powershell",
+                        },
+                    ],
+                },
+            },
+            {
+                label: "Delivery method",
+                children: {
+                    type: "choices",
+                    items: [
+                        {
+                            label: "Email",
+                        },
+                        {
+                            label: "Email",
+                        },
+                    ],
+                },
+            },
+        ],
+    },
+}
+
 const DB: Record<string, TreeItem> = {
+    "malware-delivery": malwareDelivery,
     "zip-decription": zipDecription,
     "network-intrustion": networkIntrusion,
 } as const
