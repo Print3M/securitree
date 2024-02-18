@@ -1,7 +1,7 @@
 import { TextInput } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
-import { allNavLinks } from "./data"
-import { NavLink } from "./types"
+import { allNavLinks } from "../data"
+import { NavLink } from "../types"
 
 interface Props {
     setItems: (items: NavLink[]) => void

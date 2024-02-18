@@ -2,15 +2,27 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote"
 
 export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
 
-export interface TreeItem {
+export interface DBTreeHead {
     label: string
-    markdown?: {
+    markdown: {
         path: string
         hash: string
-        mdx?: MDX | null
+    }
+    children: DBTree[]
+}
+
+export interface DBTree {
+    label: string
+    markdown?: DBTreeHead["markdown"]
+    children?: DBTree[]
+}
+
+export interface ClientTree {
+    label: string
+    markdown: {
+        path: string
+        hash: string
+        mdx: MDX | null
     } | null
-    children?: {
-        type: "choices" | "parts"
-        items: TreeItem[]
-    } | null
+    children: ClientTree[] | null
 }

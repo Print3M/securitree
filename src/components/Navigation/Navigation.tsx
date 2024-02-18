@@ -1,6 +1,5 @@
-import DB from "@/data/db"
 import classes from "./Navigation.module.css"
-import { Anchor, Box, Button, Flex, ScrollArea, Space, Stack } from "@mantine/core"
+import { Anchor, Box, Button, ScrollArea, Stack } from "@mantine/core"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import SearchBar from "./SearchBar"

@@ -1,29 +1,31 @@
-import { TreeItem } from "@/data/types"
 import { FC, useMemo } from "react"
 import classes from "./Reader.module.css"
-import { getTreeItemByHash } from "./logic"
-import { useHash } from "@/utils/hooks"
-import MDRenderer from "./MDRenderer"
-import { ScrollArea } from "@mantine/core"
+import MDRenderer from "./MDRenderer/MDRenderer"
+import { Button, ScrollArea } from "@mantine/core"
+import { IconX } from "@tabler/icons-react"
+import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 
-interface Props {
-    defaultItem: TreeItem
-}
-
-const Reader: FC<Props> = ({ defaultItem }) => {
-    const [hash, _] = useHash()
+const Reader: FC = () => {
+    const { selected, setSelected } = useSelectedItemCtx()
     const mdx = useMemo(() => {
-        if (!hash) {
-            return defaultItem.markdown?.mdx
+        if (selected && selected.markdown?.mdx) {
+            return selected.markdown.mdx
         } else {
-            return getTreeItemByHash(defaultItem, hash)?.markdown?.mdx
+            return null
         }
-    }, [defaultItem, hash])
+    }, [selected])
 
     return (
-        <main className={classes.reader}>
+        <main className={classes.reader} data-is-open={!!mdx}>
+            <Button
+                onClick={() => setSelected(null)}
+                classNames={{ root: classes.closeButton }}
+                title="Close"
+            >
+                <IconX />
+            </Button>
             <ScrollArea h="100%" scrollbarSize={4} offsetScrollbars>
-                <div className={classes.content}>{mdx && <MDRenderer mdx={mdx} />}</div>
+                <div className={classes.content}>{!!mdx && <MDRenderer mdx={mdx} />}</div>
             </ScrollArea>
         </main>
     )

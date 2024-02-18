@@ -1,118 +1,88 @@
-import { TreeItem } from "./types"
+import { DBTreeHead } from "./types"
 
-const zipDecription: TreeItem = {
+const zipDecription: DBTreeHead = {
     label: "ZIP Decription",
     markdown: {
         path: "zip-decription.md",
         hash: "zip-decription",
     },
-    children: {
-        type: "choices",
-        items: [
-            {
-                label: "Password cracking",
-                markdown: {
-                    path: "password-cracking.md",
-                    hash: "password-cracking",
-                },
-                children: {
-                    type: "choices",
-                    items: [
-                        {
-                            label: "Brute-force attack",
-                        },
-                        {
-                            label: "Dictionary attack",
-                        },
-                    ],
-                },
+    children: [
+        {
+            label: "Password cracking",
+            markdown: {
+                path: "password-cracking.md",
+                hash: "password-cracking",
             },
-            {
-                label: "Password sniffing",
-                children: {
-                    type: "choices",
-                    items: [
-                        {
-                            label: "Shoulder surfing",
-                        },
-                        {
-                            label: "Malware",
-                        },
-                        {
-                            label: "Wireless keyboard sniffing",
-                        },
-                    ],
+            children: [
+                {
+                    label: "Brute-force attack",
                 },
-            },
-        ],
-    },
+                {
+                    label: "Dictionary attack",
+                },
+            ],
+        },
+        {
+            label: "Password sniffing",
+            children: [
+                {
+                    label: "Shoulder surfing",
+                },
+                {
+                    label: "Malware",
+                },
+                {
+                    label: "Wireless keyboard sniffing",
+                },
+            ],
+        },
+    ],
 }
 
-const networkIntrusion: TreeItem = {
-    label: "Network intrustion",
-    children: {
-        type: "choices",
-        items: [
-            {
-                label: "WiFi hacking",
-            },
-            {
-                label: "Physical connection",
-            },
-        ],
-    },
-}
-
-const malwareDelivery: TreeItem = {
+const malwareDelivery: DBTreeHead = {
     label: "Malware delivery",
-    children: {
-        type: "choices",
-        items: [
-            {
-                label: "File type",
-                children: {
-                    type: "choices",
-                    items: [
-                        {
-                            label: ".exe",
-                        },
-                        {
-                            label: ".js & .vbs",
-                        },
-                        {
-                            label: "HTA",
-                        },
-                        {
-                            label: "MS Office VBA",
-                        },
-                        {
-                            label: "Powershell",
-                        },
-                    ],
-                },
-            },
-            {
-                label: "Delivery method",
-                children: {
-                    type: "choices",
-                    items: [
-                        {
-                            label: "Email",
-                        },
-                        {
-                            label: "Email",
-                        },
-                    ],
-                },
-            },
-        ],
+    markdown: {
+        hash: "malware-delivery",
+        path: "malware-delivery.md",
     },
+    children: [
+        {
+            label: "File type",
+            children: [
+                {
+                    label: ".exe",
+                },
+                {
+                    label: ".js & .vbs",
+                },
+                {
+                    label: "HTA",
+                },
+                {
+                    label: "MS Office VBA",
+                },
+                {
+                    label: "Powershell",
+                },
+            ],
+        },
+        {
+            label: "Delivery method",
+            children: [
+                {
+                    label: "Email",
+                },
+                {
+                    label: "Phishing",
+                },
+            ],
+        },
+    ],
 }
 
-const DB: Record<string, TreeItem> = {
+const DB: Record<string, DBTreeHead> = {
     "malware-delivery": malwareDelivery,
     "zip-decription": zipDecription,
-    "network-intrustion": networkIntrusion,
 } as const
 
 export default DB

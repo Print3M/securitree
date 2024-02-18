@@ -2,6 +2,7 @@
     position: absolute;
     top: 0;
     right: 0;
+    transform: rotate(-45deg) translate(30px, -20px);
 }
 
 .buttonRoot {
@@ -9,7 +10,6 @@
     background-color: var(--mantine-color-white);
     padding: 4px 10px 4px 4px;
     height: 100px;
-    transform: rotate(-45deg) translate(30px, -20px);
 
     &:hover {
         background-color: var(--mantine-color-text);

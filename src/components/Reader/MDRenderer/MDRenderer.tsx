@@ -1,6 +1,6 @@
 import { MDX } from "@/data/types"
 import { CodeHighlight } from "@mantine/code-highlight"
-import { Box, Paper, TypographyStylesProvider } from "@mantine/core"
+import { TypographyStylesProvider } from "@mantine/core"
 import { MDXRemote } from "next-mdx-remote"
 import { FC, memo } from "react"
 import classes from "./MDRenderer.module.css"

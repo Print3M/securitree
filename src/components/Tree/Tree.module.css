@@ -20,9 +20,14 @@
 */
 
 .tree {
-    /* Simulate centering (the most performant way) */
+    /* Centering trick - this is the most performant way */
     padding-right: 28%;
     padding-bottom: 10%;
+
+    &[data-reader-opened="false"] {
+        padding-right: 0;
+        padding-bottom: 0;
+    }
 }
 
 .tree ul,

@@ -1,11 +1,13 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
 import Tree from "@/components/Tree/Tree"
 import DB from "@/data/db"
-import { prepareData } from "@/server/[slug]"
-import { TreeItem } from "@/data/types"
-import { useState } from "react"
 import Reader from "@/components/Reader/Reader"
 import Navigation from "@/components/Navigation/Navigation"
+import HashSync from "@/components/HashSync/HashSync"
+import { SelectedItemContextProvider } from "@/contexts/selectedItemCtx"
+import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
+import { ClientTree } from "@/data/types"
+import { dbToClientTree } from "@/server/[slug]"
 
 export const getStaticPaths = (async () => {
     const slugs = Object.keys(DB)
@@ -22,17 +24,20 @@ export const getStaticProps = (async context => {
 
     return {
         props: {
-            data: await prepareData(data),
+            data: await dbToClientTree(data),
         },
     }
-}) satisfies GetStaticProps<{ data: TreeItem }>
+}) satisfies GetStaticProps<{ data: ClientTree }>
 
 const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => (
-    <>
-        <Tree item={data} />
-        <Navigation />
-        <Reader defaultItem={data} />
-    </>
+    <TreeDataContextProvider data={data}>
+        <SelectedItemContextProvider data={data}>
+            <HashSync />
+            <Tree />
+            <Navigation />
+            <Reader />
+        </SelectedItemContextProvider>
+    </TreeDataContextProvider>
 )
 
 export default Page

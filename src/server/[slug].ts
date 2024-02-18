@@ -1,8 +1,8 @@
 import type { GetStaticPaths } from "next"
 import DB from "@/data/db"
-import { TreeItem } from "@/data/types"
 import { serialize } from "next-mdx-remote/serialize"
 import { promises as fs } from "fs"
+import { ClientTree, DBTree } from "@/data/types"
 
 export const getStaticPaths = (async () => {
     const slugs = Object.keys(DB)
@@ -19,8 +19,8 @@ const getMarkdown = async (path: string) => {
     return await serialize(file.toString())
 }
 
-export const prepareData = async (data: TreeItem) => {
-    const newData: TreeItem = {
+export const dbToClientTree = async (data: DBTree) => {
+    const newData: ClientTree = {
         ...data,
         markdown: data.markdown
             ? {
@@ -29,10 +29,7 @@ export const prepareData = async (data: TreeItem) => {
               }
             : null,
         children: data.children
-            ? {
-                  ...data.children,
-                  items: await Promise.all(data.children.items.map(async i => prepareData(i))),
-              }
+            ? await Promise.all(data.children.map(async i => dbToClientTree(i)))
             : null,
     }
 

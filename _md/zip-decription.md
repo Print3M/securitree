@@ -4,7 +4,7 @@ Aenean commodo diam orci, faucibus ornare sem ornare non. Nullam sagittis venena
 
 ```javascript
 function test() {
-    console.log('siema')
+    window.location('siema')
     return
 }
 

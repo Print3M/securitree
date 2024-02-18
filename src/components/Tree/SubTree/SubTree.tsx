@@ -1,18 +1,18 @@
-import { FC } from "react"
-import { TreeItem } from "@/data/types"
+import { FC, memo } from "react"
 import Node from "../Node/Node"
+import { ClientTree } from "@/data/types"
 
 interface Props {
-    item: TreeItem
+    item: ClientTree
 }
 
 const SubTree: FC<Props> = ({ item }) => (
     <li>
         <Node item={item} />
 
-        {item.children?.items && (
+        {item.children && (
             <ul>
-                {item.children?.items.map((item, idx) => (
+                {item.children.map((item, idx) => (
                     <SubTree key={idx} item={item} />
                 ))}
             </ul>
@@ -20,4 +20,4 @@ const SubTree: FC<Props> = ({ item }) => (
     </li>
 )
 
-export default SubTree
+export default memo(SubTree)
