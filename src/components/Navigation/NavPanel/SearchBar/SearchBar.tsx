@@ -1,7 +1,7 @@
 import { TextInput } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
-import { allNavLinks } from "./data"
-import { NavLink } from "./types"
+import { allNavLinks } from "../data"
+import { NavLink } from "../types"
 
 interface Props {
     setItems: (items: NavLink[]) => void
@@ -18,11 +18,7 @@ const SearchBar: FC<Props> = ({ setItems }) => {
     }, [value, setItems])
 
     return (
-        <TextInput
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            placeholder="Search..."
-        />
+        <TextInput value={value} onChange={e => setValue(e.target.value)} placeholder="Search..." />
     )
 }
 

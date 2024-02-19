@@ -1,6 +1,6 @@
 .dragArea {
-    width: 100vw !important;
-    height: 100vh !important;
+    min-width: 100vw !important;
+    min-height: 100vh !important;
     cursor: grab;
 }
 
@@ -23,15 +23,26 @@
     /* Centering trick - this is the most performant way */
     padding-right: 28%;
     padding-bottom: 10%;
+    min-width: max-content;
+    width: max-content;
 
     &[data-reader-opened="false"] {
-        padding-right: 0;
-        padding-bottom: 0;
+        padding: 0;
     }
+
+    @mixin smaller-than $mantine-breakpoint-xl {
+        padding: 0;
+    }
+}
+
+.tree ul:first-child {
+    /* Here we can control the exact placement of the tree */
+    /* margin-left: 100px; */
 }
 
 .tree ul,
 .tree li {
+    display: block;
     margin: 0;
     padding: 0;
 }

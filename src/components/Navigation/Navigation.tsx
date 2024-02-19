@@ -1,48 +1,29 @@
-import classes from "./Navigation.module.css"
-import { Anchor, Box, Button, ScrollArea, Stack } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
+import NavPanel from "./NavPanel/NavPanel"
+import NavBar from "./NavBar/NavBar"
+import { useEffect } from "react"
 import { useRouter } from "next/router"
-import Link from "next/link"
-import SearchBar from "./SearchBar"
-import { useState } from "react"
-import { allNavLinks } from "./data"
-import { GlobalData } from "@/config"
-import GithubIcon from "./GithubIcon/GithubIcon"
 
 const Navigation = () => {
+    const [navOpened, navHandlers] = useDisclosure(false)
     const router = useRouter()
-    const [navLinks, setNavLinks] = useState(allNavLinks)
+
+    useEffect(() => {
+        const handler = () => {
+            navHandlers.close()
+        }
+        router.events.on("routeChangeStart", handler)
+
+        return () => router.events.off("routeChangeStart", handler)
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
-        <div className={classes.container}>
-            <GithubIcon />
-            <Stack h="100%">
-                <Box className={classes.logoBox}>SecuriTree</Box>
-                <SearchBar setItems={setNavLinks} />
-                <ScrollArea scrollbarSize={4} style={{ flexGrow: 1 }}>
-                    <nav className={classes.nav}>
-                        {navLinks.map(i => (
-                            <Button
-                                key={i.href}
-                                href={i.href}
-                                variant="subtle"
-                                component={Link}
-                                justify="left"
-                                className={classes.navButton}
-                                data-selected={router.query.slug == i.href}
-                            >
-                                {i.label}
-                            </Button>
-                        ))}
-                    </nav>
-                </ScrollArea>
-                <footer className={classes.footer}>
-                    Created by{" "}
-                    <Anchor component={Link} href={GlobalData.print3mUrl} fz="sm">
-                        Print3M
-                    </Anchor>
-                </footer>
-            </Stack>
-        </div>
+        <>
+            <NavPanel opened={navOpened} />
+            <NavBar navOpened={navOpened} toggleNav={navHandlers.toggle} />
+        </>
     )
 }
 

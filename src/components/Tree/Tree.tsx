@@ -8,7 +8,7 @@ import { useTreeDataCtx } from "@/contexts/treeDataCtx"
 const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
     <TransformWrapper
         limitToBounds={false}
-        doubleClick={{ mode: "reset" }}
+        doubleClick={{ mode: "reset", animationTime: 1, animationType: "linear" }}
         wheel={{ disabled: true }}
         panning={{ allowRightClickPan: false, allowMiddleClickPan: false }}
     >

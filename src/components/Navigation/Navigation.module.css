@@ -1,36 +1,8 @@
 .container {
     position: fixed;
+    top: 0;
     left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 95vh;
-    width: 250px;
-    border-top-right-radius: var(--mantine-radius-md);
-    border-bottom-right-radius: var(--mantine-radius-md);
-    background-color: alpha(var(--mantine-color-dark-8), 0.95);
-    padding: var(--mantine-spacing-xs);
-    overflow: hidden;
-    /* #D9480F */
-}
-
-.logoBox {
-    font-weight: bold;
-    font-size: 2.2rem;
-}
-
-.nav {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.navButton {
-    &[data-selected="true"] {
-        background-color: var(--mantine-primary-color-light-hover);
-    }
-}
-
-.footer {
-    text-align: center;
-    font-size: var(--mantine-font-size-sm);
+    width: 100vw;
+    height: 100vh;
+    background-color: red;
 }
