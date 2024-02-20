@@ -9,5 +9,7 @@
         width: 100vw;
         padding: 5px;
         background-color: var(--mantine-color-dark-8);
+        z-index: 99999;
+        height: var(--navbar-height);
     }
 }

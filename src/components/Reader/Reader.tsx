@@ -1,11 +1,14 @@
-import { FC, useMemo } from "react"
+import { FC, useEffect, useMemo, useState } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, ScrollArea } from "@mantine/core"
-import { IconX } from "@tabler/icons-react"
+import { Button, CloseButton, ScrollArea } from "@mantine/core"
 import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
+import { useRouter } from "next/router"
+import { IconBinaryTree, IconBinaryTree2 } from "@tabler/icons-react"
 
 const Reader: FC = () => {
+    // const [init, setInit] = useState(true)
+    const router = useRouter()
     const { selected, setSelected } = useSelectedItemCtx()
     const mdx = useMemo(() => {
         if (selected && selected.markdown?.mdx) {
@@ -15,14 +18,30 @@ const Reader: FC = () => {
         }
     }, [selected])
 
+    // Reset init
+    useEffect(() => {
+        const resetInit = () => setSelected(null)
+        router.events.on("routeChangeStart", resetInit)
+
+        return () => router.events.off("routeChangeStart", resetInit)
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     return (
         <main className={classes.reader} data-is-open={!!mdx}>
-            <Button
+            <CloseButton
                 onClick={() => setSelected(null)}
                 classNames={{ root: classes.closeButton }}
-                title="Close"
+                size={44}
+            />
+            <Button
+                onClick={() => setSelected(null)}
+                classNames={{ root: classes.showTreeButton }}
+                leftSection={<IconBinaryTree2 />}
+                size="md"
             >
-                <IconX />
+                Show tree
             </Button>
             <ScrollArea h="100%" scrollbarSize={4} offsetScrollbars>
                 <div className={classes.content}>{!!mdx && <MDRenderer mdx={mdx} />}</div>

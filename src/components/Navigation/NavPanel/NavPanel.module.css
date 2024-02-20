@@ -10,6 +10,7 @@
     background-color: alpha(var(--mantine-color-dark-8), 0.97);
     padding: var(--mantine-spacing-xs);
     overflow: hidden;
+    z-index: 9999999;
 
     @mixin smaller-than $mantine-breakpoint-sm {
         top: 0;
@@ -19,13 +20,8 @@
         border-radius: 0;
         background-color: var(--mantine-color-dark-8);
 
-        /* 
-           Awful and ugly but it works.
-           It must be kept in sinc with nav-bar height change.
-        */
-        --nav-bar-height: 44px;
-        height: calc(100vh - var(--nav-bar-height));
-        margin-top: var(--nav-bar-height);
+        height: calc(100vh - var(--navbar-height));
+        margin-top: var(--navbar-height);
 
         &[data-opened="false"] {
             transform: translateX(-100%);

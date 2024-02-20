@@ -35,7 +35,7 @@ const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => (
             <HashSync />
             <Tree />
             <Navigation />
-            {/* <Reader /> */}
+            <Reader />
         </SelectedItemContextProvider>
     </TreeDataContextProvider>
 )
