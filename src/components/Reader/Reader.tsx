@@ -1,14 +1,12 @@
-import { FC, useEffect, useMemo, useState } from "react"
+import { FC, useMemo } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, CloseButton, ScrollArea } from "@mantine/core"
+import { Button, Center, CloseButton, ScrollArea, Space, Text } from "@mantine/core"
 import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
-import { useRouter } from "next/router"
-import { IconBinaryTree, IconBinaryTree2 } from "@tabler/icons-react"
+import { IconBinaryTree2 } from "@tabler/icons-react"
+import Link from "next/link"
 
 const Reader: FC = () => {
-    // const [init, setInit] = useState(true)
-    const router = useRouter()
     const { selected, setSelected } = useSelectedItemCtx()
     const mdx = useMemo(() => {
         if (selected && selected.markdown?.mdx) {
@@ -17,16 +15,6 @@ const Reader: FC = () => {
             return null
         }
     }, [selected])
-
-    // Reset init
-    useEffect(() => {
-        const resetInit = () => setSelected(null)
-        router.events.on("routeChangeStart", resetInit)
-
-        return () => router.events.off("routeChangeStart", resetInit)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
         <main className={classes.reader} data-is-open={!!mdx}>
@@ -44,7 +32,24 @@ const Reader: FC = () => {
                 Show tree
             </Button>
             <ScrollArea h="100%" scrollbarSize={4} offsetScrollbars>
-                <div className={classes.content}>{!!mdx && <MDRenderer mdx={mdx} />}</div>
+                <div className={classes.content}>
+                    {!!mdx && <MDRenderer mdx={mdx} />}
+                    {selected?.portal && (
+                        <Center mt="xl">
+                            <Button
+                                variant="subtle"
+                                component={Link}
+                                href={selected.portal}
+                                size="md"
+                            >
+                                Read more about&nbsp;
+                                <Text tt="capitalize" inherit>
+                                    {selected.label}
+                                </Text>
+                            </Button>
+                        </Center>
+                    )}
+                </div>
             </ScrollArea>
         </main>
     )

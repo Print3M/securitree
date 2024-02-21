@@ -40,12 +40,6 @@
     gap: 3px;
 }
 
-.navButton {
-    &[data-selected="true"] {
-        background-color: var(--mantine-primary-color-light-hover);
-    }
-}
-
 .footer {
     text-align: center;
     font-size: var(--mantine-font-size-sm);

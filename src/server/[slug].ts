@@ -31,6 +31,7 @@ export const dbToClientTree = async (data: DBTree) => {
         children: data.children
             ? await Promise.all(data.children.map(async i => dbToClientTree(i)))
             : null,
+        portal: data.portal ? data.portal : null,
     }
 
     return newData

@@ -13,20 +13,24 @@ const zipDecription: DBTreeHead = {
                 path: "password-cracking.md",
                 hash: "password-cracking",
             },
-            children: [
-                {
-                    label: "Brute-force attack",
-                },
-                {
-                    label: "Dictionary attack",
-                },
-            ],
+            portal: "malware-delivery",
         },
         {
             label: "Password sniffing",
             children: [
                 {
                     label: "Shoulder surfing",
+                    children: [
+                        {
+                            label: "Shoulder surfing",
+                        },
+                        {
+                            label: "Malware",
+                        },
+                        {
+                            label: "Wireless keyboard sniffing",
+                        },
+                    ],
                 },
                 {
                     label: "Malware",

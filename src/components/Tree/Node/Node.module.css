@@ -1,4 +1,4 @@
-.button {
+.buttonRoot {
     color: var(--mantine-color-white);
     box-shadow: 0 0 40px -8px alpha(var(--mantine-primary-color-filled), 0.4);
 

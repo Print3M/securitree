@@ -14,6 +14,7 @@ export interface DBTreeHead {
 export interface DBTree {
     label: string
     markdown?: DBTreeHead["markdown"]
+    portal?: string
     children?: DBTree[]
 }
 
@@ -25,4 +26,18 @@ export interface ClientTree {
         mdx: MDX | null
     } | null
     children: ClientTree[] | null
+    portal: string | null
 }
+
+/*
+export const isPortal = (children: DBTree["children"]): children is Portal => {
+    if (!children) return false
+    if (Array.isArray(children)) return false
+
+    return true
+}
+
+export const isTree = (children: DBTree["children"]): children is DBTree[] => {
+    return Array.isArray(children)
+}
+*/

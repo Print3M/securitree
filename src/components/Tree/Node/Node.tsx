@@ -19,7 +19,7 @@ const Node: FC<Props> = ({ item }) => {
 
     return (
         <Button
-            className={classes.button}
+            classNames={{ root: classes.buttonRoot }}
             onClick={onClick}
             disabled={!item.markdown?.mdx}
             data-active={selected == item}

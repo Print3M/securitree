@@ -28,11 +28,10 @@ const NavPanel: FC<Props> = ({ opened }) => {
                             <Button
                                 key={i.href}
                                 href={i.href}
-                                variant="subtle"
                                 component={Link}
+                                variant={router.query.slug == i.href ? "light" : "subtle"}
                                 justify="left"
-                                className={classes.navButton}
-                                data-selected={router.query.slug == i.href}
+                                size="compact-md"
                             >
                                 {i.label}
                             </Button>

@@ -1,0 +1,17 @@
+.button {
+    line-height: inherit;
+    height: auto;
+    padding: var(--mantine-spacing-xs);
+    /*
+    border: 2px solid var(--mantine-primary-color-light-hover);
+    display: block;
+    text-align: center;
+    color: var(--mantine-primary-color-light-color);
+    border-radius: var(--mantine-radius-default);
+
+    &:hover {
+        background-color: var(--mantine-primary-color-light-hover);
+        border: 2px solid transparent;
+    }
+    */
+}
