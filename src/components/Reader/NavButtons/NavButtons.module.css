@@ -1,0 +1,7 @@
+.button {
+    flex: 1;
+
+    @mixin smaller-than $mantine-breakpoint-sm {
+        width: 100%;
+    }
+}

@@ -7,7 +7,7 @@ import HashSync from "@/components/HashSync/HashSync"
 import { SelectedItemContextProvider } from "@/contexts/selectedItemCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
 import { ClientTree } from "@/data/types"
-import { dbToClientTree } from "@/server/[slug]"
+import { dbToClientTree, getFlatTree } from "@/server/[slug]"
 
 export const getStaticPaths = (async () => {
     const slugs = Object.keys(DB)
@@ -20,11 +20,12 @@ export const getStaticPaths = (async () => {
 
 export const getStaticProps = (async context => {
     const slug = context.params!.slug as string
-    const data = DB[slug]
+    const tree = DB[slug]
+    const flatTree = getFlatTree([tree]).filter(i => !!i.markdown?.path)
 
     return {
         props: {
-            data: await dbToClientTree(data),
+            data: await dbToClientTree(tree, flatTree),
         },
     }
 }) satisfies GetStaticProps<{ data: ClientTree }>

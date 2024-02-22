@@ -1,5 +1,5 @@
 import classes from "./NavPanel.module.css"
-import { Anchor, Box, Button, ScrollArea, Stack } from "@mantine/core"
+import { Anchor, Box, Button, Divider, ScrollArea, Stack } from "@mantine/core"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import SearchBar from "./SearchBar/SearchBar"
@@ -21,6 +21,16 @@ const NavPanel: FC<Props> = ({ opened }) => {
             <GithubIcon />
             <Stack h="100%">
                 <Box className={classes.logoBox}>SecuriTree</Box>
+                <Button
+                    href="/"
+                    component={Link}
+                    variant={router.route == "/" ? "light" : "subtle"}
+                    justify="left"
+                    size="compact-md"
+                >
+                    Home
+                </Button>
+                <Divider variant="dashed" />
                 <SearchBar setItems={setNavLinks} />
                 <ScrollArea scrollbarSize={4} style={{ flexGrow: 1 }}>
                     <nav className={classes.nav}>

@@ -3,17 +3,7 @@ import { setUrlHash } from "@/utils/utils"
 import { useDidUpdate } from "@mantine/hooks"
 import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 import { useTreeDataCtx } from "@/contexts/treeDataCtx"
-import { ClientTree } from "@/data/types"
-
-const getTreeItemByHash = (item: ClientTree, hash: string): ClientTree | undefined => {
-    if (!item.markdown) return
-    if (item.markdown.hash == hash) return item
-    if (!item.children) return
-
-    const children = item.children.map(i => getTreeItemByHash(i, hash)).filter(i => i)
-
-    if (children.length > 0) return children[0]
-}
+import { getTreeItemByHash } from "@/data/utils"
 
 const HashSync: FC = () => {
     // Keep selected item and URL hash synchronized

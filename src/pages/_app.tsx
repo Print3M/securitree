@@ -25,6 +25,7 @@ import '@mantine/core/styles/Burger.css';
 import '@mantine/core/styles/Button.css';
 import '@mantine/core/styles/Center.css';
 import '@mantine/core/styles/Stack.css';
+import '@mantine/core/styles/Divider.css';
 import '@mantine/core/styles/TypographyStylesProvider.css';
 
 import type { AppProps } from "next/app"

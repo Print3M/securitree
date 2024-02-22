@@ -1,13 +1,40 @@
-import { FC, useMemo } from "react"
+import { FC, useCallback, useEffect, useMemo, useRef } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, Center, CloseButton, ScrollArea, Space, Text } from "@mantine/core"
+import { Button, Center, CloseButton, ScrollArea, Text } from "@mantine/core"
 import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 import { IconBinaryTree2 } from "@tabler/icons-react"
 import Link from "next/link"
+import NavButtons from "./NavButtons/NavButtons"
+import { useRouter } from "next/router"
+import { useWindowEvent } from "@mantine/hooks"
+
+const useScrollToTop = () => {
+    const scrollRef = useRef<HTMLDivElement>(null)
+    const router = useRouter()
+
+    const handler = useCallback(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTo({ top: 0, behavior: "smooth" })
+        }
+    }, [scrollRef])
+
+    useEffect(() => {
+        router.events.on("routeChangeStart", handler)
+
+        return () => router.events.off("routeChangeStart", handler)
+        
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+    useWindowEvent("hashchange", handler)
+
+    return scrollRef
+}
 
 const Reader: FC = () => {
     const { selected, setSelected } = useSelectedItemCtx()
+    const scrollRef = useScrollToTop()
     const mdx = useMemo(() => {
         if (selected && selected.markdown?.mdx) {
             return selected.markdown.mdx
@@ -31,7 +58,7 @@ const Reader: FC = () => {
             >
                 Show tree
             </Button>
-            <ScrollArea h="100%" scrollbarSize={4} offsetScrollbars>
+            <ScrollArea h="100%" scrollbarSize={4} viewportRef={scrollRef} offsetScrollbars>
                 <div className={classes.content}>
                     {!!mdx && <MDRenderer mdx={mdx} />}
                     {selected?.portal && (
@@ -49,6 +76,7 @@ const Reader: FC = () => {
                             </Button>
                         </Center>
                     )}
+                    {selected && <NavButtons item={selected} />}
                 </div>
             </ScrollArea>
         </main>

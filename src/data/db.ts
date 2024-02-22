@@ -1,44 +1,42 @@
 import { DBTreeHead } from "./types"
 
+export const homePage: DBTreeHead = {
+    label: "SecuriTree",
+    markdown: {
+        path: "example.md",
+        hash: "about"
+    },
+    children: []
+}
+
 const zipDecription: DBTreeHead = {
     label: "ZIP Decription",
     markdown: {
-        path: "zip-decription.md",
+        path: "example.md",
         hash: "zip-decription",
     },
     children: [
         {
             label: "Password cracking",
             markdown: {
-                path: "password-cracking.md",
+                path: "example.md",
                 hash: "password-cracking",
             },
             portal: "malware-delivery",
         },
         {
-            label: "Password sniffing",
-            children: [
-                {
-                    label: "Shoulder surfing",
-                    children: [
-                        {
-                            label: "Shoulder surfing",
-                        },
-                        {
-                            label: "Malware",
-                        },
-                        {
-                            label: "Wireless keyboard sniffing",
-                        },
-                    ],
-                },
-                {
-                    label: "Malware",
-                },
-                {
-                    label: "Wireless keyboard sniffing",
-                },
-            ],
+            label: "Shoulder surfing",
+            markdown: {
+                path: "example.md",
+                hash: "shoulder-surfing",
+            },
+        },
+        {
+            label: "Cracking",
+            markdown: {
+                path: "example.md",
+                hash: "cracking",
+            },
         },
     ],
 }
@@ -46,8 +44,8 @@ const zipDecription: DBTreeHead = {
 const malwareDelivery: DBTreeHead = {
     label: "Malware delivery",
     markdown: {
+        path: "example.md",
         hash: "malware-delivery",
-        path: "malware-delivery.md",
     },
     children: [
         {

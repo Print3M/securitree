@@ -44,3 +44,8 @@
     text-align: center;
     font-size: var(--mantine-font-size-sm);
 }
+
+.divider {
+    background-color: red;
+    z-index: 3;
+}

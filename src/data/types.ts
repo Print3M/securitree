@@ -24,6 +24,8 @@ export interface ClientTree {
         path: string
         hash: string
         mdx: MDX | null
+        next: string | null
+        prev: string | null
     } | null
     children: ClientTree[] | null
     portal: string | null
