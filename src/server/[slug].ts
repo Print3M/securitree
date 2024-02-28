@@ -3,6 +3,7 @@ import DB from "@/data/db"
 import { serialize } from "next-mdx-remote/serialize"
 import { promises as fs } from "fs"
 import { ClientTree, DBTree } from "@/data/types"
+import * as dree from "dree"
 
 export const getStaticPaths = (async () => {
     const slugs = Object.keys(DB)
@@ -13,10 +14,63 @@ export const getStaticPaths = (async () => {
     }
 }) satisfies GetStaticPaths<{ slug: string }>
 
-const getMarkdown = async (path: string) => {
-    const file = await fs.readFile(process.cwd() + `/_md/${path}`)
+const parseMarkdownFile = async (path: string) => {
+    const file = await fs.readFile(path)
+    const md = await serialize(file.toString())
 
-    return await serialize(file.toString())
+    return {
+        label: (md.frontmatter.label as string) || "",
+        portalName: (md.frontmatter.portal as string) || null,
+        markdown: md.compiledSource,
+    }
+}
+
+export const getFileTree = async () => {
+    interface TreeNode extends dree.Dree {
+        name: string
+        label: string
+        isPrimary: boolean
+        portalName?: string
+        markdown?: string
+    }
+
+    const onFile: dree.Callback<TreeNode> = async node => {
+        const md = await parseMarkdownFile(node.path)
+        const parts = node.path.split("/")
+        const dirName = parts[parts.length - 2]
+        const fileName = node.name.replace(".md", "")
+
+        node.isPrimary = dirName == fileName
+
+        if (md.markdown) node.markdown = md.markdown
+        if (md.portalName) node.portalName = md.portalName
+
+        node.markdown = md.markdown
+        node.name = fileName
+        node.label = md.label
+
+        // Erase unnecessary properties
+        node.path = ""
+        node.relativePath = ""
+        node.size = ""
+        node.hash = ""
+    }
+    const onDir: dree.Callback = async node => {
+        // Erase unnecessary properties
+        node.hash = ""
+        node.path = ""
+        node.relativePath = ""
+        node.size = ""
+    }
+
+    const tree = await dree.scanAsync(
+        "./_md/",
+        { symbolicLinks: false, excludeEmptyDirectories: true },
+        onFile,
+        onDir
+    )
+
+    return tree
 }
 
 export const getFlatTree = (members: DBTree[]): DBTree[] => {
@@ -62,7 +116,7 @@ export const dbToClientTree = async (item: DBTree, flatTree: DBTree[]) => {
         markdown: item.markdown
             ? {
                   ...item.markdown,
-                  mdx: await getMarkdown(item.markdown.path),
+                  mdx: await parseMarkdownFile(item.markdown.path),
                   prev: null,
                   next: null,
               }
@@ -75,8 +129,6 @@ export const dbToClientTree = async (item: DBTree, flatTree: DBTree[]) => {
 
     if (newItem.markdown) {
         const neighbors = getNeighbors(item, flatTree)
-
-        console.log(item.label, neighbors)
 
         newItem.markdown = {
             ...newItem.markdown,
