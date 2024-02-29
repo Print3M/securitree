@@ -2,8 +2,8 @@ import { FC, PropsWithChildren, memo } from "react"
 import classes from "./Tree.module.css"
 import SubTree from "./SubTree/SubTree"
 import { TransformComponent, TransformWrapper } from "react-zoom-pan-pinch"
-import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 import { useTreeDataCtx } from "@/contexts/treeDataCtx"
+import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 
 const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
     <TransformWrapper
@@ -19,17 +19,17 @@ const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
 ))
 
 const TreeRenderer = memo(() => {
-    const treeData = useTreeDataCtx()
+    const tree = useTreeDataCtx()
 
     return (
         <ul>
-            <SubTree item={treeData} />
+            <SubTree node={tree} />
         </ul>
     )
 })
 
 const MovableTree: FC = () => {
-    const { selected } = useSelectedItemCtx()
+    const { selected } = useSelectedNodeCtx()
 
     return (
         <div className={classes.tree} data-reader-opened={!!selected}>

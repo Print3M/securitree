@@ -1,4 +1,4 @@
-import { Button, Text, UnstyledButton } from "@mantine/core"
+import { Button, Text } from "@mantine/core"
 import Link from "next/link"
 import { FC } from "react"
 import classes from "./Portal.module.css"

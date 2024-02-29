@@ -1,78 +1,97 @@
-import type { GetStaticPaths } from "next"
-import DB from "@/data/db"
 import { serialize } from "next-mdx-remote/serialize"
 import { promises as fs } from "fs"
-import { ClientTree, DBTree } from "@/data/types"
 import * as dree from "dree"
+import path from "path"
+import { MDXRemoteSerializeResult } from "next-mdx-remote"
 
-export const getStaticPaths = (async () => {
-    const slugs = Object.keys(DB)
+export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
 
-    return {
-        paths: slugs.map(i => ({ params: { slug: i } })),
-        fallback: false,
-    }
-}) satisfies GetStaticPaths<{ slug: string }>
+
+export interface Tree {
+    label: string
+    slug: string
+    portalSlug: string | null
+    markdown: MDX | null
+    children: Tree[]
+}
+
+export interface Path {
+    slug: string
+    label: string
+}
 
 const parseMarkdownFile = async (path: string) => {
     const file = await fs.readFile(path)
-    const md = await serialize(file.toString())
+    const mdx = await serialize(file.toString(), { parseFrontmatter: true })
 
     return {
-        label: (md.frontmatter.label as string) || "",
-        portalName: (md.frontmatter.portal as string) || null,
-        markdown: md.compiledSource,
+        label: (mdx.frontmatter.label as string) || "",
+        portalSlug: (mdx.frontmatter.portalSlug as string) || null,
+        markdown: mdx,
     }
 }
 
-export const getFileTree = async () => {
-    interface TreeNode extends dree.Dree {
-        name: string
-        label: string
-        isPrimary: boolean
-        portalName?: string
-        markdown?: string
+export const parseIndexFile = async (dir: string) => {
+    const dirs = dir.split("/")
+    const dirName = dirs[dirs.length - 1]
+    const mdx = await parseMarkdownFile(path.join(dir, "index.md"))
+
+    return {
+        ...mdx,
+        slug: dirName,
     }
+}
 
-    const onFile: dree.Callback<TreeNode> = async node => {
-        const md = await parseMarkdownFile(node.path)
-        const parts = node.path.split("/")
-        const dirName = parts[parts.length - 2]
-        const fileName = node.name.replace(".md", "")
+export const getPaths = async () => {
+    const root = await dree.scanAsync(`./_md/`, {
+        symbolicLinks: false,
+        excludeEmptyDirectories: true,
+        depth: 2,
+    })
 
-        node.isPrimary = dirName == fileName
+    const items = root.children || []
 
-        if (md.markdown) node.markdown = md.markdown
-        if (md.portalName) node.portalName = md.portalName
+    return Promise.all(
+        items.map(async i => {
+            const data = await parseIndexFile(i.path)
 
-        node.markdown = md.markdown
-        node.name = fileName
-        node.label = md.label
-
-        // Erase unnecessary properties
-        node.path = ""
-        node.relativePath = ""
-        node.size = ""
-        node.hash = ""
-    }
-    const onDir: dree.Callback = async node => {
-        // Erase unnecessary properties
-        node.hash = ""
-        node.path = ""
-        node.relativePath = ""
-        node.size = ""
-    }
-
-    const tree = await dree.scanAsync(
-        "./_md/",
-        { symbolicLinks: false, excludeEmptyDirectories: true },
-        onFile,
-        onDir
+            return {
+                slug: data.slug,
+                label: data.label,
+            } as Path
+        })
     )
-
-    return tree
 }
 
+const convertDreeToTree = async (dreeData: dree.Dree): Promise<Tree | null> => {
+    if (dreeData.type != dree.Type.DIRECTORY) return null
+
+    const index = await parseIndexFile(dreeData.path)
+
+    let children: Tree[] = []
+    for (const child of dreeData.children || []) {
+        const item = await convertDreeToTree(child)
+
+        if (item) children.push(item)
+    }
+
+    return {
+        ...index,
+        children,
+    }
+}
+
+export const getFileTree = async (rootDir: string) => {
+    const dreeData = await dree.scanAsync(`./_md/${rootDir}`, {
+        symbolicLinks: false,
+        excludeEmptyDirectories: true,
+    })
+    const tree = await convertDreeToTree(dreeData)
+
+    return tree!
+}
+
+/*
 export const getFlatTree = (members: DBTree[]): DBTree[] => {
     let children: DBTree[] = []
 
@@ -138,3 +157,4 @@ export const dbToClientTree = async (item: DBTree, flatTree: DBTree[]) => {
 
     return newItem
 }
+*/

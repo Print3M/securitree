@@ -1,15 +1,15 @@
 import { Button } from "@mantine/core"
 import { FC } from "react"
 import classes from "./Node.module.css"
-import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
-import { ClientTree } from "@/data/types"
+import { Tree } from "@/server/[slug]"
+import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 
 interface Props {
-    item: ClientTree
+    item: Tree
 }
 
 const Node: FC<Props> = ({ item }) => {
-    const { selected, setSelected } = useSelectedItemCtx()
+    const { selected, setSelected } = useSelectedNodeCtx()
 
     const onClick = () => {
         if (item.markdown) {
@@ -21,7 +21,7 @@ const Node: FC<Props> = ({ item }) => {
         <Button
             classNames={{ root: classes.buttonRoot }}
             onClick={onClick}
-            disabled={!item.markdown?.mdx}
+            disabled={!item.markdown}
             data-active={selected == item}
         >
             {item.label}

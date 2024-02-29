@@ -2,12 +2,12 @@ import { FC, useCallback, useEffect, useMemo, useRef } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
 import { Button, Center, CloseButton, ScrollArea, Text } from "@mantine/core"
-import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 import { IconBinaryTree2 } from "@tabler/icons-react"
 import Link from "next/link"
 import NavButtons from "./NavButtons/NavButtons"
 import { useRouter } from "next/router"
 import { useWindowEvent } from "@mantine/hooks"
+import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 
 const useScrollToTop = () => {
     const scrollRef = useRef<HTMLDivElement>(null)
@@ -23,7 +23,7 @@ const useScrollToTop = () => {
         router.events.on("routeChangeStart", handler)
 
         return () => router.events.off("routeChangeStart", handler)
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -33,11 +33,11 @@ const useScrollToTop = () => {
 }
 
 const Reader: FC = () => {
-    const { selected, setSelected } = useSelectedItemCtx()
+    const { selected, setSelected } = useSelectedNodeCtx()
     const scrollRef = useScrollToTop()
     const mdx = useMemo(() => {
-        if (selected && selected.markdown?.mdx) {
-            return selected.markdown.mdx
+        if (selected && selected.markdown) {
+            return selected.markdown
         } else {
             return null
         }
@@ -61,12 +61,12 @@ const Reader: FC = () => {
             <ScrollArea h="100%" scrollbarSize={4} viewportRef={scrollRef} offsetScrollbars>
                 <div className={classes.content}>
                     {!!mdx && <MDRenderer mdx={mdx} />}
-                    {selected?.portal && (
+                    {selected?.portalSlug && (
                         <Center mt="xl">
                             <Button
                                 variant="subtle"
                                 component={Link}
-                                href={selected.portal}
+                                href={selected.portalSlug}
                                 size="md"
                             >
                                 Read more about&nbsp;
@@ -76,7 +76,7 @@ const Reader: FC = () => {
                             </Button>
                         </Center>
                     )}
-                    {selected && <NavButtons item={selected} />}
+                    {/* {selected && <NavButtons item={selected} />} */}
                 </div>
             </ScrollArea>
         </main>

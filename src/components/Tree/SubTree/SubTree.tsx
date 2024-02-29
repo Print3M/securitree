@@ -1,21 +1,21 @@
 import { FC, memo } from "react"
 import Node from "../Node/Node"
-import { ClientTree } from "@/data/types"
 import Portal from "../Portal/Portal"
+import { Tree } from "@/server/[slug]"
 
 interface Props {
-    item: ClientTree
+    node: Tree
 }
 
-const SubTree: FC<Props> = ({ item }) => {
-    if (item.portal) {
+const SubTree: FC<Props> = ({ node }) => {
+    if (node.portalSlug) {
         return (
             <li>
-                <Node item={item} />
+                <Node item={node} />
 
                 <ul>
                     <li>
-                        <Portal label={item.label} slug={item.portal} />
+                        <Portal label={node.label} slug={node.portalSlug} />
                     </li>
                 </ul>
             </li>
@@ -24,12 +24,12 @@ const SubTree: FC<Props> = ({ item }) => {
 
     return (
         <li>
-            <Node item={item} />
+            <Node item={node} />
 
-            {item.children && (
+            {node.children && (
                 <ul>
-                    {item.children.map((item, idx) => (
-                        <SubTree key={idx} item={item} />
+                    {node.children.map((item, idx) => (
+                        <SubTree key={idx} node={item} />
                     ))}
                 </ul>
             )}

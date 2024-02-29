@@ -1,14 +1,14 @@
-import { ClientTree } from "@/data/types"
+import { Tree } from "@/server/[slug]"
 import { FC, PropsWithChildren, createContext, memo, useContext } from "react"
 
-const TreeDataContext = createContext<ClientTree | null>(null)
+const TreeDataContext = createContext<Tree | null>(null)
 
 interface Props {
-    data: ClientTree
+    tree: Tree
 }
 
-export const TreeDataContextProvider: FC<PropsWithChildren<Props>> = memo(({ children, data }) => (
-    <TreeDataContext.Provider value={data}>{children}</TreeDataContext.Provider>
+export const TreeDataContextProvider: FC<PropsWithChildren<Props>> = memo(({ children, tree }) => (
+    <TreeDataContext.Provider value={tree}>{children}</TreeDataContext.Provider>
 ))
 
 export const useTreeDataCtx = () => {

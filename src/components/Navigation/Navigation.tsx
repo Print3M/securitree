@@ -1,10 +1,15 @@
 import { useDisclosure } from "@mantine/hooks"
 import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
-import { useEffect } from "react"
+import { FC, useEffect } from "react"
 import { useRouter } from "next/router"
+import { Path } from "@/server/[slug]"
 
-const Navigation = () => {
+interface Props {
+    paths: Path[]
+}
+
+const Navigation: FC<Props> = ({ paths }) => {
     const [navOpened, navHandlers] = useDisclosure(false)
     const router = useRouter()
 
@@ -21,7 +26,7 @@ const Navigation = () => {
 
     return (
         <>
-            <NavPanel opened={navOpened} />
+            <NavPanel opened={navOpened} paths={paths} />
             <NavBar navOpened={navOpened} toggleNav={navHandlers.toggle} />
         </>
     )

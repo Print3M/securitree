@@ -1,45 +1,42 @@
 import type { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next"
-import Tree from "@/components/Tree/Tree"
-import DB from "@/data/db"
+import TreeRenderer from "@/components/Tree/Tree"
 import Reader from "@/components/Reader/Reader"
 import Navigation from "@/components/Navigation/Navigation"
 import HashSync from "@/components/HashSync/HashSync"
-import { SelectedItemContextProvider } from "@/contexts/selectedItemCtx"
+import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
-import { ClientTree } from "@/data/types"
-import { dbToClientTree, getFileTree, getFlatTree } from "@/server/[slug]"
+import { Path, Tree, getFileTree, getPaths } from "@/server/[slug]"
 
 export const getStaticPaths = (async () => {
-    const slugs = Object.keys(DB)
+    const paths = await getPaths()
 
     return {
-        paths: slugs.map(i => ({ params: { slug: i } })),
+        paths: paths.map(i => ({ params: { slug: i.slug } })),
         fallback: false,
     }
 }) satisfies GetStaticPaths<{ slug: string }>
 
 export const getStaticProps = (async context => {
     const slug = context.params!.slug as string
-    const tree = DB[slug]
-    const flatTree = getFlatTree([tree]).filter(i => !!i.markdown?.path)
-
-    console.log(getFileTree())
+    const tree = await getFileTree(slug)
+    const paths = await getPaths()
 
     return {
         props: {
-            data: await dbToClientTree(tree, flatTree),
+            tree,
+            paths,
         },
     }
-}) satisfies GetStaticProps<{ data: ClientTree }>
+}) satisfies GetStaticProps<{ tree: Tree; paths: Path[] }>
 
-const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => (
-    <TreeDataContextProvider data={data}>
-        <SelectedItemContextProvider data={data}>
+const Page = ({ tree, paths }: InferGetStaticPropsType<typeof getStaticProps>) => (
+    <TreeDataContextProvider tree={tree}>
+        <SelectedNodeContextProvider tree={tree}>
             <HashSync />
-            <Tree />
-            <Navigation />
+            <TreeRenderer />
+            <Navigation paths={paths} />
             <Reader />
-        </SelectedItemContextProvider>
+        </SelectedNodeContextProvider>
     </TreeDataContextProvider>
 )
 

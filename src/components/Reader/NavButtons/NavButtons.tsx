@@ -1,10 +1,11 @@
 import { ClientTree } from "@/data/types"
 import { FC, memo } from "react"
 import { useNeighbors } from "./hooks"
-import { useSelectedItemCtx } from "@/contexts/selectedItemCtx"
 import { Box, Button, Group } from "@mantine/core"
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react"
 import classes from "./NavButtons.module.css"
+import { Tree } from "@/server/[slug]"
+import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 
 interface ButtonProps {
     item: ClientTree
@@ -12,7 +13,7 @@ interface ButtonProps {
 }
 
 const NavButton: FC<ButtonProps> = ({ item, dir }) => {
-    const { setSelected } = useSelectedItemCtx()
+    const { setSelected } = useSelectedNodeCtx()
 
     return (
         <Button
@@ -28,7 +29,7 @@ const NavButton: FC<ButtonProps> = ({ item, dir }) => {
 }
 
 interface Props {
-    item: ClientTree
+    item: Tree
 }
 
 const NavButtons: FC<Props> = ({ item }) => {

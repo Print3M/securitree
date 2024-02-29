@@ -4,17 +4,18 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import SearchBar from "./SearchBar/SearchBar"
 import { FC, useState } from "react"
-import { allNavLinks } from "./data"
 import { GlobalData } from "@/config"
 import GithubIcon from "./GithubIcon/GithubIcon"
+import { Path } from "@/server/[slug]"
 
 interface Props {
     opened: boolean
+    paths: Path[]
 }
 
-const NavPanel: FC<Props> = ({ opened }) => {
+const NavPanel: FC<Props> = ({ opened, paths }) => {
     const router = useRouter()
-    const [navLinks, setNavLinks] = useState(allNavLinks)
+    const [navLinks, setNavLinks] = useState(paths)
 
     return (
         <div className={classes.container} data-opened={!!opened}>
@@ -31,15 +32,15 @@ const NavPanel: FC<Props> = ({ opened }) => {
                     Home
                 </Button>
                 <Divider variant="dashed" />
-                <SearchBar setItems={setNavLinks} />
+                <SearchBar setItems={setNavLinks} allPaths={paths} />
                 <ScrollArea scrollbarSize={4} style={{ flexGrow: 1 }}>
                     <nav className={classes.nav}>
                         {navLinks.map(i => (
                             <Button
-                                key={i.href}
-                                href={i.href}
+                                key={i.slug}
+                                href={i.slug}
                                 component={Link}
-                                variant={router.query.slug == i.href ? "light" : "subtle"}
+                                variant={router.query.slug == i.slug ? "light" : "subtle"}
                                 justify="left"
                                 size="compact-md"
                             >
