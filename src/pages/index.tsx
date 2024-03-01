@@ -1,36 +1,30 @@
-import Tree from "@/components/Tree/Tree"
 import Reader from "@/components/Reader/Reader"
 import Navigation from "@/components/Navigation/Navigation"
 import HashSync from "@/components/HashSync/HashSync"
-import { SelectedItemContextProvider } from "@/contexts/selectedItemCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
-import { dbToClientTree, getFlatTree } from "@/server/[slug]"
-import { homePage } from "@/data/db"
+import { Path, Tree, getPaths, getTreeBySlug } from "@/server/[slug]"
 import { GetStaticProps, InferGetStaticPropsType } from "next"
-import { ClientTree } from "@/data/types"
+import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
+import TreeRenderer from "@/components/Tree/Tree"
 
 export const getStaticProps = (async () => {
-    const tree = homePage
-    const flatTree = getFlatTree([tree]).filter(i => !!i.markdown?.path)
-
     return {
         props: {
-            data: await dbToClientTree(tree, flatTree),
+            tree: await getTreeBySlug("home"),
+            paths: await getPaths(),
         },
     }
-}) satisfies GetStaticProps<{ data: ClientTree }>
+}) satisfies GetStaticProps<{ tree: Tree; paths: Path[] }>
 
-const Page = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => (
-    <>
-        <TreeDataContextProvider data={data}>
-            <SelectedItemContextProvider data={data}>
-                <HashSync />
-                <Tree />
-                <Navigation />
-                <Reader />
-            </SelectedItemContextProvider>
-        </TreeDataContextProvider>
-    </>
+const Page = ({ tree, paths }: InferGetStaticPropsType<typeof getStaticProps>) => (
+    <TreeDataContextProvider tree={tree}>
+        <SelectedNodeContextProvider tree={tree}>
+            <HashSync />
+            <TreeRenderer />
+            <Navigation paths={paths} />
+            <Reader />
+        </SelectedNodeContextProvider>
+    </TreeDataContextProvider>
 )
 
 export default Page

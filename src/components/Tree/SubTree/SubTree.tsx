@@ -26,7 +26,7 @@ const SubTree: FC<Props> = ({ node }) => {
         <li>
             <Node item={node} />
 
-            {node.children && (
+            {node.children.length > 0 && (
                 <ul>
                     {node.children.map((item, idx) => (
                         <SubTree key={idx} node={item} />

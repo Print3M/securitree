@@ -6,7 +6,6 @@ import { MDXRemoteSerializeResult } from "next-mdx-remote"
 
 export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
 
-
 export interface Tree {
     label: string
     slug: string
@@ -27,7 +26,7 @@ const parseMarkdownFile = async (path: string) => {
     return {
         label: (mdx.frontmatter.label as string) || "",
         portalSlug: (mdx.frontmatter.portalSlug as string) || null,
-        markdown: mdx,
+        markdown: mdx.frontmatter.disabled == true ? null : mdx,
     }
 }
 
@@ -49,9 +48,9 @@ export const getPaths = async () => {
         depth: 2,
     })
 
-    const items = root.children || []
+    const items = (root.children || []).filter(i => i.type == dree.Type.DIRECTORY)
 
-    return Promise.all(
+    const paths = await Promise.all(
         items.map(async i => {
             const data = await parseIndexFile(i.path)
 
@@ -61,6 +60,7 @@ export const getPaths = async () => {
             } as Path
         })
     )
+    return paths.filter(i => i.slug != "home")
 }
 
 const convertDreeToTree = async (dreeData: dree.Dree): Promise<Tree | null> => {
@@ -81,8 +81,8 @@ const convertDreeToTree = async (dreeData: dree.Dree): Promise<Tree | null> => {
     }
 }
 
-export const getFileTree = async (rootDir: string) => {
-    const dreeData = await dree.scanAsync(`./_md/${rootDir}`, {
+export const getTreeBySlug = async (slug: string) => {
+    const dreeData = await dree.scanAsync(`./_md/${slug}`, {
         symbolicLinks: false,
         excludeEmptyDirectories: true,
     })
