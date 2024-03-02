@@ -7,10 +7,10 @@ import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 
 const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
     <TransformWrapper
-        limitToBounds={false}
         doubleClick={{ mode: "reset", animationTime: 1, animationType: "linear" }}
-        wheel={{ disabled: true }}
         panning={{ allowRightClickPan: false, allowMiddleClickPan: false }}
+        wheel={{ disabled: true }}
+        limitToBounds={false}
     >
         <TransformComponent wrapperClass={classes.dragArea} contentClass={classes.draggable}>
             {children}

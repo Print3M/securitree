@@ -103,3 +103,19 @@ The loss of a LM hash should be considered nearly equivalent to the loss of plai
 These verifiers are stored in the registry (HKLM\Security) on the local computer and provide validation of a domain user’s credentials when the computer cannot connect to Active Directory during a user logon. These are not credentials, as they cannot be presented to another computer for authentication. They can only be used to locally verify a credential.
 
 These password verifiers are resistant from brute force attack techniques through the use of a resource intensive validation process. They are also protected against rainbow table attacks through the use of salt values included during their calculation. They cannot be used for credential theft attacks.
+
+## MSRPC
+It cannot be blocked. It's always there. It is a basis for many different protocols. Windows services rely heavily on RPC. RPC is very noisy ~ 2m event logs per hour. Because of that it's hard to monitor and detect suspicious activity.
+
+RPC has a filtering feature. It is able to filter specific RPC calls.
+
+RPC consists of different protocols, e.g.:
+
+* [MS-DRSR]: Directory Replication Service Remote Protocol - used to execute DC Sync attack.
+* [MS-EFSR]: Encrypting File System Remote Protocol - used to execute PetitPotam attack.
+* [MS-NRPC]: Netlogon Remote Protocol - used to execute ZeroLogon attack.
+* [MS-SCMR]: Service Control Manager Remote Protocol - used to execute `PsExec` lateral movement.
+* [MS-TSCH]: Task Scheduler Service Remoting Protocol - used to execute task scheduling operations (lateral movement as well).
+
+[Great resource of dangerous RPC protocols](https://github.com/jsecurity101/MSRPC-to-ATTACK)
+

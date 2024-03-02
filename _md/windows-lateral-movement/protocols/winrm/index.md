@@ -2,7 +2,9 @@
 label: WinRM
 ---
 
-# WinRM
+# Windows Remote Managament (WinRM)
+
+WinRM doesn't use RPC. All of the WinRM communication is over a single port instead of RPC which makes it pretty firewall friendly.
 
 ## Pass-the-Hash
 
