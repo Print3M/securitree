@@ -118,4 +118,3 @@ RPC consists of different protocols, e.g.:
 * [MS-TSCH]: Task Scheduler Service Remoting Protocol - used to execute task scheduling operations (lateral movement as well).
 
 [Great resource of dangerous RPC protocols](https://github.com/jsecurity101/MSRPC-to-ATTACK)
-
