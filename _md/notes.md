@@ -118,3 +118,9 @@ RPC consists of different protocols, e.g.:
 * [MS-TSCH]: Task Scheduler Service Remoting Protocol - used to execute task scheduling operations (lateral movement as well).
 
 [Great resource of dangerous RPC protocols](https://github.com/jsecurity101/MSRPC-to-ATTACK)
+
+## SYSTEM / Machine Account
+When a service runs under the LocalSystem account on a computer that is a domain member, the service has whatever network access is granted to the computer account, or to any groups of which the computer account is a member.Computer accounts typically have few privileges and do not belong to groups. The default ACL protection in Active Directory Domain Services permits minimal access for computer accounts.
+
+## Worth to mention
+When in lateral movement I write that something is enabled by default I mean that in workgroup or domain it is enabled by default. Lateral movement without workgroup or domain makes no sense.
