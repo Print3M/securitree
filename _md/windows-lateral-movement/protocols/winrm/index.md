@@ -6,7 +6,7 @@ label: WinRM
 
 > **Requirements**:
 >
-> * Credentials (password, NT hash, Kerberos TGT) of local administrator on target machine.
+> * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
 > * WinRM enabled on target host (enabled by default on Windows Server, disabled by default on client Windows).
 
 All of the WinRM communication is over a single port (5985/TCP for HTTP, 5986/TCP for HTTPS) which makes it pretty firewall friendly. WinRM is enabled by default on Windows Server 2012 and above. Logon via WinRM is of the **Network type** (no reusable credentials). However, in Windows built-in tooling there's a way to delegate credentials to established session (below). By default, if you want to use WinRM, you need to be a **local administrator** on the target machine.
@@ -31,8 +31,6 @@ winrs -r:$host -u:$domain\$username -p:$password "cmd.exe"
 
 # Using Kerberos TGT (in-memory)
 winrs -r:$host "cmd.exe"
-
-
 ```
 
 <!-- TODO: winrs /allowdelegate  -->

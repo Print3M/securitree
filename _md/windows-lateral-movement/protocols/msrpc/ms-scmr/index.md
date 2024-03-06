@@ -8,8 +8,8 @@ label: MS-SCMR
 >
 > * Credentials (password, NT hash, Kerberos TGT) of local administrator on target machine.
 > * Read-write SMB share access.
-> * Active remote SCM on the target machine (always by default).
-> * Active SMB share on the target machine (always by default).
+> * Remote SCM enabled on the target machine (always by default).
+> * SMB share enabled on the target machine (always by default).
 
 ## Description
 

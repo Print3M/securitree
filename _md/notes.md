@@ -124,3 +124,9 @@ When a service runs under the LocalSystem account on a computer that is a domain
 
 ## Worth to mention
 When in lateral movement I write that something is enabled by default I mean that in workgroup or domain it is enabled by default. Lateral movement without workgroup or domain makes no sense.
+
+## Remote UAC
+Remote UAC applies to:
+
+* RPC calls
+* WinRM
