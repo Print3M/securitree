@@ -15,12 +15,11 @@ export const getFlatTree = (members: ClientTree[]): ClientTree[] => {
 }
 */
 
-export const getTreeItemByHash = (item: Tree, hash: string): Tree | undefined => {
-    if (!item.markdown) return
+export const getTreeNodeByHash = (item: Tree, hash: string): Tree | undefined => {
     if (item.slug == hash) return item
     if (!item.children) return
 
-    const children = item.children.map(i => getTreeItemByHash(i, hash)).filter(i => i)
+    const children = item.children.map(i => getTreeNodeByHash(i, hash)).filter(i => i)
 
     if (children.length > 0) return children[0]
 }

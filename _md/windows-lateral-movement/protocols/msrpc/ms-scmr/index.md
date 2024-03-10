@@ -6,9 +6,9 @@ label: MS-SCMR
 
 > **Typical requirements**
 >
-> * Credentials (password, NT hash, Kerberos TGT) of local administrator on target machine.
+> * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
 > * Read-write SMB share access.
-> * Remote SCM enabled on the target machine (always by default).
+> * Remote SCM via RDP enabled on the target machine (always by default).
 > * SMB share enabled on the target machine (always by default).
 
 ## Description
@@ -123,7 +123,7 @@ sc \\$host stop $svc_name
 sc \\$host delete $svc_name
 ```
 
-<!-- TODO: How to provide credentials to `sc.exe`. -->
+{/* TODO: How to provide credentials to `sc.exe`. */}
 
 ## References
 

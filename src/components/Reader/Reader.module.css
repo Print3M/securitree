@@ -3,41 +3,33 @@
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    height: 95vh;
-    width: 800px;
-    border-top-left-radius: var(--mantine-radius-md);
-    border-bottom-left-radius: var(--mantine-radius-md);
+    height: 100vh;
     text-align: justify;
     background-color: alpha(var(--mantine-color-dark-8), 0.97);
 
-    padding: var(--mantine-spacing-lg);
-    padding-right: 0;
-
     &[data-is-open="false"] {
-        transform: translateY(-50%) translateX(100%);
+        transform: translateY(-50%) translateX(200%);
     }
 
-    @mixin smaller-than $mantine-breakpoint-sm {
+    @mixin smaller-than $mantine-breakpoint-xl {
         top: 0;
         left: 0;
         transform: none;
         border-radius: 0;
-        width: 100vw;
         height: calc(100vh - var(--navbar-height));
         margin-top: var(--navbar-height);
-        
-        padding: var(--mantine-radius-md);
-        padding-right: 0;
     }
 }
 
 .content {
-    padding-right: var(--mantine-spacing-lg);
+    padding: var(--mantine-spacing-lg);
+    max-width: 800px;
+    width: 800px;
 
-    @mixin smaller-than $mantine-breakpoint-sm {
-        padding-right: var(--mantine-spacing-xs);
-        padding-top: var(--mantine-spacing-md);
-        padding-bottom: 80px;
+    @mixin smaller-than $mantine-breakpoint-xl {
+        padding: var(--mantine-spacing-sm);
+        width: 100vw;
+        margin: auto;
     }
 }
 
@@ -45,10 +37,11 @@
     position: absolute;
     z-index: 1;
     padding: 6px;
-    right: 10px;
-    top: 10px;
+    left: -5px;
+    top: 5px;
+    transform: translate(-100%);
     border-radius: 100px;
-    z-index: 2;
+    z-index: 10;
     box-shadow: var(--mantine-shadow-md);
     background-color: var(--mantine-primary-color-filled);
     color: var(--mantine-color-white);
@@ -57,7 +50,11 @@
         background-color: var(--mantine-primary-color-filled-hover);
     }
 
-    @mixin smaller-than $mantine-breakpoint-sm {
+    &:active {
+        transform: translate(-100%);
+    }
+
+    @mixin smaller-than $mantine-breakpoint-xl {
         display: none;
     }
 }
@@ -65,7 +62,6 @@
 .showTreeButton {
     position: fixed;
     bottom: var(--mantine-spacing-xs);
-    /* width: calc(100) */
     width: 100vw;
     border-radius: 0;
     left: 0;
@@ -73,7 +69,7 @@
     z-index: 2;
     height: 38px;
 
-    @mixin larger-than $mantine-breakpoint-sm {
+    @mixin larger-than $mantine-breakpoint-xl {
         display: none;
     }
 }

@@ -2,8 +2,8 @@ import { FC, memo, useEffect } from "react"
 import { setUrlHash } from "@/utils/utils"
 import { useDidUpdate } from "@mantine/hooks"
 import { useTreeDataCtx } from "@/contexts/treeDataCtx"
-import { getTreeItemByHash } from "@/data/utils"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
+import { getTreeNodeByHash } from "@/data/utils"
 
 const HashSync: FC = () => {
     // Keep selected item and URL hash synchronized
@@ -15,8 +15,9 @@ const HashSync: FC = () => {
         const hash = location.hash.replace("#", "")
 
         if (hash.length > 0) {
-            const item = getTreeItemByHash(tree, hash)
-            setSelected(item || null)
+            const item = getTreeNodeByHash(tree, hash)
+
+            if (item) setSelected(item)
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps

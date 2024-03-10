@@ -5,3 +5,6 @@ export const setUrlHash = (hash: string | null) => {
         location.hash = ""
     }
 }
+
+
+export const getPageTitle = (text: string) => `${text} | SecuriTree`

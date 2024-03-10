@@ -33,7 +33,7 @@ winrs -r:$host -u:$domain\$username -p:$password "cmd.exe"
 winrs -r:$host "cmd.exe"
 ```
 
-<!-- TODO: winrs /allowdelegate  -->
+{/* TODO: winrs /allowdelegate */}
 
 ## PowerShell Remoting
 
@@ -51,7 +51,7 @@ Enter-PSSession -Computername $host -Credential $credentials
 Enter-PSSession -ComputerName $host
 ```
 
-<!-- TODO: Powershell Remoting with CredSSP -->
+{/* TODO: Powershell Remoting with CredSSP */}
 
 ## Resources
 

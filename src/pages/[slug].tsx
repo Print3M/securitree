@@ -6,6 +6,8 @@ import HashSync from "@/components/HashSync/HashSync"
 import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
 import { Path, Tree, getPaths, getTreeBySlug } from "@/server/[slug]"
+import Head from "next/head"
+import { getPageTitle } from "@/utils/utils"
 
 export const getStaticPaths = (async () => {
     const paths = await getPaths()
@@ -30,14 +32,19 @@ export const getStaticProps = (async context => {
 }) satisfies GetStaticProps<{ tree: Tree; paths: Path[] }>
 
 const Page = ({ tree, paths }: InferGetStaticPropsType<typeof getStaticProps>) => (
-    <TreeDataContextProvider tree={tree}>
-        <SelectedNodeContextProvider tree={tree}>
-            <HashSync />
-            <TreeRenderer />
-            <Navigation paths={paths} />
-            <Reader />
-        </SelectedNodeContextProvider>
-    </TreeDataContextProvider>
+    <>
+        <Head>
+            <title>{getPageTitle(tree.label)}</title>
+        </Head>
+        <TreeDataContextProvider tree={tree}>
+            <SelectedNodeContextProvider tree={tree}>
+                <HashSync />
+                <TreeRenderer />
+                <Navigation paths={paths} />
+                <Reader />
+            </SelectedNodeContextProvider>
+        </TreeDataContextProvider>
+    </>
 )
 
 export default Page

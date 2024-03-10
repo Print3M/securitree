@@ -6,6 +6,11 @@ export default function Document() {
         <Html lang="en">
             <Head>
                 <ColorSchemeScript defaultColorScheme="dark" />
+                <meta
+                    name="keywords"
+                    content="IT, security, red-team, offensive security, pentesting"
+                />
+                <meta name="author" content="Print3M" />
             </Head>
             <body>
                 <Main />

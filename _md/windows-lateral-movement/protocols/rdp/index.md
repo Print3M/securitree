@@ -13,9 +13,10 @@ label: RDP
 
 > **NOTE**: Windows Home doesn't have built-in RDP server. It is available on Windows Servers and Pro editions only.
 
+{/*
 <!-- TODO: 
-    You can pass the hash using xfreerdp.  There is one important caveat however, and that is that this is only possible when the system has Restricted Admin Mode enabled.  If this is not enabled and you try to PTH, you will get an error stating that “Account Restrictions are preventing this user from signing in.”  Restricted Admin Mode is disabled by default.  The good news is, if you have any level of admin access to the system and access to SMB/WinRM/etc, you can enable this feature remotely.
- -->
+    You can pass the hash using xfreerdp.  There is one important caveat however, and that is that this is only possible when the system has Restricted Admin Mode enabled.  If this is not enabled and you try to PTH, you will get an error stating that “Account Restrictions are preventing this user from signing in.”  Restricted Admin Mode is disabled by default.  The good news is, if you have any level of admin access to the system and access to SMB/WinRM/etc, you can enable this feature remotely. -->
+*/}
 
 Linux:
 
@@ -34,6 +35,9 @@ Windows:
 mstsc
 ```
 
+{/*
 <!-- Restricted Admin mode for RDP, https://learn.microsoft.com/en-us/archive/blogs/kfalde/restricted-admin-mode-for-rdp-in-windows-8-1-2012-r2 -->
+*/}
+
 
 ## References

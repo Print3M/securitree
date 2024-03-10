@@ -9,7 +9,7 @@ interface SelectedNodeContextType {
 
 const SelectedNodeContext = createContext<SelectedNodeContextType | null>(null)
 
-const dataOrNull = (data: Tree) => (data.markdown ? data : null)
+const getFirstNode = (tree: Tree) => (tree.markdown ? tree : null)
 
 interface Props {
     tree: Tree
@@ -18,13 +18,14 @@ interface Props {
 export const SelectedNodeContextProvider: FC<PropsWithChildren<Props>> = memo(
     ({ children, tree }) => {
         const [selected, setSelected] = useState<SelectedNodeContextType["selected"]>(
-            dataOrNull(tree)
+            getFirstNode(tree)
         )
 
         useDidUpdate(() => {
-            // Observe changes of :data prop
+            // Observe changes of :tree prop
             if (tree != selected) {
-                setSelected(dataOrNull(tree))
+                // Select first node of the tree
+                setSelected(getFirstNode(tree))
             }
         }, [tree])
 

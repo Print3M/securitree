@@ -1,55 +1,26 @@
-import { FC, useCallback, useEffect, useMemo, useRef } from "react"
+import { FC, useMemo } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, Center, CloseButton, ScrollArea, Text } from "@mantine/core"
-import { IconBinaryTree2 } from "@tabler/icons-react"
+import { Button, Center, ScrollArea, Space, Text } from "@mantine/core"
+import { IconBinaryTree2, IconX } from "@tabler/icons-react"
 import Link from "next/link"
-import NavButtons from "./NavButtons/NavButtons"
-import { useRouter } from "next/router"
-import { useWindowEvent } from "@mantine/hooks"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
-
-const useScrollToTop = () => {
-    const scrollRef = useRef<HTMLDivElement>(null)
-    const router = useRouter()
-
-    const handler = useCallback(() => {
-        if (scrollRef.current) {
-            scrollRef.current.scrollTo({ top: 0, behavior: "smooth" })
-        }
-    }, [scrollRef])
-
-    useEffect(() => {
-        router.events.on("routeChangeStart", handler)
-
-        return () => router.events.off("routeChangeStart", handler)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    useWindowEvent("hashchange", handler)
-
-    return scrollRef
-}
+import { useScrollToTop } from "./hooks"
 
 const Reader: FC = () => {
     const { selected, setSelected } = useSelectedNodeCtx()
     const scrollRef = useScrollToTop()
-    const mdx = useMemo(() => {
-        if (selected && selected.markdown) {
-            return selected.markdown
-        } else {
-            return null
-        }
-    }, [selected])
+    const mdx = useMemo(() => selected?.markdown || null, [selected])
 
     return (
         <main className={classes.reader} data-is-open={!!mdx}>
-            <CloseButton
+            <Button
                 onClick={() => setSelected(null)}
                 classNames={{ root: classes.closeButton }}
-                size={44}
-            />
+                title="Close"
+            >
+                <IconX />
+            </Button>
             <Button
                 onClick={() => setSelected(null)}
                 classNames={{ root: classes.showTreeButton }}
@@ -60,7 +31,7 @@ const Reader: FC = () => {
             </Button>
             <ScrollArea h="100%" scrollbarSize={4} viewportRef={scrollRef} offsetScrollbars>
                 <div className={classes.content}>
-                    {!!mdx && <MDRenderer mdx={mdx} />}
+                    {mdx && <MDRenderer mdx={mdx} />}
                     {selected?.portalSlug && (
                         <Center mt="xl">
                             <Button
@@ -76,6 +47,7 @@ const Reader: FC = () => {
                             </Button>
                         </Center>
                     )}
+                    <Space h={100} />
                     {/* {selected && <NavButtons item={selected} />} */}
                 </div>
             </ScrollArea>
