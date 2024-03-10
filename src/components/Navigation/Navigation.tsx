@@ -3,7 +3,7 @@ import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
 import { FC, useEffect } from "react"
 import { useRouter } from "next/router"
-import { Path } from "@/server/[slug]"
+import { Path } from "@/server/[[...slug]]/paths"
 
 interface Props {
     paths: Path[]

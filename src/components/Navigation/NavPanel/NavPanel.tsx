@@ -6,7 +6,8 @@ import SearchBar from "./SearchBar/SearchBar"
 import { FC, useState } from "react"
 import { GlobalData } from "@/config"
 import GithubIcon from "./GithubIcon/GithubIcon"
-import { Path } from "@/server/[slug]"
+import { useTreeDataCtx } from "@/contexts/treeDataCtx"
+import { Path } from "@/server/[[...slug]]/paths"
 
 interface Props {
     opened: boolean
@@ -15,6 +16,7 @@ interface Props {
 
 const NavPanel: FC<Props> = ({ opened, paths }) => {
     const router = useRouter()
+    const { slug } = useTreeDataCtx()
     const [navLinks, setNavLinks] = useState(paths)
 
     return (
@@ -40,7 +42,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                                 key={i.slug}
                                 href={i.slug}
                                 component={Link}
-                                variant={router.query.slug == i.slug ? "light" : "subtle"}
+                                variant={slug == i.slug ? "light" : "subtle"}
                                 justify="left"
                                 size="compact-md"
                             >

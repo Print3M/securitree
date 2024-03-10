@@ -1,7 +1,7 @@
 import { FC, memo } from "react"
 import Node from "../Node/Node"
 import Portal from "../Portal/Portal"
-import { Tree } from "@/server/[slug]"
+import { Tree } from "@/server/[[...slug]]/tree"
 
 interface Props {
     node: Tree

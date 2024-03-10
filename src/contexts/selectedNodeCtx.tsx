@@ -1,4 +1,4 @@
-import { Tree } from "@/server/[slug]"
+import { Tree } from "@/server/[[...slug]]/tree"
 import { useDidUpdate } from "@mantine/hooks"
 import { FC, PropsWithChildren, createContext, memo, useContext, useMemo, useState } from "react"
 

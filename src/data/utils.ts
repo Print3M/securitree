@@ -1,8 +1,7 @@
-import { Tree } from "@/server/[slug]"
+import { Tree } from "@/server/[[...slug]]/tree"
 
-/*
-export const getFlatTree = (members: ClientTree[]): ClientTree[] => {
-    let children: ClientTree[] = []
+export const getFlatTree = (members: Tree[]): Tree[] => {
+    let children: Tree[] = []
 
     return members
         .map(member => {
@@ -13,7 +12,6 @@ export const getFlatTree = (members: ClientTree[]): ClientTree[] => {
         })
         .concat(children.length ? getFlatTree(children) : children)
 }
-*/
 
 export const getTreeNodeByHash = (item: Tree, hash: string): Tree | undefined => {
     if (item.slug == hash) return item

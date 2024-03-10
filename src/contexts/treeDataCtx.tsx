@@ -1,15 +1,32 @@
-import { Tree } from "@/server/[slug]"
-import { FC, PropsWithChildren, createContext, memo, useContext } from "react"
+import { Tree } from "@/server/[[...slug]]/tree"
+import { useRouter } from "next/router"
+import { FC, PropsWithChildren, createContext, memo, useContext, useMemo } from "react"
 
-const TreeDataContext = createContext<Tree | null>(null)
+interface TreeCtx {
+    tree: Tree
+    slug: string
+}
+
+const TreeDataContext = createContext<TreeCtx | null>(null)
 
 interface Props {
     tree: Tree
 }
 
-export const TreeDataContextProvider: FC<PropsWithChildren<Props>> = memo(({ children, tree }) => (
-    <TreeDataContext.Provider value={tree}>{children}</TreeDataContext.Provider>
-))
+export const TreeDataContextProvider: FC<PropsWithChildren<Props>> = memo(({ children, tree }) => {
+    const router = useRouter()
+    const slug = useMemo(() => router.query.slug![0], [router.query])
+
+    const ctx = useMemo(
+        () => ({
+            tree,
+            slug,
+        }),
+        [tree, slug]
+    )
+
+    return <TreeDataContext.Provider value={ctx}>{children}</TreeDataContext.Provider>
+})
 
 export const useTreeDataCtx = () => {
     const ctx = useContext(TreeDataContext)

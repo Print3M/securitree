@@ -1,8 +1,10 @@
 import { Button } from "@mantine/core"
 import { FC } from "react"
 import classes from "./Node.module.css"
-import { Tree } from "@/server/[slug]"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
+import Link from "next/link"
+import { useTreeDataCtx } from "@/contexts/treeDataCtx"
+import { Tree } from "@/server/[[...slug]]/tree"
 
 interface Props {
     item: Tree
@@ -10,6 +12,7 @@ interface Props {
 
 const Node: FC<Props> = ({ item }) => {
     const { selected, setSelected } = useSelectedNodeCtx()
+    const { slug } = useTreeDataCtx()
 
     const onClick = () => {
         if (item.markdown) {
@@ -21,8 +24,10 @@ const Node: FC<Props> = ({ item }) => {
         <Button
             classNames={{ root: classes.buttonRoot }}
             onClick={onClick}
-            disabled={!item.markdown}
+            // disabled={!item.markdown}
             data-active={selected == item}
+            component={Link}
+            href={`/${slug}/${item.slug}`}
         >
             {item.label}
         </Button>

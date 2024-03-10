@@ -19,7 +19,7 @@ const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
 ))
 
 const TreeRenderer = memo(() => {
-    const tree = useTreeDataCtx()
+    const { tree } = useTreeDataCtx()
 
     return (
         <ul>
