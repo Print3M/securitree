@@ -6,29 +6,13 @@ import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
 import Head from "next/head"
 import { Path, getRootPaths } from "@/server/[[...slug]]/paths"
-import { Tree, getFlatTree, getTreeBySlug } from "@/server/[[...slug]]/tree"
-
-let __paths: Record<string, Tree[]> = {}
-
-const getPaths = async () => {
-    if (Object.keys(__paths).length == 0) {
-        const roots = await getRootPaths()
-        await Promise.all(
-            roots.map(async root => {
-                const tree = await getTreeBySlug(root.slug, true)
-                __paths = { ...__paths, [root.slug]: getFlatTree(tree.children) }
-            })
-        )
-    }
-
-    return __paths
-}
+import { Tree, getNodes, getTreeBySlug } from "@/server/[[...slug]]/tree"
 
 export const getStaticPaths = (async () => {
-    const paths = await getPaths()
+    const nodes = await getNodes()
 
     return {
-        paths: Object.entries(paths)
+        paths: Object.entries(nodes)
             .map(([key, val]) => val.map(i => ({ params: { slug: [key, i.slug] } })))
             .reduce((prev, cur) => [...prev, ...cur], []),
         fallback: false,
@@ -38,7 +22,7 @@ export const getStaticPaths = (async () => {
 export const getStaticProps = (async context => {
     const [rootSlug, nodeSlug] = context.params!.slug as [string, string]
     const tree = await getTreeBySlug(rootSlug, false)
-    const node = (await getPaths())[rootSlug].find(i => i.slug == nodeSlug)!
+    const node = (await getNodes())[rootSlug].find(i => i.slug == nodeSlug)!
     const rootPaths = await getRootPaths()
 
     return {

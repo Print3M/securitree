@@ -1,6 +1,10 @@
 import { MDXRemoteSerializeResult } from "next-mdx-remote"
 import * as dree from "dree"
 import { parseIndexFile } from "./markdown"
+import * as fs from "fs"
+import path from "path"
+import { getRootPaths } from "./paths"
+import { cache } from "react"
 
 export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
 
@@ -11,6 +15,8 @@ export interface Tree {
     children: Tree[]
     markdown: MDX | null
 }
+
+export type Nodes = Record<string, Tree[]>
 
 const convertDreeToTree = async (
     dreeData: dree.Dree,
@@ -58,3 +64,9 @@ export const getFlatTree = (members: Tree[]): Tree[] => {
         })
         .concat(children.length ? getFlatTree(children) : children)
 }
+
+export const getMarkdownNodes = cache(async (treeSlug: string) => {
+    const tree = await getTreeBySlug(treeSlug, true)
+
+    return getFlatTree(tree.children)
+})
