@@ -1,7 +1,7 @@
 import { GlobalData } from "@/config"
 import { Metadata } from "next"
 import { FC, PropsWithChildren } from "react"
-import { ColorSchemeScript, MantineProvider } from "@mantine/core"
+import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core"
 
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
@@ -44,6 +44,13 @@ export const metadata: Metadata = {
     keywords: ["IT", "security", "red-team", "offensive security", "pentesting"],
 }
 
+const theme = createTheme({
+    /** Put your mantine theme override here */
+    primaryShade: 9,
+    primaryColor: "orange",
+    cursorType: "pointer",
+})
+
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <html lang="en">
@@ -51,7 +58,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
                 <ColorSchemeScript defaultColorScheme="dark" />
             </head>
             <body>
-                <MantineProvider>{children}</MantineProvider>
+                <MantineProvider theme={theme}>{children}</MantineProvider>
             </body>
         </html>
     )

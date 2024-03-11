@@ -1,9 +1,11 @@
+"use client"
+
 import { useDisclosure } from "@mantine/hooks"
 import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
 import { FC, useEffect } from "react"
-import { useRouter } from "next/router"
 import { Path } from "@/server/[[...slug]]/paths"
+import { usePathname } from "next/navigation"
 
 interface Props {
     paths: Path[]
@@ -11,18 +13,13 @@ interface Props {
 
 const Navigation: FC<Props> = ({ paths }) => {
     const [navOpened, navHandlers] = useDisclosure(false)
-    const router = useRouter()
+    const pathname = usePathname()
 
     useEffect(() => {
-        const handler = () => {
-            navHandlers.close()
-        }
-        router.events.on("routeChangeStart", handler)
-
-        return () => router.events.off("routeChangeStart", handler)
+        navHandlers.close()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [pathname])
 
     return (
         <>

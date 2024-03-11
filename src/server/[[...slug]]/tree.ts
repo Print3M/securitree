@@ -68,5 +68,5 @@ export const getFlatTree = (members: Tree[]): Tree[] => {
 export const getMarkdownNodes = cache(async (treeSlug: string) => {
     const tree = await getTreeBySlug(treeSlug, true)
 
-    return getFlatTree(tree.children)
+    return getFlatTree([tree])
 })

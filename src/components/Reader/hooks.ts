@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useRef } from "react"
-import { useRouter } from "next/router"
 import { useWindowEvent } from "@mantine/hooks"
+import { usePathname } from "next/navigation"
 
 export const useScrollToTop = () => {
     const scrollRef = useRef<HTMLDivElement>(null)
-    const router = useRouter()
+    const pathname = usePathname()
 
     const handler = useCallback(() => {
         if (scrollRef.current) {
@@ -13,12 +13,10 @@ export const useScrollToTop = () => {
     }, [scrollRef])
 
     useEffect(() => {
-        router.events.on("routeChangeStart", handler)
-
-        return () => router.events.off("routeChangeStart", handler)
+        handler()
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [pathname])
 
     useWindowEvent("hashchange", handler)
 

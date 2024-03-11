@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, useMemo } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"

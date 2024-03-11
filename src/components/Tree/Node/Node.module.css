@@ -1,6 +1,9 @@
 .buttonRoot {
     color: var(--mantine-color-white);
     box-shadow: 0 0 40px -8px alpha(var(--mantine-primary-color-filled), 0.4);
+    font-size: 0.825rem;
+    padding: 0 4px;
+    height: 30px;
 
     &[data-disabled] {
         cursor: default;

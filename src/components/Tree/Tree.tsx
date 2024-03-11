@@ -1,3 +1,5 @@
+"use client"
+
 import { FC, PropsWithChildren, memo } from "react"
 import classes from "./Tree.module.css"
 import SubTree from "./SubTree/SubTree"

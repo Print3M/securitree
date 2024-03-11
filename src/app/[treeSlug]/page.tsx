@@ -9,7 +9,6 @@ import { getRootPaths } from "@/server/[[...slug]]/paths"
 
 interface Params {
     treeSlug: string
-    nodeSlug: string
 }
 
 const getNode = async (treeSlug: string, nodeSlug: string) => {
@@ -25,24 +24,14 @@ const getPaths = async () => await getRootPaths()
 export const generateStaticParams = async (): Promise<Params[]> => {
     const paths = await getRootPaths()
 
-    let params: Params[] = []
-    for (const path of paths) {
-        const nodes = await getMarkdownNodes(path.slug)
-
-        for (const node of nodes) {
-            params.push({
-                treeSlug: path.slug,
-                nodeSlug: node.slug,
-            })
-        }
-    }
-
-    return params
+    return paths.map(path => ({
+        treeSlug: path.slug,
+    }))
 }
 
 const Page: FC<{ params: Params }> = async ({ params }) => {
-    const node = await getNode(params.treeSlug, params.nodeSlug)
     const tree = await getTree(params.treeSlug)
+    const node = await getNode(params.treeSlug, params.treeSlug)
     const paths = await getPaths()
 
     return (

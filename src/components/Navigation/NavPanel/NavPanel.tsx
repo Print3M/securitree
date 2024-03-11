@@ -1,6 +1,5 @@
 import classes from "./NavPanel.module.css"
 import { Anchor, Box, Button, Divider, ScrollArea, Stack } from "@mantine/core"
-import { useRouter } from "next/router"
 import Link from "next/link"
 import SearchBar from "./SearchBar/SearchBar"
 import { FC, useState } from "react"
@@ -8,6 +7,7 @@ import { GlobalData } from "@/config"
 import GithubIcon from "./GithubIcon/GithubIcon"
 import { useTreeDataCtx } from "@/contexts/treeDataCtx"
 import { Path } from "@/server/[[...slug]]/paths"
+import { usePathname } from "next/navigation"
 
 interface Props {
     opened: boolean
@@ -15,7 +15,7 @@ interface Props {
 }
 
 const NavPanel: FC<Props> = ({ opened, paths }) => {
-    const router = useRouter()
+    const pathname = usePathname()
     const { slug } = useTreeDataCtx()
     const [navLinks, setNavLinks] = useState(paths)
 
@@ -27,7 +27,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                 <Button
                     href="/"
                     component={Link}
-                    variant={router.route == "/" ? "light" : "subtle"}
+                    variant={pathname == "/" ? "light" : "subtle"}
                     justify="left"
                     size="compact-md"
                 >
@@ -40,7 +40,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                         {navLinks.map(i => (
                             <Button
                                 key={i.slug}
-                                href={i.slug}
+                                href={`/${i.slug}`}
                                 component={Link}
                                 variant={slug == i.slug ? "light" : "subtle"}
                                 justify="left"

@@ -25,9 +25,9 @@ const Node: FC<Props> = ({ item }) => {
             classNames={{ root: classes.buttonRoot }}
             onClick={onClick}
             // disabled={!item.markdown}
-            data-active={selected == item}
+            data-active={selected?.slug == item.slug}
             component={Link}
-            href={`/${slug}/${item.slug}`}
+            href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
         >
             {item.label}
         </Button>
