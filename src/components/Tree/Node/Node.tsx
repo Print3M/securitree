@@ -1,5 +1,5 @@
 import { Button } from "@mantine/core"
-import { FC } from "react"
+import { FC, useMemo } from "react"
 import classes from "./Node.module.css"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import Link from "next/link"
@@ -20,17 +20,27 @@ const Node: FC<Props> = ({ item }) => {
         }
     }
 
+    const linesNumber = useMemo(() => (item.subLabel ? 2 : 1), [item])
+
     return (
-        <Button
-            classNames={{ root: classes.buttonRoot }}
-            onClick={onClick}
-            // disabled={!item.markdown}
-            data-active={selected?.slug == item.slug}
-            component={Link}
-            href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
-        >
-            {item.label}
-        </Button>
+        <div className={classes.node}>
+            <div
+                className={classes.nodeContent}
+                style={{ "--lines": linesNumber } as React.CSSProperties}
+            >
+                {item.label}
+                {item.subLabel && (
+                    <>
+                        <br />
+                        {item.subLabel}
+                    </>
+                )}
+            </div>
+            <Link
+                href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
+                className={classes.link}
+            />
+        </div>
     )
 }
 

@@ -21,14 +21,11 @@
 
 .tree {
     /* Centering trick - this is the most performant way */
-    padding-right: 28%;
-    padding-bottom: 10%;
+    padding-bottom: 20%;
     min-width: max-content;
     width: max-content;
 
-    &[data-reader-opened="false"] {
-        padding: 0;
-    }
+    transform: rotate(-90deg);
 
     @mixin smaller-than $mantine-breakpoint-xl {
         padding: 0;

@@ -1,5 +1,6 @@
 ---
 label: WinRM
+subLabel: (winrs, PS Remoting)  
 ---
 
 # Windows Remote Managament (WinRM)
