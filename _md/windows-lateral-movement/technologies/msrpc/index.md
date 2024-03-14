@@ -1,5 +1,6 @@
 ---
 label: MSRPC
+disabled: true
 ---
 
 # Microsoft Remote Procedure Call (MSRPC)

@@ -10,6 +10,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 /*
@@ -20,21 +21,23 @@
 */
 
 .tree {
-    /* Centering trick - this is the most performant way */
-    padding-bottom: 20%;
+    position: absolute;
+    top: 0;
+    left: 0;
     min-width: max-content;
     width: max-content;
-
-    transform: rotate(-90deg);
+    
+    /* Centering trick - this is the most performant way */
+    transform-origin: bottom left;
+    --margin-left: 270px;
+    transform: rotate(-90deg) translateY(calc(100% + var(--margin-left)));
 
     @mixin smaller-than $mantine-breakpoint-xl {
-        padding: 0;
+        --margin-left: 12px;
     }
 }
 
 .tree ul:first-child {
-    /* Here we can control the exact placement of the tree */
-    /* margin-left: 100px; */
 }
 
 .tree ul,

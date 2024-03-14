@@ -8,23 +8,25 @@ import { IconBinaryTree2, IconX } from "@tabler/icons-react"
 import Link from "next/link"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import { useScrollToTop } from "./hooks"
+import { useDisclosure } from "@mantine/hooks"
 
 const Reader: FC = () => {
-    const { selected, setSelected } = useSelectedNodeCtx()
+    const [opened, handlers] = useDisclosure(true)
     const scrollRef = useScrollToTop()
+    const { selected } = useSelectedNodeCtx()
     const mdx = useMemo(() => selected?.markdown || null, [selected])
 
     return (
-        <main className={classes.reader} data-is-open={!!mdx}>
+        <main className={classes.reader} data-is-open={opened}>
             <Button
-                onClick={() => setSelected(null)}
+                onClick={handlers.close}
                 classNames={{ root: classes.closeButton }}
                 title="Close"
             >
                 <IconX />
             </Button>
             <Button
-                onClick={() => setSelected(null)}
+                onClick={handlers.close}
                 classNames={{ root: classes.showTreeButton }}
                 leftSection={<IconBinaryTree2 />}
                 size="md"

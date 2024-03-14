@@ -6,3 +6,5 @@
     [ ] WinRM logon type.
     [ ] Does logon type differ between authn methods (NT hash, password, Kerberos)?
     [X] Why does PsExec run as SYSTEM?
+[ ] `mimikatz sekurlsa::pth` logon type and behavior.
+[ ] RunAs without local admin?

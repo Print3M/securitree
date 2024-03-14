@@ -8,6 +8,7 @@ export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<strin
 export interface Tree {
     label: string
     slug: string
+    disabled: boolean
     subLabel: string | null
     portalSlug: string | null
     children: Tree[]
@@ -36,6 +37,7 @@ const convertDreeToTree = async (
         label: (index.mdx.frontmatter.label as string) || "",
         portalSlug: (index.mdx.frontmatter.portalSlug as string) || null,
         subLabel: (index.mdx.frontmatter.subLabel as string) || null,
+        disabled: (index.mdx.frontmatter.disabled as boolean) || false,
         markdown: withMarkdown ? index.mdx : null,
         children,
     }

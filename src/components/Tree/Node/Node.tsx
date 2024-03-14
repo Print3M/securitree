@@ -1,4 +1,4 @@
-import { Button } from "@mantine/core"
+import { Anchor, Button } from "@mantine/core"
 import { FC, useMemo } from "react"
 import classes from "./Node.module.css"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
@@ -11,35 +11,35 @@ interface Props {
 }
 
 const Node: FC<Props> = ({ item }) => {
-    const { selected, setSelected } = useSelectedNodeCtx()
+    const { selected } = useSelectedNodeCtx()
     const { slug } = useTreeDataCtx()
-
-    const onClick = () => {
-        if (item.markdown) {
-            setSelected(item)
-        }
-    }
 
     const linesNumber = useMemo(() => (item.subLabel ? 2 : 1), [item])
 
     return (
-        <div className={classes.node}>
+        <div
+            className={classes.node}
+            data-selected={selected?.slug == item.slug}
+            data-disabled={item.disabled}
+        >
             <div
                 className={classes.nodeContent}
                 style={{ "--lines": linesNumber } as React.CSSProperties}
             >
                 {item.label}
                 {item.subLabel && (
-                    <>
-                        <br />
+                    <div className={classes.subLabel}>
                         {item.subLabel}
-                    </>
+                    </div>
                 )}
             </div>
-            <Link
-                href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
-                className={classes.link}
-            />
+            {!item.disabled && (
+                <Anchor
+                    component={Link}
+                    href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
+                    className={classes.link}
+                />
+            )}
         </div>
     )
 }

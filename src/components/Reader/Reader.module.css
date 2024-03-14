@@ -23,8 +23,10 @@
 
 .content {
     padding: var(--mantine-spacing-lg);
-    max-width: 800px;
-    width: 800px;
+
+    --width: 760px;
+    max-width: var(--width);
+    width: var(--width);
 
     @mixin smaller-than $mantine-breakpoint-xl {
         padding: var(--mantine-spacing-sm);

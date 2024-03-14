@@ -1,5 +1,6 @@
 ---
 label: MS-SCMR
+subLabel: (PsExec, SmbExec, ScExec)
 ---
 
 # MS-SCMR: Service Control Manager Remote Protocol
@@ -84,7 +85,7 @@ SmbExec is stealthier alternative to noisy and easy to detect PsExec. Neverthele
 > * Each command run by SmbExec is a separate service. Therefore, there is no real session. Loading modules in PowerShell makes no sense. You have to load and call the module in a single command.
 > * There's no `cd` command. Again - there's no real session.
 
-## Raw Service Execution (ScExe)
+## Raw Service Execution (ScExec)
 
 You can use the standard Windows tool `sc.exe` to run a service on a remote machine. It can be a single shell command or, for example, a reverse-shell binary sent over SMB.
 

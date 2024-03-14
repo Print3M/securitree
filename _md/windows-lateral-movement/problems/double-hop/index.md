@@ -1,5 +1,5 @@
 ---
-label: Double Hop Problem
+label: Double Hop
 ---
 
 # Double Hop Problem
@@ -11,7 +11,7 @@ However, in case of lateral movement the **Network Logon** (type 3) occurs most 
 > **When double hop problem doesn't occur**:
 >
 > * RDP connection
-> * PowerShell WinRM with CredSSP
+> * PowerShell Remoting with CredSSP
 > * `runas` session
 
 {/*TODO: Kerberos delegation, how to bypass*/}
