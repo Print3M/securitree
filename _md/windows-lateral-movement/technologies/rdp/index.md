@@ -11,7 +11,7 @@ label: RDP
 
 **RDP (3389/TCP) is not active by default**. It must be explicitly enabled. By default, if you want to connect via RDP, you need to be a **local administrator** or a member of local **Remote Desktop Users** group on the target machine. Logon via RDP is of the **Remote Interactive type** (reusable credentials are available).
 
-> **NOTE**: Windows Home doesn't have built-in RDP server. It's available on Windows Servers and Pro editions only.
+> **NOTE**: Windows Home doesn't have built-in RDP server. It's available on Windows Server, Pro and Enterprise editions.
 
 {/*
 <!-- TODO: 

@@ -28,7 +28,7 @@ runas /u:$domain\$target_user cmd.exe
 
 ### RunAs /netonly
 
-Sometimes you have valid password that RunAs cannot verify (e.g. local user of an other machine) but it can be used to perform network connections. The `/netonly` flag specifies that the **provided credentials are for remote access only and Windows doesn't validate them**.
+Sometimes you have a valid password that RunAs cannot verify (e.g. local user of an other machine) but it can be used to perform network connections. The `/netonly` flag specifies that the **provided credentials are for remote access only and Windows doesn't validate them**.
 
 The process created by `runas /netonly` has logon of the **NewCredentials type**. It's a rare type of logon. The new logon session has the same local identity (`whoami` returns current user), but **it uses newly provided credentials for other network connections**. In short, with the `/netonly` flag, you are not locally another user, but on the network you have the privileges of another user effectively.
 
