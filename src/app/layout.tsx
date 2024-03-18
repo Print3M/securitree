@@ -51,14 +51,18 @@ const theme = createTheme({
     cursorType: "pointer",
 })
 
+const colorSchema = "dark"
+
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
-        <html lang="en">
+        <html lang="en" data-mantine-color-scheme={colorSchema}>
             <head>
-                <ColorSchemeScript defaultColorScheme="dark" />
+                <ColorSchemeScript forceColorScheme={colorSchema} />
             </head>
             <body>
-                <MantineProvider theme={theme}>{children}</MantineProvider>
+                <MantineProvider forceColorScheme={colorSchema} theme={theme}>
+                    {children}
+                </MantineProvider>
             </body>
         </html>
     )
