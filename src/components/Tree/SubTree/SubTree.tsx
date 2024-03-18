@@ -29,7 +29,7 @@ const SubTree: FC<Props> = ({ node }) => {
             {node.children.length > 0 && (
                 <ul>
                     {node.children.map((item, idx) => (
-                        <SubTree key={idx} node={item} />
+                        <SubTree key={`${item.slug}-${item.label}-${idx}`} node={item} />
                     ))}
                 </ul>
             )}

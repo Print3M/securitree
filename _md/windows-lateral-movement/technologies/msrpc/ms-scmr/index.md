@@ -5,11 +5,11 @@ subLabel: (PsExec, SmbExec, ScExec)
 
 # MS-SCMR: Service Control Manager Remote Protocol
 
-> **Typical requirements**
+> **Requirements**
 >
 > * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
 > * Read-write SMB share access.
-> * Remote SCM via RDP enabled on the target machine (always by default).
+> * Remote SCM via RPC enabled on the target machine (always by default).
 > * SMB share enabled on the target machine (always by default).
 
 ## Description
