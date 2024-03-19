@@ -11,7 +11,7 @@
         width: 100vw;
         position: absolute;
 
-        &[data-opened="true"] {
+        &[data-opened="false"] {
             display: none;
         }
     }
