@@ -3,37 +3,20 @@
 import { FC, useMemo } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, Center, ScrollArea, Space, Text } from "@mantine/core"
-import { IconBinaryTree2, IconX } from "@tabler/icons-react"
+import { Button, Center, Space, Text } from "@mantine/core"
+import { IconBinaryTree2, IconBook } from "@tabler/icons-react"
 import Link from "next/link"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
-import { useScrollToTop } from "./hooks"
 import { useDisclosure } from "@mantine/hooks"
 
 const Reader: FC = () => {
     const [opened, handlers] = useDisclosure(true)
-    const scrollRef = useScrollToTop()
     const { selected } = useSelectedNodeCtx()
     const mdx = useMemo(() => selected?.markdown || null, [selected])
 
     return (
-        <main className={classes.reader} data-is-open={opened}>
-            <Button
-                onClick={handlers.close}
-                classNames={{ root: classes.closeButton }}
-                title="Close"
-            >
-                <IconX />
-            </Button>
-            <Button
-                onClick={handlers.close}
-                classNames={{ root: classes.showTreeButton }}
-                leftSection={<IconBinaryTree2 />}
-                size="md"
-            >
-                Show tree
-            </Button>
-            <ScrollArea h="100%" scrollbarSize={4} viewportRef={scrollRef} offsetScrollbars>
+        <>
+            <main className={classes.reader} data-opened={opened}>
                 <div className={classes.content}>
                     {mdx && <MDRenderer mdx={mdx} />}
                     {selected?.portalSlug && (
@@ -54,8 +37,17 @@ const Reader: FC = () => {
                     <Space h={100} />
                     {/* {selected && <NavButtons item={selected} />} */}
                 </div>
-            </ScrollArea>
-        </main>
+            </main>
+            <Button
+                onClick={handlers.toggle}
+                classNames={{ root: classes.showTreeButton }}
+                leftSection={opened ? <IconBinaryTree2 /> : <IconBook />}
+                size="md"
+                data-opened={opened}
+            >
+                {opened ? "Show tree" : "Show article"}
+            </Button>
+        </>
     )
 }
 

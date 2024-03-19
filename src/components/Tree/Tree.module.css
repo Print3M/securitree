@@ -1,16 +1,32 @@
+.content {
+    position: sticky;
+    top: 0;
+    flex: 1;
+    height: 100vh;
+
+    @mixin smaller-than $mantine-breakpoint-xl {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9;
+    }
+}
+
 .dragArea {
-    min-width: 100vw !important;
-    min-height: 100vh !important;
-    cursor: grab;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .draggable {
-    width: 100vw !important;
-    height: 100vh !important;
+    width: 100% !important;
+    height: 100% !important;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    cursor: grab;
 }
 
 /*
@@ -22,18 +38,17 @@
 
 .tree {
     position: absolute;
-    top: 0;
-    left: 0;
     min-width: max-content;
     width: max-content;
     
-    /* Centering trick - this is the most performant way */
-    transform-origin: bottom left;
-    --margin-left: 270px;
-    transform: rotate(-90deg) translateY(calc(100% + var(--margin-left)));
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
 
+.scaleBox {
     @mixin smaller-than $mantine-breakpoint-xl {
-        --margin-left: 12px;
+        transform: scale(0.8);
     }
 }
 

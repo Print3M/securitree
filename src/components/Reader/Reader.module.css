@@ -1,63 +1,33 @@
 .reader {
-    position: fixed;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 100vh;
     text-align: justify;
     background-color: alpha(var(--mantine-color-dark-8), 0.97);
-
-    &[data-is-open="false"] {
-        transform: translateY(-50%) translateX(200%);
-    }
+    z-index: 99;
 
     @mixin smaller-than $mantine-breakpoint-xl {
         top: 0;
         left: 0;
         transform: none;
-        border-radius: 0;
-        height: calc(100vh - var(--navbar-height));
         margin-top: var(--navbar-height);
+        width: 100vw;
+        position: absolute;
+
+        &[data-opened="true"] {
+            display: none;
+        }
     }
 }
 
 .content {
     padding: var(--mantine-spacing-lg);
-
     --width: 760px;
     max-width: var(--width);
     width: var(--width);
+    min-height: 100vh;
 
     @mixin smaller-than $mantine-breakpoint-xl {
         padding: var(--mantine-spacing-sm);
         width: 100vw;
         margin: auto;
-    }
-}
-
-.closeButton {
-    position: absolute;
-    z-index: 1;
-    padding: 6px;
-    left: -5px;
-    top: 5px;
-    transform: translate(-100%);
-    border-radius: 100px;
-    z-index: 10;
-    box-shadow: var(--mantine-shadow-md);
-    background-color: var(--mantine-primary-color-filled);
-    color: var(--mantine-color-white);
-
-    &:hover {
-        background-color: var(--mantine-primary-color-filled-hover);
-    }
-
-    &:active {
-        transform: translate(-100%);
-    }
-
-    @mixin smaller-than $mantine-breakpoint-xl {
-        display: none;
     }
 }
 
@@ -68,8 +38,8 @@
     border-radius: 0;
     left: 0;
     bottom: 0;
-    z-index: 2;
-    height: 38px;
+    z-index: 999;
+    height: 36px;
 
     @mixin larger-than $mantine-breakpoint-xl {
         display: none;

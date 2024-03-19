@@ -10,7 +10,7 @@ const MovableArea: FC<PropsWithChildren> = memo(({ children }) => (
     <TransformWrapper
         doubleClick={{ mode: "reset", animationTime: 1, animationType: "linear" }}
         panning={{ allowRightClickPan: false, allowMiddleClickPan: false }}
-        wheel={{ disabled: true }}
+        minScale={0.5}
         limitToBounds={false}
     >
         <TransformComponent wrapperClass={classes.dragArea} contentClass={classes.draggable}>
@@ -24,17 +24,21 @@ const TreeRenderer = memo(() => {
 
     return (
         <div className={classes.tree}>
-            <ul>
-                <SubTree node={tree} />
-            </ul>
+            <div className={classes.scaleBox}>
+                <ul>
+                    <SubTree node={tree} />
+                </ul>
+            </div>
         </div>
     )
 })
 
 const Tree: FC = () => (
-    <MovableArea>
-        <TreeRenderer />
-    </MovableArea>
+    <div className={classes.content}>
+        <MovableArea>
+            <TreeRenderer />
+        </MovableArea>
+    </div>
 )
 
 export default memo(Tree)

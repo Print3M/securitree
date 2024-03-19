@@ -1,0 +1,8 @@
+.root {
+    width: 100vw;
+    display: flex;
+
+    @mixin smaller-than $mantine-breakpoint-xl {
+        display: block;
+    }
+}
