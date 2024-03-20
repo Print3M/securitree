@@ -3,9 +3,8 @@
     left: 0;
     top: 0;
     height: 100vh;
-    width: 250px;
     background-color: alpha(var(--mantine-color-dark-8), 0.97);
-    padding: var(--mantine-spacing-xs);
+    padding: 7px;
     overflow: hidden;
     z-index: 9999999;
 

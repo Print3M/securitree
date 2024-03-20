@@ -1,32 +1,5 @@
-import { getMarkdownNodes, getTreeBySlug } from "@/server/[[...slug]]/tree"
-import { FC } from "react"
-import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
-import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
-import { getRootPaths } from "@/server/[[...slug]]/paths"
-import ContentLayout from "@/components/ContentLayout/ContentLayout"
+import { redirect } from "next/navigation"
 
-const getNode = async (treeSlug: string, nodeSlug: string) => {
-    const nodes = await getMarkdownNodes(treeSlug)
-
-    return nodes.find(i => i.slug === nodeSlug)!
-}
-
-const getTree = async (treeSlug: string) => await getTreeBySlug(treeSlug, false)
-
-const getPaths = async () => await getRootPaths()
-
-const Page: FC = async () => {
-    const tree = await getTree("home")
-    const node = await getNode("home", "home")
-    const paths = await getPaths()
-
-    return (
-        <TreeDataContextProvider tree={tree} slug={""}>
-            <SelectedNodeContextProvider tree={node}>
-                <ContentLayout paths={paths} />
-            </SelectedNodeContextProvider>
-        </TreeDataContextProvider>
-    )
-}
+const Page = async () => redirect("/home")
 
 export default Page

@@ -40,7 +40,7 @@ const Reader: FC = () => {
             </main>
             <Button
                 onClick={handlers.toggle}
-                classNames={{ root: classes.showTreeButton }}
+                classNames={{ root: classes.showButton }}
                 leftSection={opened ? <IconBinaryTree2 /> : <IconBook />}
                 size="md"
                 data-opened={opened}

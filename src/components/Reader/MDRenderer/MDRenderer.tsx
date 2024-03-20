@@ -1,6 +1,6 @@
 import { MDX } from "@/data/types"
 import { CodeHighlight } from "@mantine/code-highlight"
-import { Anchor, Title, TypographyStylesProvider } from "@mantine/core"
+import { Anchor, ScrollArea, Title, TypographyStylesProvider } from "@mantine/core"
 import { MDXRemote } from "next-mdx-remote"
 import { FC, memo } from "react"
 import classes from "./MDRenderer.module.css"
@@ -59,7 +59,7 @@ const MDRenderer: FC<Props> = ({ mdx }) => (
                     if (!props.className) return <code>{props.children}</code>
 
                     return (
-                        <div style={{ maxWidth: "100%", overflowX: "scroll" }}>
+                        <ScrollArea scrollbars="x" scrollbarSize={6}>
                             <CodeHighlight
                                 classNames={{
                                     root: classes.codeRoot,
@@ -70,7 +70,7 @@ const MDRenderer: FC<Props> = ({ mdx }) => (
                                 code={props.children?.toString() || ""}
                                 language={props.className?.replace("language-", "")}
                             />
-                        </div>
+                        </ScrollArea>
                     )
                 },
             }}

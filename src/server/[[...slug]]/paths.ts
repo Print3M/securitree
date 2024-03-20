@@ -25,5 +25,6 @@ export const getRootPaths = async () => {
             } as Path
         })
     )
-    return paths.filter(i => i.slug != "home")
+    
+    return paths
 }

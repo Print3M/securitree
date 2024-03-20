@@ -25,9 +25,9 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
             <Stack h="100%">
                 <Box className={classes.logoBox}>SecuriTree</Box>
                 <Button
-                    href="/"
+                    href="/home"
                     component={Link}
-                    variant={pathname == "/" ? "light" : "subtle"}
+                    variant={pathname == "/home" ? "light" : "subtle"}
                     justify="left"
                     size="compact-md"
                 >

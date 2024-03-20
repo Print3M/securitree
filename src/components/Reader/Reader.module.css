@@ -1,13 +1,14 @@
 .reader {
     text-align: justify;
     background-color: alpha(var(--mantine-color-dark-8), 0.97);
-    z-index: 99;
+    z-index: 9;
+    min-height: 100vh;
 
     @mixin smaller-than $mantine-breakpoint-xl {
         top: 0;
         left: 0;
         transform: none;
-        margin-top: var(--navbar-height);
+        padding-top: var(--navbar-height);
         width: 100vw;
         position: absolute;
 
@@ -19,10 +20,9 @@
 
 .content {
     padding: var(--mantine-spacing-lg);
-    --width: 760px;
+    --width: 720px;
     max-width: var(--width);
     width: var(--width);
-    min-height: 100vh;
 
     @mixin smaller-than $mantine-breakpoint-xl {
         padding: var(--mantine-spacing-sm);
@@ -31,7 +31,7 @@
     }
 }
 
-.showTreeButton {
+.showButton {
     position: fixed;
     bottom: var(--mantine-spacing-xs);
     width: 100vw;

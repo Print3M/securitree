@@ -3,7 +3,7 @@
 import { useDisclosure } from "@mantine/hooks"
 import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
-import { FC, useEffect } from "react"
+import { FC, useEffect, useMemo } from "react"
 import { Path } from "@/server/[[...slug]]/paths"
 import { usePathname } from "next/navigation"
 
@@ -12,6 +12,8 @@ interface Props {
 }
 
 const Navigation: FC<Props> = ({ paths }) => {
+    const navPaths = useMemo(() => paths.filter(i => i.slug != "home"), [paths])
+
     const [navOpened, navHandlers] = useDisclosure(false)
     const pathname = usePathname()
 
@@ -23,7 +25,7 @@ const Navigation: FC<Props> = ({ paths }) => {
 
     return (
         <>
-            <NavPanel opened={navOpened} paths={paths} />
+            <NavPanel opened={navOpened} paths={navPaths} />
             <NavBar navOpened={navOpened} toggleNav={navHandlers.toggle} />
         </>
     )
