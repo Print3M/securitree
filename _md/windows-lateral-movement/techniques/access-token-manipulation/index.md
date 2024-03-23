@@ -1,5 +1,5 @@
 ---
-label: Token Manipulation
+label: Access Token Manipulation
 subLabel: (RunAs)
 ---
 

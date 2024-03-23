@@ -130,3 +130,37 @@ Remote UAC applies to:
 
 * RPC calls
 * WinRM
+
+## RPC research
+
+There are various ways to talk to RPC protocols over the network, including:
+
+### TCP/IP
+
+* ncacn_ip_tcp - TCP protocols uses dynamically assigned or pre-defined ports to communicate with them. Usually they can be handled by firewall separately.
+
+```bash
+# Enumerate RPC interfaces accessible via TCP
+msfconsole
+use auxiliary/scanner/dcerpc/tcp_dcerpc_auditor
+```
+
+TCP/IP:
+https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/95fbfb56-d67a-47df-900c-e263d6031f22
+
+### Named Pipes
+
+* ncacn_np - Named Pipes via SMB `IPC$` share. These protocols usually are not handled by firewall separately because they use standard SMB named pipes. It is not the case that each named pipe is one RPC protocol. One named pipe is used by multiple RPC interfaces.
+
+```bash
+# Enumerate named pipes available via SMB
+msfconsole
+use auxiliary/scanner/smb/pipe_auditor
+
+# Enumerate RPC interfaces accesible via named pipe
+use auxiliary/scanner/smb/pipe_dcerpc_auditor
+```
+
+Named pipes:
+https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/7063c7bd-b48b-42e7-9154-3c2ec4113c0d
+

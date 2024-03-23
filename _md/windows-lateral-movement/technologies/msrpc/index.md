@@ -1,9 +1,9 @@
 ---
-label: MSRPC
+label: MS-RPC
 disabled: true
 ---
 
-# Microsoft Remote Procedure Call (MSRPC)
+# Microsoft Remote Procedure Call (MS-RPC)
 
 ## References
 
