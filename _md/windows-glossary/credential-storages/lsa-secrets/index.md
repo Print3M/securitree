@@ -1,5 +1,6 @@
 ---
 label: LSA Secrets
+disabled: true
 ---
 
 # LSA Secrets on disk

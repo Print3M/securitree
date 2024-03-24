@@ -1,5 +1,4 @@
 ---
 label: Logon
+disabled: true
 ---
-
-Logon types

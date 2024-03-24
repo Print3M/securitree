@@ -1,3 +1,4 @@
 ---
-label: Auth
+label: Authentication
+disabled: true
 ---

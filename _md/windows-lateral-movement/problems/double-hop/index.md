@@ -19,3 +19,4 @@ However, in case of lateral movement the **Network Logon** (type 3) occurs most 
 ## Resources
 
 * [Jebidiah, *PTT: Double Hop Bypass*](https://seymour.hackstreetboys.ph/projects/red-team/ptt-double-hop-bypass)
+* [Offsecure, *The Powershell Double Hop*](https://offsecure.io/2022/05/22/powershell-double-hop/)

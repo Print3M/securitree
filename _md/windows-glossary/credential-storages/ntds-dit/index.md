@@ -1,5 +1,6 @@
 ---
 label: NTDS.DIT
+disabled: true
 ---
 
 # Domain Active Directory Database (NTDS.DIT)

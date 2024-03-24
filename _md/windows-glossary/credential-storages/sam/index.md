@@ -1,5 +1,6 @@
 ---
 label: SAM
+disabled: true
 ---
 
 # Security Accounts Manager (SAM)

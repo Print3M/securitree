@@ -163,4 +163,3 @@ use auxiliary/scanner/smb/pipe_dcerpc_auditor
 
 Named pipes:
 https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/7063c7bd-b48b-42e7-9154-3c2ec4113c0d
-

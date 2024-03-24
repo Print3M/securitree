@@ -1,5 +1,6 @@
 ---
 label: LSASS
+disabled: true
 ---
 
 # Local System Security Authority Subsystem (LSASS)

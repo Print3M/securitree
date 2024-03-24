@@ -1,5 +1,6 @@
 ---
 label: Constrained Language
+disabled: true
 ---
 
 # Constrained Language Mode

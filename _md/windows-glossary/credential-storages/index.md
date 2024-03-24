@@ -1,8 +1,9 @@
 ---
-label: Credential Storage
+label: Credential Storages
+disabled: true
 ---
 
-# Credential Storage
+# Credential Storages
 
 ## References
 

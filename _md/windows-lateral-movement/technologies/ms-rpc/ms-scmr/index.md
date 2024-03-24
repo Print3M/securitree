@@ -74,9 +74,9 @@ impacket-smbexec $hostname -k -no-pass -dc-ip $dc_ip
 impacket-smbexec [...] -debug
 ```
 
-Unlike PsExec, SmbExec doesn't transfer a detectable binary to the target host. Instead of using a malicious binary, SmbExec launches a new service (using SCM remotely via RPC) with each new command. It executes the command in the `binPath` parameter of the service and closes the service. It just executes each desired command as a new service. Output is read via SMB share. There is no leftover on disk.
+Unlike PsExec, SmbExec doesn't transfer a detectable binary to the target host. Instead of using a malicious binary, SmbExec launches a new service (using SCM remotely via named pipe) with each new command. It executes the command in the `binPath` parameter of the service and closes the service. It just executes each desired command as a new service. Output is read via SMB share. There is no leftover on disk.
 
-SmbExec is stealthier alternative to noisy and easy to detect PsExec. Nevertheless, it is important to remember that an event log is created for every command executed (service creation).
+SmbExec is stealthier alternative to easy to detect PsExec. Nevertheless, it is important to remember that an event log is created for every command executed (service creation).
 
 > **Caveats**
 >

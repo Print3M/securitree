@@ -1,3 +1,4 @@
 ---
 label: Hashes
+disabled: true
 ---
