@@ -11,7 +11,7 @@ const NavBar: FC<Props> = ({ navOpened, toggleNav }) => (
     <header className={classes.header}>
         <Group>
             <Burger opened={navOpened} onClick={toggleNav} aria-label="Toggle navigation" />
-            <Box>SecuriTree</Box>
+            <Box fw="bold" pt={4}>SecuriTree</Box>
         </Group>
     </header>
 )

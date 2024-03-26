@@ -1,6 +1,5 @@
 import { MDX } from "@/data/types"
-import { CodeHighlight } from "@mantine/code-highlight"
-import { Anchor, ScrollArea, Title, TypographyStylesProvider } from "@mantine/core"
+import { Anchor, Title, TypographyStylesProvider } from "@mantine/core"
 import { MDXRemote } from "next-mdx-remote"
 import { FC, memo } from "react"
 import classes from "./MDRenderer.module.css"
@@ -37,7 +36,7 @@ const MDRenderer: FC<Props> = ({ mdx }) => (
                     </Title>
                 ),
                 a: props => {
-                    if (!props.href) return <>{props.children}</>
+                    if (!props.href) return props.children
 
                     return (
                         <Anchor component={Link} href={props.href}>
@@ -51,28 +50,11 @@ const MDRenderer: FC<Props> = ({ mdx }) => (
                         </Anchor>
                     )
                 },
-                pre: props => <pre style={{ padding: 0 }}>{props.children}</pre>,
+                figure: props => <figure {...props} style={{ margin: 0, paddingBottom: 20 }} />,
+                code: props => <code {...props} className={classes.code} />,
                 blockquote: props => (
                     <blockquote className={classes.blockquote}>{props.children}</blockquote>
                 ),
-                code: props => {
-                    if (!props.className) return <code>{props.children}</code>
-
-                    return (
-                        <ScrollArea scrollbars="x" scrollbarSize={6}>
-                            <CodeHighlight
-                                classNames={{
-                                    root: classes.codeRoot,
-                                    code: classes.codeCode,
-                                    pre: classes.codePre,
-                                    copy: classes.copyButton,
-                                }}
-                                code={props.children?.toString() || ""}
-                                language={props.className?.replace("language-", "")}
-                            />
-                        </ScrollArea>
-                    )
-                },
             }}
         />
     </TypographyStylesProvider>

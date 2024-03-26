@@ -2,12 +2,11 @@ import classes from "./NavPanel.module.css"
 import { Anchor, Box, Button, Divider, ScrollArea, Stack } from "@mantine/core"
 import Link from "next/link"
 import SearchBar from "./SearchBar/SearchBar"
-import { FC, useState } from "react"
+import { FC, useMemo, useState } from "react"
 import { GlobalData } from "@/config"
 import GithubIcon from "./GithubIcon/GithubIcon"
-import { useTreeDataCtx } from "@/contexts/treeDataCtx"
-import { Path } from "@/server/[[...slug]]/paths"
 import { usePathname } from "next/navigation"
+import { Path } from "@/app/_fs/paths"
 
 interface Props {
     opened: boolean
@@ -16,8 +15,8 @@ interface Props {
 
 const NavPanel: FC<Props> = ({ opened, paths }) => {
     const pathname = usePathname()
-    const { slug } = useTreeDataCtx()
     const [navLinks, setNavLinks] = useState(paths)
+    const slug = useMemo(() => pathname.split("/").at(1) || "", [pathname])
 
     return (
         <div className={classes.container} data-opened={!!opened}>

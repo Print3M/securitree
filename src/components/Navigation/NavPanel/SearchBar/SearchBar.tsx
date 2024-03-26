@@ -1,4 +1,4 @@
-import { Path } from "@/server/[[...slug]]/paths"
+import { Path } from "@/app/_fs/paths"
 import { TextInput } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
 

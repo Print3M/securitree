@@ -1,6 +1,6 @@
 "use client"
 
-import { Tree } from "@/server/[[...slug]]/tree"
+import { Tree } from "@/app/_fs/tree"
 import { FC, PropsWithChildren, createContext, memo, useContext, useMemo } from "react"
 
 interface TreeCtx {

@@ -4,7 +4,7 @@ import classes from "./Node.module.css"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import Link from "next/link"
 import { useTreeDataCtx } from "@/contexts/treeDataCtx"
-import { Tree } from "@/server/[[...slug]]/tree"
+import { Tree } from "@/app/_fs/tree"
 
 interface Props {
     item: Tree
@@ -27,11 +27,7 @@ const Node: FC<Props> = ({ item }) => {
                 style={{ "--lines": linesNumber } as React.CSSProperties}
             >
                 {item.label}
-                {item.subLabel && (
-                    <div className={classes.subLabel}>
-                        {item.subLabel}
-                    </div>
-                )}
+                {item.subLabel && <div className={classes.subLabel}>{item.subLabel}</div>}
             </div>
             {!item.disabled && (
                 <Anchor

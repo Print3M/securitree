@@ -1,12 +1,15 @@
+import "server-only"
+
 import * as dree from "dree"
 import { parseIndexFile } from "./markdown"
+import { cache } from "react"
 
 export interface Path {
     slug: string
     label: string
 }
 
-export const getRootPaths = async () => {
+export const getRootPaths = cache(async () => {
     const root = await dree.scanAsync(`./_md/`, {
         symbolicLinks: false,
         excludeEmptyDirectories: true,
@@ -25,6 +28,6 @@ export const getRootPaths = async () => {
             } as Path
         })
     )
-    
+
     return paths
-}
+})

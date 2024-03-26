@@ -10,7 +10,6 @@
     "serve": "npx serve@latest out"
   },
   "dependencies": {
-    "@mantine/code-highlight": "^7.5.3",
     "@mantine/core": "^7.5.2",
     "@mantine/hooks": "^7.5.2",
     "@tabler/icons-react": "^2.47.0",
@@ -19,7 +18,10 @@
     "next-mdx-remote": "^4.4.1",
     "react": "^18",
     "react-dom": "^18",
-    "react-zoom-pan-pinch": "^3.4.2"
+    "react-zoom-pan-pinch": "^3.4.2",
+    "rehype-pretty-code": "^0.13.0",
+    "server-only": "^0.0.1",
+    "shiki": "^1.2.0"
   },
   "devDependencies": {
     "@types/node": "^20",

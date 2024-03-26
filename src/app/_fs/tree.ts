@@ -1,3 +1,5 @@
+import "server-only"
+
 import { MDXRemoteSerializeResult } from "next-mdx-remote"
 import * as dree from "dree"
 import { parseIndexFile } from "./markdown"

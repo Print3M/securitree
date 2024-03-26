@@ -1,4 +1,4 @@
-import { Tree } from "@/server/[[...slug]]/tree"
+import { Tree } from "@/app/_fs/tree"
 
 export const getFlatTree = (members: Tree[]): Tree[] => {
     let children: Tree[] = []

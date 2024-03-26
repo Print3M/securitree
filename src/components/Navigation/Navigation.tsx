@@ -4,8 +4,8 @@ import { useDisclosure } from "@mantine/hooks"
 import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
 import { FC, useEffect, useMemo } from "react"
-import { Path } from "@/server/[[...slug]]/paths"
 import { usePathname } from "next/navigation"
+import { Path } from "@/app/_fs/paths"
 
 interface Props {
     paths: Path[]

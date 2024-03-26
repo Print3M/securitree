@@ -4,12 +4,7 @@ const nextConfig = {
     output: "export",
 
     experimental: {
-        optimizePackageImports: [
-            "@mantine/core",
-            "@mantine/hooks",
-            "@mantine/code-highlight",
-            "@tabler/icons-react",
-        ],
+        optimizePackageImports: ["@mantine/core", "@mantine/hooks", "@tabler/icons-react"],
     },
 }
 

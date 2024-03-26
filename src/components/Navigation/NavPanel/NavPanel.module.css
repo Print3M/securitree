@@ -1,5 +1,5 @@
 .container {
-    position: sticky;
+    position: fixed;
     left: 0;
     top: 0;
     height: 100vh;
@@ -7,9 +7,9 @@
     padding: 7px;
     overflow: hidden;
     z-index: 9999999;
+    width: 300px;
 
     @mixin smaller-than $mantine-breakpoint-xl {
-        position: fixed;
         top: 0;
         transform: none;
         width: 100vw;
@@ -29,6 +29,7 @@
 .logoBox {
     font-weight: bold;
     font-size: 2.2rem;
+    color: var(--mantine-color-white);
 }
 
 .nav {
