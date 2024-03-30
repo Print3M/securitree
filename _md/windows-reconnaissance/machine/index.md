@@ -30,7 +30,7 @@ msfconsole
 
 ```bash
 # Enumerate SMB shares and privileges
-smbmap -H //$ip -u $domain/$user -p $password
+smbmap -H $ip -u $domain/$user -p $password
 
 # Connect to SMB share
 smbclient //$ip/$share -U "$DOMAIN\\$user%$pass"

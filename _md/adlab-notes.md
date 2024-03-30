@@ -12,6 +12,7 @@
 * Local Administrator account on machine is disabled (presence of domain doesn't matter).
 * WinRM is enabled on DC (`winrs` works). WinRM is disabled on clients.
 * RDP is disabled on DC and clients.
+* _Domain Admins_, _Enterprise Admins_, _Administrators_ and _Domain Controllers_ have access to DCSync attack.
 
 Default DC (with AD DS) port scan:
 
