@@ -1,25 +1,23 @@
-import { Anchor, Button } from "@mantine/core"
+import { Anchor } from "@mantine/core"
 import { FC, useMemo } from "react"
 import classes from "./Node.module.css"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import Link from "next/link"
-import { useTreeDataCtx } from "@/contexts/treeDataCtx"
-import { Tree } from "@/app/_fs/tree"
+import { TreeNode } from "@/app/_fs/types"
 
 interface Props {
-    item: Tree
+    item: TreeNode
 }
 
 const Node: FC<Props> = ({ item }) => {
     const { selected } = useSelectedNodeCtx()
-    const { slug } = useTreeDataCtx()
 
     const linesNumber = useMemo(() => (item.subLabel ? 2 : 1), [item])
 
     return (
         <div
             className={classes.node}
-            data-selected={selected?.slug == item.slug}
+            data-selected={selected.nodeSlug == item.nodeSlug}
             data-disabled={item.disabled}
         >
             <div
@@ -32,7 +30,9 @@ const Node: FC<Props> = ({ item }) => {
             {!item.disabled && (
                 <Anchor
                     component={Link}
-                    href={slug == item.slug ? `/${slug}` : `/${slug}/${item.slug}`}
+                    href={
+                        item.nodeSlug ? `/${item.treeSlug}/${item.nodeSlug}` : `/${item.treeSlug}`
+                    }
                     className={classes.link}
                 />
             )}

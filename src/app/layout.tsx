@@ -1,7 +1,7 @@
 import { GlobalData } from "@/config"
 import { Metadata } from "next"
 import { FC, PropsWithChildren } from "react"
-import {Code, ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core"
+import { ColorSchemeScript, MantineProvider, createTheme } from "@mantine/core"
 
 // Import styles of packages that you've installed.
 // All packages except `@mantine/hooks` require styles imports
@@ -33,7 +33,7 @@ import "@mantine/core/styles/Divider.css"
 import "@mantine/core/styles/TypographyStylesProvider.css"
 import "@mantine/core/styles/ActionIcon.css"
 import Navigation from "@/components/Navigation/Navigation"
-import { getRootPaths } from "./_fs/paths"
+import { getRootNodes } from "./_fs/paths"
 
 export const metadata: Metadata = {
     title: "SecuriTree - offensive security deep dive",
@@ -54,14 +54,14 @@ const theme = createTheme({
 const colorSchema = "dark"
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
-    const paths = await getRootPaths()
+    const paths = await getRootNodes()
 
     return (
         <html lang="en" data-mantine-color-scheme={colorSchema}>
             <head>
                 <ColorSchemeScript forceColorScheme={colorSchema} />
             </head>
-            <body>
+            <body style={{ backgroundColor: "#242424" }}>
                 <MantineProvider forceColorScheme={colorSchema} theme={theme}>
                     <Navigation paths={paths} />
                     {children}

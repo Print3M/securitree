@@ -1,21 +1,21 @@
 "use client"
 
-import { Tree } from "@/app/_fs/tree"
+import { SelectedNode } from "@/app/_fs/types"
 import { FC, PropsWithChildren, createContext, memo, useContext } from "react"
 
 interface SelectedNodeContextType {
-    selected: Tree | null
+    selected: SelectedNode
 }
 
 const SelectedNodeContext = createContext<SelectedNodeContextType | null>(null)
 
 interface Props {
-    tree: Tree
+    node: SelectedNode
 }
 
 export const SelectedNodeContextProvider: FC<PropsWithChildren<Props>> = memo(
-    ({ children, tree }) => (
-        <SelectedNodeContext.Provider value={{ selected: tree }}>
+    ({ children, node }) => (
+        <SelectedNodeContext.Provider value={{ selected: node }}>
             {children}
         </SelectedNodeContext.Provider>
     )

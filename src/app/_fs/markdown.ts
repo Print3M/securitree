@@ -1,27 +1,47 @@
 import "server-only"
 
 import { promises as fs } from "fs"
-import path from "path"
 import { serialize } from "next-mdx-remote/serialize"
 import rehypePrettyCode from "rehype-pretty-code"
+import matter from "gray-matter"
+import { Node, NodePath } from "./types"
 
-const parseMarkdownFile = async (path: string) => {
-    const file = await fs.readFile(path)
+export const parseNodeMDX = async (mdFilePath: string) => {
+    const file = await fs.readFile(mdFilePath)
     const mdx = await serialize(file.toString(), {
         parseFrontmatter: true,
         mdxOptions: { rehypePlugins: [[rehypePrettyCode as any, { theme: "aurora-x" }]] },
     })
 
-    return mdx
+    return mdx.compiledSource
 }
 
-export const parseIndexFile = async (dir: string) => {
-    const dirs = dir.split("/")
-    const dirName = dirs[dirs.length - 1]
-    const mdx = await parseMarkdownFile(path.join(dir, "index.md"))
+interface Frontmatter {
+    label?: string
+    subLabel?: string
+    disabled?: boolean
+}
+
+const _convertMdFilePathToNodePath = (mdFilePath: string) => {
+    const dir = mdFilePath.replace("/index.md", "").split("/_md/")[1]
+    const parts = dir.split("/")
 
     return {
-        slug: dirName,
-        mdx,
-    }
+        treeSlug: parts[0],
+        nodeSlug: parts.length > 1 ? parts[parts.length - 1] : null,
+    } satisfies NodePath
+}
+
+export const parseNode = async (mdFilePath: string) => {
+    const file = await fs.readFile(mdFilePath)
+    const metadata = matter(file.toString()).data as Frontmatter
+    const nodePath = _convertMdFilePathToNodePath(mdFilePath)
+
+    return {
+        ...nodePath,
+        mdFilePath,
+        label: metadata?.label || "",
+        subLabel: metadata?.subLabel || null,
+        disabled: !!metadata.disabled,
+    } satisfies Node
 }

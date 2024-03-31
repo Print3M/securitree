@@ -1,13 +1,13 @@
 import { FC, memo } from "react"
 import Node from "../Node/Node"
-import Portal from "../Portal/Portal"
-import { Tree } from "@/app/_fs/tree"
+import { TreeNode } from "@/app/_fs/types"
 
 interface Props {
-    node: Tree
+    node: TreeNode
 }
 
 const SubTree: FC<Props> = ({ node }) => {
+    /*
     if (node.portalSlug) {
         return (
             <li>
@@ -21,6 +21,7 @@ const SubTree: FC<Props> = ({ node }) => {
             </li>
         )
     }
+    */
 
     return (
         <li>
@@ -29,7 +30,7 @@ const SubTree: FC<Props> = ({ node }) => {
             {node.children.length > 0 && (
                 <ul>
                     {node.children.map((item, idx) => (
-                        <SubTree key={`${item.slug}-${item.label}-${idx}`} node={item} />
+                        <SubTree key={`${item.treeSlug}-${item.nodeSlug}-${idx}`} node={item} />
                     ))}
                 </ul>
             )}

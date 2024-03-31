@@ -1,10 +1,10 @@
-import { Path } from "@/app/_fs/paths"
+import { Node } from "@/app/_fs/types"
 import { TextInput } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
 
 interface Props {
-    setItems: (items: Path[]) => void
-    allPaths: Path[]
+    setItems: (items: Node[]) => void
+    allPaths: Node[]
 }
 
 const SearchBar: FC<Props> = ({ setItems, allPaths }) => {

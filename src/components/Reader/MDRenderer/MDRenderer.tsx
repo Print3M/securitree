@@ -1,4 +1,3 @@
-import { MDX } from "@/data/types"
 import { Anchor, Title, TypographyStylesProvider } from "@mantine/core"
 import { MDXRemote } from "next-mdx-remote"
 import { FC, memo } from "react"
@@ -7,13 +6,15 @@ import Link from "next/link"
 import { IconExternalLink } from "@tabler/icons-react"
 
 interface Props {
-    mdx: MDX
+    compiledSource: string
 }
 
-const MDRenderer: FC<Props> = ({ mdx }) => (
+const MDRenderer: FC<Props> = ({ compiledSource }) => (
     <TypographyStylesProvider>
         <MDXRemote
-            {...mdx}
+            scope=""
+            frontmatter={{}}
+            compiledSource={compiledSource}
             components={{
                 h1: props => (
                     <Title order={1} ta="left" mb="xl">

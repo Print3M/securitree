@@ -1,15 +1,11 @@
 import "server-only"
 
 import * as dree from "dree"
-import { parseIndexFile } from "./markdown"
 import { cache } from "react"
+import { convertTreeToFlatNodes, getTreeBySlug } from "./tree"
+import { Node } from "./types"
 
-export interface Path {
-    slug: string
-    label: string
-}
-
-export const getRootPaths = cache(async () => {
+const _getRootTreeDirs = cache(async () => {
     const root = await dree.scanAsync(`./_md/`, {
         symbolicLinks: false,
         excludeEmptyDirectories: true,
@@ -18,16 +14,41 @@ export const getRootPaths = cache(async () => {
 
     const items = (root.children || []).filter(i => i.type == dree.Type.DIRECTORY)
 
-    const paths = await Promise.all(
-        items.map(async i => {
-            const data = await parseIndexFile(i.path)
+    return items.map(i => i.name)
+})
 
-            return {
-                slug: data.slug,
-                label: data.mdx.frontmatter.label || "",
-            } as Path
-        })
-    )
+const getAllNodes = cache(async () => {
+    const rootDirs = await _getRootTreeDirs()
+    let allNodes: Node[] = []
 
-    return paths
+    for (const rootDir of rootDirs) {
+        const tree = await getTreeBySlug(rootDir)
+        const nodes = convertTreeToFlatNodes([tree])
+
+        for (const node of nodes) {
+            // Exclude children property
+            const { children, ...data } = node
+            allNodes.push(data)
+        }
+    }
+
+    return allNodes
+})
+
+export const getContentNodes = cache(async () => {
+    /*
+        Get only non-disabled (content) nodes.
+    */
+    const allNodes = await getAllNodes()
+
+    return allNodes.filter(i => !i.disabled)
+})
+
+export const getRootNodes = cache(async () => {
+    /*
+        Get only root tree nodes.
+    */
+    const allNodes = await getAllNodes()
+
+    return allNodes.filter(i => !i.nodeSlug)
 })

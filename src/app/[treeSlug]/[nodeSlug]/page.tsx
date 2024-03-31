@@ -2,47 +2,43 @@ import { FC } from "react"
 import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
 import ContentLayout from "@/components/ContentLayout/ContentLayout"
-import { getMarkdownNodes, getTreeBySlug } from "@/app/_fs/tree"
-import { getRootPaths } from "@/app/_fs/paths"
+import { getTreeBySlug } from "@/app/_fs/tree"
+import { getContentNodes } from "@/app/_fs/paths"
+import { SelectedNode } from "@/app/_fs/types"
+import { parseNodeMDX } from "@/app/_fs/markdown"
 
 interface Params {
     treeSlug: string
     nodeSlug: string
 }
 
-const getNode = async (treeSlug: string, nodeSlug: string) => {
-    const nodes = await getMarkdownNodes(treeSlug)
+const getSelectedNode = async (treeSlug: string, nodeSlug: string) => {
+    const nodes = await getContentNodes()
+    const node = nodes.find(i => i.treeSlug === treeSlug && i.nodeSlug == nodeSlug)!
 
-    return nodes.find(i => i.slug === nodeSlug)!
+    return {
+        ...node,
+        mdx: await parseNodeMDX(node.mdFilePath),
+    } as SelectedNode
 }
 
-const getTree = async (treeSlug: string) => await getTreeBySlug(treeSlug, false)
-
 export const generateStaticParams = async (): Promise<Params[]> => {
-    const paths = await getRootPaths()
+    const contentNodes = await getContentNodes()
+    const nodes = contentNodes.filter(i => !!i.nodeSlug)
 
-    let params: Params[] = []
-    for (const path of paths) {
-        const nodes = await getMarkdownNodes(path.slug)
-
-        for (const node of nodes) {
-            params.push({
-                treeSlug: path.slug,
-                nodeSlug: node.slug,
-            })
-        }
-    }
-
-    return params
+    return nodes.map(node => ({
+        treeSlug: node.treeSlug,
+        nodeSlug: node.nodeSlug as string,
+    }))
 }
 
 const Page: FC<{ params: Params }> = async ({ params }) => {
-    const node = await getNode(params.treeSlug, params.nodeSlug)
-    const tree = await getTree(params.treeSlug)
+    const tree = await getTreeBySlug(params.treeSlug)
+    const node = await getSelectedNode(params.treeSlug, params.nodeSlug)
 
     return (
         <TreeDataContextProvider tree={tree} slug={params.treeSlug}>
-            <SelectedNodeContextProvider tree={node}>
+            <SelectedNodeContextProvider node={node}>
                 <ContentLayout />
             </SelectedNodeContextProvider>
         </TreeDataContextProvider>

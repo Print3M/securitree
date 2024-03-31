@@ -1,24 +1,23 @@
 "use client"
 
-import { FC, useMemo } from "react"
+import { FC } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, Center, Space, Text } from "@mantine/core"
+import { Button, Space } from "@mantine/core"
 import { IconBinaryTree2, IconBook } from "@tabler/icons-react"
-import Link from "next/link"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import { useDisclosure } from "@mantine/hooks"
 
 const Reader: FC = () => {
     const [opened, handlers] = useDisclosure(true)
     const { selected } = useSelectedNodeCtx()
-    const mdx = useMemo(() => selected?.markdown || null, [selected])
 
     return (
         <>
             <main className={classes.reader} data-opened={opened}>
                 <div className={classes.content}>
-                    {mdx && <MDRenderer mdx={mdx} />}
+                    <MDRenderer compiledSource={selected.mdx} />
+                    {/* 
                     {selected?.portalSlug && (
                         <Center mt="xl">
                             <Button
@@ -34,6 +33,7 @@ const Reader: FC = () => {
                             </Button>
                         </Center>
                     )}
+                    */}
                     <Space h={100} />
                     {/* {selected && <NavButtons item={selected} />} */}
                 </div>

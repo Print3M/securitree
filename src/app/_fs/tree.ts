@@ -1,62 +1,43 @@
 import "server-only"
 
-import { MDXRemoteSerializeResult } from "next-mdx-remote"
 import * as dree from "dree"
-import { parseIndexFile } from "./markdown"
 import { cache } from "react"
+import { TreeNode } from "./types"
+import { parseNode } from "./markdown"
 
-export type MDX = MDXRemoteSerializeResult<Record<string, unknown>, Record<string, unknown>>
+// export type Nodes = Record<string, Tree[]>
 
-export interface Tree {
-    label: string
-    slug: string
-    disabled: boolean
-    subLabel: string | null
-    portalSlug: string | null
-    children: Tree[]
-    markdown: MDX | null
-}
-
-export type Nodes = Record<string, Tree[]>
-
-const convertDreeToTree = async (
-    dreeData: dree.Dree,
-    withMarkdown: boolean
-): Promise<Tree | null> => {
+const _convertDreeToTree = async (dreeData: dree.Dree) => {
     if (dreeData.type != dree.Type.DIRECTORY) return null
 
-    const index = await parseIndexFile(dreeData.path)
+    const mdFilePath = `${dreeData.path}/index.md`
+    const node = await parseNode(mdFilePath)
 
-    let children: Tree[] = []
+    let children: TreeNode[] = []
     for (const child of dreeData.children || []) {
-        const item = await convertDreeToTree(child, withMarkdown)
+        const item = await _convertDreeToTree(child)
 
         if (item) children.push(item)
     }
 
     return {
-        slug: index.slug,
-        label: (index.mdx.frontmatter.label as string) || "",
-        portalSlug: (index.mdx.frontmatter.portalSlug as string) || null,
-        subLabel: (index.mdx.frontmatter.subLabel as string) || null,
-        disabled: (index.mdx.frontmatter.disabled as boolean) || false,
-        markdown: withMarkdown ? index.mdx : null,
+        ...node,
         children,
-    }
+    } as TreeNode
 }
 
-export const getTreeBySlug = async (slug: string, withMarkdown: boolean) => {
+export const getTreeBySlug = cache(async (slug: string) => {
     const dreeData = await dree.scanAsync(`./_md/${slug}`, {
         symbolicLinks: false,
         excludeEmptyDirectories: true,
     })
-    const tree = await convertDreeToTree(dreeData, withMarkdown)
+    const tree = await _convertDreeToTree(dreeData)
 
     return tree!
-}
+})
 
-export const getFlatTree = (members: Tree[]): Tree[] => {
-    let children: Tree[] = []
+export const convertTreeToFlatNodes = (members: TreeNode[]): TreeNode[] => {
+    let children: TreeNode[] = []
 
     return members
         .map(member => {
@@ -65,11 +46,13 @@ export const getFlatTree = (members: Tree[]): Tree[] => {
             }
             return member
         })
-        .concat(children.length ? getFlatTree(children) : children)
+        .concat(children.length ? convertTreeToFlatNodes(children) : children)
 }
 
+/*
 export const getMarkdownNodes = cache(async (treeSlug: string) => {
-    const tree = await getTreeBySlug(treeSlug, true)
+    const tree = await getTreeBySlug(treeSlug)
 
-    return getFlatTree([tree])
+    return convertTreeToFlatNodes([tree])
 })
+*/

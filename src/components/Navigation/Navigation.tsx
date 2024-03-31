@@ -5,14 +5,14 @@ import NavPanel from "./NavPanel/NavPanel"
 import NavBar from "./NavBar/NavBar"
 import { FC, useEffect, useMemo } from "react"
 import { usePathname } from "next/navigation"
-import { Path } from "@/app/_fs/paths"
+import { Node } from "@/app/_fs/types"
 
 interface Props {
-    paths: Path[]
+    paths: Node[]
 }
 
 const Navigation: FC<Props> = ({ paths }) => {
-    const navPaths = useMemo(() => paths.filter(i => i.slug != "home"), [paths])
+    const navPaths = useMemo(() => paths.filter(i => i.treeSlug != "home"), [paths])
 
     const [navOpened, navHandlers] = useDisclosure(false)
     const pathname = usePathname()

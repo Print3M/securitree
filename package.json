@@ -1,37 +1,39 @@
 {
-  "name": "securitree",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "serve": "npx serve@latest out"
-  },
-  "dependencies": {
-    "@mantine/core": "^7.5.2",
-    "@mantine/hooks": "^7.5.2",
-    "@tabler/icons-react": "^2.47.0",
-    "dree": "^4.7.0",
-    "next": "14.1.0",
-    "next-mdx-remote": "^4.4.1",
-    "react": "^18",
-    "react-dom": "^18",
-    "react-zoom-pan-pinch": "^3.4.2",
-    "rehype-pretty-code": "^0.13.0",
-    "server-only": "^0.0.1",
-    "shiki": "^1.2.0"
-  },
-  "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
-    "eslint-config-next": "14.1.0",
-    "postcss": "^8.4.35",
-    "postcss-preset-mantine": "^1.13.0",
-    "postcss-simple-vars": "^7.0.1",
-    "typescript": "^5"
-  }
+    "name": "securitree",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "serve": "npx serve@latest out"
+    },
+    "dependencies": {
+        "@mantine/core": "^7.5.2",
+        "@mantine/hooks": "^7.5.2",
+        "@tabler/icons-react": "^2.47.0",
+        "dree": "^4.7.0",
+        "gray-matter": "^4.0.3",
+        "next": "14.1.0",
+        "next-mdx-remote": "^4.4.1",
+        "next-sitemap": "^4.2.3",
+        "react": "^18",
+        "react-dom": "^18",
+        "react-zoom-pan-pinch": "^3.4.2",
+        "rehype-pretty-code": "^0.13.0",
+        "server-only": "^0.0.1",
+        "shiki": "^1.2.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20",
+        "@types/react": "^18",
+        "@types/react-dom": "^18",
+        "eslint": "^8",
+        "eslint-config-next": "14.1.0",
+        "postcss": "^8.4.35",
+        "postcss-preset-mantine": "^1.13.0",
+        "postcss-simple-vars": "^7.0.1",
+        "typescript": "^5"
+    }
 }

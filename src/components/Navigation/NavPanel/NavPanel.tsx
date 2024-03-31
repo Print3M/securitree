@@ -6,11 +6,11 @@ import { FC, useMemo, useState } from "react"
 import { GlobalData } from "@/config"
 import GithubIcon from "./GithubIcon/GithubIcon"
 import { usePathname } from "next/navigation"
-import { Path } from "@/app/_fs/paths"
+import { Node } from "@/app/_fs/types"
 
 interface Props {
     opened: boolean
-    paths: Path[]
+    paths: Node[]
 }
 
 const NavPanel: FC<Props> = ({ opened, paths }) => {
@@ -38,10 +38,10 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                     <nav className={classes.nav}>
                         {navLinks.map(i => (
                             <Button
-                                key={i.slug}
-                                href={`/${i.slug}`}
+                                key={i.treeSlug}
+                                href={`/${i.treeSlug}`}
                                 component={Link}
-                                variant={slug == i.slug ? "light" : "subtle"}
+                                variant={slug == i.treeSlug ? "light" : "subtle"}
                                 justify="left"
                                 size="compact-md"
                             >

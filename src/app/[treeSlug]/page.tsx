@@ -2,36 +2,41 @@ import { FC } from "react"
 import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
 import ContentLayout from "@/components/ContentLayout/ContentLayout"
-import { getMarkdownNodes, getTreeBySlug } from "../_fs/tree"
-import { getRootPaths } from "../_fs/paths"
+import { getTreeBySlug } from "../_fs/tree"
+import { getRootNodes } from "../_fs/paths"
+import { parseNodeMDX } from "../_fs/markdown"
+import { SelectedNode } from "../_fs/types"
 
 interface Params {
     treeSlug: string
 }
 
-const getNode = async (treeSlug: string, nodeSlug: string) => {
-    const nodes = await getMarkdownNodes(treeSlug)
+const getSelectedNode = async (treeSlug: string) => {
+    const nodes = await getRootNodes()
+    const node = nodes.find(i => i.treeSlug === treeSlug && i.nodeSlug === null)!
 
-    return nodes.find(i => i.slug === nodeSlug)!
+    return {
+        ...node,
+        mdx: await parseNodeMDX(node.mdFilePath),
+    } as SelectedNode
 }
 
-const getTree = async (treeSlug: string) => await getTreeBySlug(treeSlug, false)
-
 export const generateStaticParams = async (): Promise<Params[]> => {
-    const paths = await getRootPaths()
+    const contentNodes = await getRootNodes()
+    const nodes = contentNodes.filter(i => !i.nodeSlug)
 
-    return paths.map(path => ({
-        treeSlug: path.slug,
+    return nodes.map(node => ({
+        treeSlug: node.treeSlug,
     }))
 }
 
 const Page: FC<{ params: Params }> = async ({ params }) => {
-    const tree = await getTree(params.treeSlug)
-    const node = await getNode(params.treeSlug, params.treeSlug)
+    const tree = await getTreeBySlug(params.treeSlug)
+    const node = await getSelectedNode(params.treeSlug)
 
     return (
         <TreeDataContextProvider tree={tree} slug={params.treeSlug}>
-            <SelectedNodeContextProvider tree={node}>
+            <SelectedNodeContextProvider node={node}>
                 <ContentLayout />
             </SelectedNodeContextProvider>
         </TreeDataContextProvider>
