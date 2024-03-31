@@ -5,8 +5,6 @@ import { cache } from "react"
 import { TreeNode } from "./types"
 import { parseNode } from "./markdown"
 
-// export type Nodes = Record<string, Tree[]>
-
 const _convertDreeToTree = async (dreeData: dree.Dree) => {
     if (dreeData.type != dree.Type.DIRECTORY) return null
 
@@ -48,11 +46,3 @@ export const convertTreeToFlatNodes = (members: TreeNode[]): TreeNode[] => {
         })
         .concat(children.length ? convertTreeToFlatNodes(children) : children)
 }
-
-/*
-export const getMarkdownNodes = cache(async (treeSlug: string) => {
-    const tree = await getTreeBySlug(treeSlug)
-
-    return convertTreeToFlatNodes([tree])
-})
-*/
