@@ -6,6 +6,7 @@ import { getTreeBySlug } from "../_fs/tree"
 import { getRootNodes } from "../_fs/paths"
 import { parseNodeMDX } from "../_fs/markdown"
 import { SelectedNode } from "../_fs/types"
+import { Metadata, ResolvingMetadata } from "next"
 
 interface Params {
     treeSlug: string
@@ -28,6 +29,17 @@ export const generateStaticParams = async (): Promise<Params[]> => {
     return nodes.map(node => ({
         treeSlug: node.treeSlug,
     }))
+}
+
+export const generateMetadata = async (
+    { params }: { params: Params },
+    _: ResolvingMetadata
+): Promise<Metadata> => {
+    const tree = await getTreeBySlug(params.treeSlug)
+
+    return {
+        title: `${tree.label} | SecuriTree`,
+    }
 }
 
 const Page: FC<{ params: Params }> = async ({ params }) => {

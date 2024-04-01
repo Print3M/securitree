@@ -36,7 +36,7 @@ import Navigation from "@/components/Navigation/Navigation"
 import { getRootNodes } from "./_fs/paths"
 
 export const metadata: Metadata = {
-    title: "SecuriTree - offensive security deep dive",
+    title: "SecuriTree – well-structured cybersec notes",
     description:
         "IT security notes structured into a tree form. Clearly explained topics from offensive security, red-team, pentesting, Windows and Active Directory.",
     authors: [{ name: "Print3M", url: GlobalData.print3mUrl }],
