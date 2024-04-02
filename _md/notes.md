@@ -146,7 +146,7 @@ use auxiliary/scanner/dcerpc/tcp_dcerpc_auditor
 ```
 
 TCP/IP:
-https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/95fbfb56-d67a-47df-900c-e263d6031f22
+<https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/95fbfb56-d67a-47df-900c-e263d6031f22>
 
 ### Named Pipes
 
@@ -162,4 +162,23 @@ use auxiliary/scanner/smb/pipe_dcerpc_auditor
 ```
 
 Named pipes:
-https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/7063c7bd-b48b-42e7-9154-3c2ec4113c0d
+<https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-rpce/7063c7bd-b48b-42e7-9154-3c2ec4113c0d>
+
+## Service account
+
+An Active Directory (AD) service account is a specific type of service account that exists within a Windows domain environment.
+
+Service account usually doesn't allow interactive logon. It's not associated with any specific user. Service accounts should be granted only the minimum permissions necessary to perform their tasks. This helps to minimize the potential damage if the account is compromised.
+
+Service account is more of a convention. There's no special category for service accounts. To differentiate service accounts from regular users, administrators often use naming conventions, e.g. a specific suffix like `Svc`.
+
+## SPN
+
+SPN (Service Principal Name) is a unqiue identifier of a service available within AD forest. It ties a service instance to a service account in AD. SPN resides within the service account AD object as an attribute.
+
+SPN is created in two ways:
+
+1. Automatic registration: some services (e.g. MSSQL) try to register their SPNs automatically when they are installed.
+2. Manual registration (more common): it involves using the built-in `setspn` tool. Example: `setspn -m HTTP/websrv.adlab.local adlab.local\WebSvc` - this command creates an SPN for the HTTP service running on the machine `websrv.adlab.local` using the service account `adlab.local\WebSvc`.
+
+Format of SPN: `<service_class>/<host>:<port>`. The port can be ommited if a standard _service\_class_ is used.
