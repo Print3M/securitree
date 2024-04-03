@@ -1,6 +1,5 @@
 ---
 label: Constrained Delegation
-disabled: true
 ---
 
 # Constrained Delegation Abuse
