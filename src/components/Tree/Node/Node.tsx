@@ -33,6 +33,7 @@ const Node: FC<Props> = ({ item }) => {
                     href={
                         item.nodeSlug ? `/${item.treeSlug}/${item.nodeSlug}` : `/${item.treeSlug}`
                     }
+                    title={item.label}
                     className={classes.link}
                 />
             )}

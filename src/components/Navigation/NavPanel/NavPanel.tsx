@@ -29,6 +29,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                     variant={pathname == "/home" ? "light" : "subtle"}
                     justify="left"
                     size="compact-md"
+                    title="Home"
                 >
                     Home
                 </Button>
@@ -44,6 +45,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                                 variant={slug == i.treeSlug ? "light" : "subtle"}
                                 justify="left"
                                 size="compact-md"
+                                title={i.label}
                             >
                                 {i.label}
                             </Button>
@@ -52,7 +54,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                 </ScrollArea>
                 <footer className={classes.footer}>
                     Created by{" "}
-                    <Anchor component={Link} href={GlobalData.print3mUrl} fz="sm">
+                    <Anchor component={Link} href={GlobalData.print3mUrl} title="Print3M's Hub" fz="sm">
                         Print3M
                     </Anchor>
                 </footer>

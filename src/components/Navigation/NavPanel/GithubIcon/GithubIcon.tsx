@@ -14,7 +14,7 @@ const GithubIcon = () => (
             }}
             component={Link}
             href={GlobalData.ghRepoUrl}
-            title="GitHub Repo"
+            title="SecuriTree GitHub Repo"
         >
             <IconBrandGithub size={25} />
         </Button>
