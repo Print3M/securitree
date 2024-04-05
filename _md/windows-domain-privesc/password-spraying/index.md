@@ -4,7 +4,7 @@ label: Password Spraying
 
 # Password Spraying
 
-Password spraying involves trying different combinations of acquired passwords and usernames in different network protocols. In this way, some reused credentials can be found. The best tool for this is NetExec (successor to CrackMapExec). Available protocols: `smb`, `ssh`, `ldap`, `ftp`, `wmi`, `winrm`, `rdp`, `vnc`, `mssql`.
+Password spraying involves trying different combinations of acquired passwords and usernames in different network protocols. In this way, some reused credentials can be found. The best tool for this is **NetExec** (successor to CrackMapExec). Available protocols: `smb`, `ssh`, `ldap`, `ftp`, `wmi`, `winrm`, `rdp`, `vnc`, `mssql`.
 
 > **NOTE**: `Username`, `password` and `target` parameter can be provided in a form of:
 >

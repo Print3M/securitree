@@ -6,7 +6,9 @@ label: Constrained Delegation
 
 > **Requirements**
 >
-> * Compromised a service or a machine account with Constrained Delegation attribute.
+> * A compromised service or machine account with Constrained Delegation attribute.
+
+{/*TODO: Can obtained TGS be used only against SPN in msds-allowedToDelegateTo? Or can we select deifferent SPN?*/}
 
 Constrained Delegation is a special attribute (`TRUSTED_TO_AUTH_FOR_DELEGATION`) of a service account or machine account (with an associated SPN). This attribute means that an account with an SPN can use TGS for defined services on behalf of the user who authenticated to the service (example below).
 
@@ -15,22 +17,22 @@ Constrained Delegation is a special attribute (`TRUSTED_TO_AUTH_FOR_DELEGATION`)
 Example of correct usage (highly simplified):
 
 ```plaintext
-                            Srv$
-                  (  Machine account with  )
-                  ( Constrained Delegation )
-   User                |'''''''''''''|
-|=======| -----------> | User's TGS  |
-             (Auth)    |,,,,,,,,,,,,,|
-                              |
-                              |
-                              |
-                           HttpSvc
-                  (     Allowed in Srv$      )
-                  ( msds-allowedToDelegateTo ) 
-                       |'''''''''''''|
-                       | Auth using  |
-                       | User's TGS  |
-                       |,,,,,,,,,,,,,|
+                               Srv$
+                     (  Machine account with  )
+                     ( Constrained Delegation )
+   User                   |'''''''''''''|
+|=======| --------------> | User's TGS  |
+               (Auth)     |,,,,,,,,,,,,,|
+                                 |
+                                 |
+                                 |
+                              HttpSvc
+                     (     Allowed in Srv$      )
+                     ( msds-allowedToDelegateTo ) 
+                          |'''''''''''''|
+                          | Auth using  |
+                          | User's TGS  |
+                          |,,,,,,,,,,,,,|
 ```
 
 During authentication to Srv$ machine account (with Constrained Delegation) User's TGS is delegated. Srv$ can use User's TGS to access `HttpSvc` because this service is allowed in Srv$ Constrained Delegation `msds-allowedToDelegateTo` list of services.
