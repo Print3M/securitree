@@ -3,7 +3,7 @@
     left: 0;
     top: 0;
     height: 100vh;
-    background-color: alpha(var(--mantine-color-dark-8), 0.97);
+    background-color: alpha(var(--mantine-color-dark-9), 0.97);
     padding: 7px;
     overflow: hidden;
     z-index: 9999999;
@@ -15,7 +15,7 @@
         width: 100vw;
         transition: transform 200ms ease;
         border-radius: 0;
-        background-color: var(--mantine-color-dark-8);
+        background-color: var(--mantine-color-dark-9);
 
         height: calc(100vh - var(--navbar-height));
         margin-top: var(--navbar-height);

@@ -1,6 +1,6 @@
 .reader {
     text-align: justify;
-    background-color: alpha(var(--mantine-color-dark-8), 0.97);
+    background-color: alpha(var(--mantine-color-dark-9), 0.97);
     z-index: 9;
     min-height: 100vh;
 
