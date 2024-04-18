@@ -21,7 +21,7 @@ const _convertDreeToTree = async (dreeData: dree.Dree) => {
     return {
         ...node,
         children,
-    } as TreeNode
+    } satisfies TreeNode
 }
 
 export const getTreeBySlug = cache(async (slug: string) => {
