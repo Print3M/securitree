@@ -2,7 +2,7 @@
 label: RDP
 ---
 
-# Remote Desktop Protocol (RDP)
+# Remote Desktop Protocol (RDP) for Lateral Movement
 
 > **Requirements**:
 >

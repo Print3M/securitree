@@ -3,7 +3,7 @@
 import { FC } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Button, Space } from "@mantine/core"
+import { Box, Button, Space, Text } from "@mantine/core"
 import { IconBinaryTree2, IconBook } from "@tabler/icons-react"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import { useDisclosure } from "@mantine/hooks"
@@ -16,6 +16,15 @@ const Reader: FC = () => {
         <>
             <main className={classes.reader} data-opened={opened}>
                 <div className={classes.content}>
+                    <Box fz="sm" pb="xs" id="hashtags">
+                        {selected.breadcrumbs.map(i => (
+                            <span key={i}>
+                                {" #"}
+                                {i}
+                            </span>
+                        ))}
+                        <span> {selected.subLabel}</span>
+                    </Box>
                     <MDRenderer compiledSource={selected.mdx} />
                     {/* 
                     {selected?.portalSlug && (

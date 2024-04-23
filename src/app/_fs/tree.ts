@@ -2,18 +2,19 @@ import "server-only"
 
 import * as dree from "dree"
 import { cache } from "react"
-import { TreeNode } from "./types"
+import { NodeCtx, TreeNode } from "./types"
 import { parseNode } from "./markdown"
 
-const _convertDreeToTree = async (dreeData: dree.Dree) => {
+
+const _convertDreeToTree = async (dreeData: dree.Dree, ctx: NodeCtx) => {
     if (dreeData.type != dree.Type.DIRECTORY) return null
 
     const mdFilePath = `${dreeData.path}/index.md`
-    const node = await parseNode(mdFilePath)
+    const node = await parseNode(mdFilePath, ctx)
 
     let children: TreeNode[] = []
     for (const child of dreeData.children || []) {
-        const item = await _convertDreeToTree(child)
+        const item = await _convertDreeToTree(child, { breadcrumbs: node.breadcrumbs })
 
         if (item) children.push(item)
     }
@@ -29,7 +30,7 @@ export const getTreeBySlug = cache(async (slug: string) => {
         symbolicLinks: false,
         excludeEmptyDirectories: true,
     })
-    const tree = await _convertDreeToTree(dreeData)
+    const tree = await _convertDreeToTree(dreeData, { breadcrumbs: [] })
 
     return tree!
 })

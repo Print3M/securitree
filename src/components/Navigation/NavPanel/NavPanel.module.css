@@ -4,12 +4,11 @@
     top: 0;
     height: 100vh;
     background-color: alpha(var(--mantine-color-dark-9), 0.97);
-    padding: 7px;
+    padding: 8px;
     overflow: hidden;
     z-index: 9999999;
-    width: 300px;
 
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         top: 0;
         transform: none;
         width: 100vw;

@@ -1,7 +1,7 @@
 .header {
     display: none;
 
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         display: block;
         position: fixed;
         top: 0;

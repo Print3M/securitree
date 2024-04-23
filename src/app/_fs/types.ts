@@ -1,5 +1,9 @@
 type MDX = string
 
+export interface NodeCtx {
+    breadcrumbs: string[]
+}
+
 export interface NodePath {
     treeSlug: string
     nodeSlug: string | null
@@ -12,6 +16,7 @@ export interface Node extends NodePath {
     mdFilePath: string
     subLabel: string | null
     nodeSlug: string | null
+    breadcrumbs: string[]
 }
 
 export interface TreeNode extends Node {

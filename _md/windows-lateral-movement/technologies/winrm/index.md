@@ -3,7 +3,7 @@ label: WinRM
 subLabel: (winrs, PS Remoting)  
 ---
 
-# Windows Remote Managament (WinRM)
+# Windows Remote Managament (WinRM) for Lateral Movement
 
 > **Requirements**:
 >

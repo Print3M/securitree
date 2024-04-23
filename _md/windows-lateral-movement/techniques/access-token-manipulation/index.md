@@ -3,7 +3,7 @@ label: Access Token Manipulation
 subLabel: (RunAs)
 ---
 
-# Token Manipulation
+# Token Manipulation for Lateral Movement
 
 > **Requirements**
 >

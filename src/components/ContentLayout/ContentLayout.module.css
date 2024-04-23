@@ -2,7 +2,7 @@
     width: 100%;
     display: flex;
 
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         display: block;
     }
 }

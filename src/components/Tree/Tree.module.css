@@ -4,7 +4,7 @@
     flex: 1;
     height: 100vh;
 
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         position: fixed;
         top: 0;
         left: 0;
@@ -37,6 +37,9 @@
 */
 
 .tree {
+    --line-weight: 2px;
+    --line-color: #ccc;
+    
     position: absolute;
     min-width: max-content;
     width: max-content;
@@ -47,13 +50,13 @@
     --margin-left: 100px;
     transform: translate(calc(-50% + var(--margin-left)), -50%) rotate(-90deg);
 
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         --margin-left: 0px;
     }
 }
 
 .scaleBox {
-    @mixin smaller-than $mantine-breakpoint-xl {
+    @mixin smaller-than $mantine-breakpoint-md {
         transform: scale(0.8);
     }
 }
@@ -88,14 +91,14 @@
     position: absolute;
     top: 0;
     right: 50%;
-    border-top: 1px solid #ccc;
+    border-top: var(--line-weight) solid var(--line-color);
     width: 50%;
     height: 20px;
 }
 .tree li::after {
     right: auto;
     left: 50%;
-    border-left: 1px solid #ccc;
+    border-left: var(--line-weight) solid var(--line-color);
 }
 
 /* Remove left-right connectors from elements without any siblings */
@@ -117,7 +120,7 @@
 
 /* Add back the vertical connector to the last nodes */
 .tree li:last-child::before {
-    border-right: 1px solid #ccc;
+    border-right: var(--line-weight) solid var(--line-color);
     border-radius: 0 5px 0 0;
     -webkit-border-radius: 0 5px 0 0;
     -moz-border-radius: 0 5px 0 0;
@@ -134,7 +137,7 @@
     position: absolute;
     top: 0;
     left: 50%;
-    border-left: 1px solid #ccc;
+    border-left: var(--line-weight) solid var(--line-color);
     width: 0;
     height: 20px;
 }

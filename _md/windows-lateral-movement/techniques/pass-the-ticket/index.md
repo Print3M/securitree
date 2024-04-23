@@ -3,7 +3,7 @@ label: Pass-the-Ticket (Kerberos)
 subLabel: (Rubeus, getTGT)
 ---
 
-# Pass-the-Ticket
+# Pass-the-Ticket for Lateral Movement
 
 > **Requirements**
 >

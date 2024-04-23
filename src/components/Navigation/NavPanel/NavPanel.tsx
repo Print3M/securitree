@@ -30,6 +30,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                     justify="left"
                     size="compact-md"
                     title="Home"
+                    fz="sm"
                 >
                     Home
                 </Button>
@@ -46,6 +47,7 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                                 justify="left"
                                 size="compact-md"
                                 title={i.label}
+                                fz="sm"
                             >
                                 {i.label}
                             </Button>

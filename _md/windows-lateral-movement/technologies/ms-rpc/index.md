@@ -2,7 +2,7 @@
 label: MS-RPC
 ---
 
-# Microsoft Remote Procedure Call (MS-RPC)
+# Microsoft Remote Procedure Call (MS-RPC) for Lateral Movement
 
 MS-RPC supports a number of interfaces through which the administrator is able to perform various tasks on the system remotely. For example, some of them can create processes and execute administrator commands. We can use this for lateral movement.
 
