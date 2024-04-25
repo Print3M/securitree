@@ -2,7 +2,7 @@
 label: Double Hop
 ---
 
-# Double Hop Problem
+# Double Hop Problem and Lateral Movement
 
 Double hop problem is related to the concept of logon type. Not every logon works the same way. Basic **Interactive Logon** (type 2) occurs when a user physically logs into Windows. When this happens, the credentials (NT hash or Kerberos TGT) are stored in LSASS memory and are used for further authentication to e.g. SMB shares.
 

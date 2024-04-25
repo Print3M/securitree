@@ -1,7 +1,6 @@
 ---
 label: MS-WMI
-subLabel: (WmiExec, wmic)
-disabled: true
+subLabel: (WmiExec)
 ---
 
 # MS-WMI: Windows Management Instrumentation Remote Protocol
@@ -9,35 +8,45 @@ disabled: true
 > **Requirements**
 >
 > * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
-> * WMI allowed on firewall (by default: allowed on DC, disallowed on client machine)
+> * WMI allowed on firewall (by default: allowed on server, filtered on client machine).
 
-Remote WMI is commonly used for network administration so it's quite common to see it unfiltered on an internal network.
-
-The initial WMI communications use TCP port 135 and afterwards a random port is negotiated. Since WMI and RPC services are often used for remote administration and administration tools, it is common to see these ports open and unfiltered on internal networks.
-
-```powershell
-# Get WMI service status
-Get-Service Winmgmt
-```
-
-* It works when firewall Windows Management Instrumentation exception enabled.
-* Logon: Network
-* Windows Server 2008 introduced an improved version of the Windows Firewall as enabled and running by default. As part of that default configuration, DCOM connections to a Windows 2008 server are blocked.
+WMI protocol is commonly used for remote machine administration tasks. WMI is accessed via negotiated TCP port (not a named pipe). It is separately handled by firewall rule. Logon via WMI is of the **Network type** (no reusable credentials).
 
 Linux:
 
 ```bash
-# Using NT
+# Using password
 impacket-wmiexec $domain/$user:$password@$host
+
+# Using NT hash
+impacket-wmiexec -hashes :$nt_hash $domain/$user@$host
+
+# Using Kerberos TGT
+export KRB5CCNAME=$tgt_ccache_file
+impacket-wmiexec $hostname -k -no-pass -dc-ip $dc_ip
 ```
 
 Windows:
 
 > **IMPORTANT**: Built-in `wmic` has not been available since Windows 11.
 
+WMI is very powerful. It can manage processes, services and scheduled tasks. Here I will show only a very basic use to create a process on a remote host. Note that firing this command will not return output. We need to save the output to a file and download it through another channel (e.g. via SMB).
+
 ```powershell
-# Using Kerberos TGT
-wmic /authority:”kerberos:CORP\WIN8WORKSTATION” /node:172.16.48.83 process call create “stuff”
+# Using password
+wmic /user:$domain\$user /password:$password /node:$host process call create "cmd.exe /c whoami.exe > C:\output.txt"
+
+# Using Kerberos TGT (in-memory)
+wmic /node:$host process call create $command
+```
+
+Keep in mind that there is a lof of techniques for executing code on a remote host using WMI and new ones are being discovered all the time.
+
+## Enable WMI
+
+```powershell
+# Enable firewall rules
+netsh advfirewall firewall set rule group="windows management instrumentation (wmi)" new enable=yes
 ```
 
 ## Resources
@@ -45,7 +54,4 @@ wmic /authority:”kerberos:CORP\WIN8WORKSTATION” /node:172.16.48.83 process c
 * [Microsoft, _User Account Control and WMI_](https://learn.microsoft.com/en-us/windows/win32/wmisdk/user-account-control-and-wmi)
 * [Crowdstrike, _Defense Against the Lateral Arts: Detecting and Preventing Impacket's Wmiexec_](https://www.crowdstrike.com/blog/how-to-detect-and-prevent-impackets-wmiexec/)
 * [Philip Tsukerman, _Expanding Your WMI Lateral Movement Arsenal_](https://www.youtube.com/watch?v=RRc_3c5diC4)
-
-## TODO
-
-* WMI Event Subscription (lateral movement technique)
+* [Raj Chandel, _Lateral Movement: WMI_](https://www.hackingarticles.in/lateral-movement-wmi/)

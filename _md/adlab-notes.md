@@ -6,7 +6,7 @@
 * `Domain Admins` are placed in local `Administrators` group on DC.
 * There is `krbtgt` in `Domain Users` group.
 * There is `Guest` account in domain.
-* There is PowerShell AD module on DC. There's no PowerShell AD module on machines.
+* There is PowerShell AD module on Windows Server. There's no PowerShell AD module on machines.
 * `Domain Admins` group is added to local `Administrators` group on every machine in the domain (after domain join). Because of that, any domain admin is local admin as well.
 * `ADLAB\hpotter`, `adlab.local\hpotter`, `adlab\hpotter` and even `hpotter` (wihout domain part) works the same. Logon by default uses domain user. If there is two users (local and domain) with the same name, it uses local user and domain part must be specified explictly.
 * Local Administrator account on machine is disabled (presence of domain doesn't matter).

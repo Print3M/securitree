@@ -8,8 +8,8 @@ MS-RPC supports a number of interfaces through which the administrator is able t
 
 There are two basic methods of interacting with RPC interfaces (each interface can support a different method):
 
-- `ncacn_ip_tcp` - access via TCP ports. These protocols (e.g. MS-WMI) use dynamically assigned or pre-defined ports to communicate with them. Usually, **they are handled by firewall separately** and **filtered by default**.
-- `ncacn_np` - access via named pipes via SMB `IPC$` share. These protocols (e.g. MS-SCMR) usually are not handled by firewall separately because they use standard SMB named pipes. By default they are not filtered but there is no access to them if SMB is filtered.
+- `ncacn_ip_tcp` - access via TCP ports. These protocols (e.g. MS-WMI) use dynamically assigned (in range of port 49152 - 65535) or pre-defined ports to communicate with them. Usually, **they are handled by firewall separately** and **filtered by default**.
+- `ncacn_np` - access via named pipes via SMB `IPC$` share. These protocols (e.g. MS-SCMR) usually are not handled by firewall separately because they use standard SMB named pipes. By default they are not filtered separately but there is no access to them if SMB is filtered.
 
 ## Allow SMB on firewall with PowerShell
 
