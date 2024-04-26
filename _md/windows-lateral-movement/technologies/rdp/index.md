@@ -27,9 +27,9 @@ mstsc
 
 ## RDP Pass-the-Hash (Restricted Admin Mode)
 
-Generally, **Pass-the-Hash is not possible using standard remote interactive RDP logon by default**. If you try to pass the hash, you will get an error stating that "Account Restrictions are preventing this user from signing in". Hovewer, pass the hash is possible when the machine has _Restricted Admin Mode_ enabled. This mode changes interactive RDP logon to network logon type so user's credentials are not passed to the target machine and cannot be reused further. **It is disabled by default**.
+Generally, **Pass-the-Hash is not possible using standard remote interactive RDP logon by default**. If you try to pass the hash, you will get an error stating that "Account Restrictions are preventing this user from signing in". Hovewer, pass the hash is possible when the machine has _Restricted Admin Mode_ enabled. This mode changes the interactive RDP logon to the network logon type so user's credentials are not passed to the target machine and cannot be reused further. **It is disabled by default**.
 
-The good news is, if you have any level of administrative access to the machine, you can enable this feature remotely and the perform the pass-the-hash attack. Remember, it changes the logon type so reusable credentials are not available on the machine!
+The good news is, if you have any level of administrative access to the machine, you can enable this feature remotely and perform a pass-the-hash attack. Remember, it changes the logon type so reusable credentials are not available on the machine!
 
 Windows:
 
