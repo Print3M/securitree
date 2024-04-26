@@ -15,7 +15,7 @@ Even if your local user is a member of the local administrators group and all th
 
 ## Disable Remote UAC Accounts Filtering
 
-The default Remote UAC behavior can be disabled editing Windows Registry:
+If you have administrative access to the machine via interactive logon you can disable default Remote UAC behavior by editing Windows Registry:
 
 ```powershell
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System" /f /v LocalAccountTokenFilterPolicy /t Reg_DWORD /d 1
