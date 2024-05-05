@@ -16,7 +16,7 @@ const ChildItem: FC<Props & { level: number }> = ({ node, level }) => (
                 <Anchor
                     component={Link}
                     title={node.label}
-                    href={`/${node.treeSlug}/${node.nodeSlug}`}
+                    href={`/${node.treeSlug}/${node.nodeSlug || ""}`}
                 >
                     {node.label}
                 </Anchor>
