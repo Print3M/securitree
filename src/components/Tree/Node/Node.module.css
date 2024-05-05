@@ -19,7 +19,6 @@
 .node {
     font-size: 0.95rem;
     display: inline-block;
-    background-color: red;
     padding: 0px 2px;
     position: relative;
     border-radius: var(--mantine-radius-md);

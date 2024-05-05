@@ -1,12 +1,12 @@
 import classes from "./NavPanel.module.css"
-import { Anchor, Box, Button, Divider, ScrollArea, Stack } from "@mantine/core"
+import { Anchor, Box, Button, Divider, Group, ScrollArea, Stack } from "@mantine/core"
 import Link from "next/link"
 import SearchBar from "./SearchBar/SearchBar"
 import { FC, useMemo, useState } from "react"
 import { GlobalData } from "@/config"
-import GithubIcon from "./GithubIcon/GithubIcon"
 import { usePathname } from "next/navigation"
 import { Node } from "@/app/_fs/types"
+import { SocialIcons } from "../SocialIcons/SocialIcons"
 
 interface Props {
     opened: boolean
@@ -20,13 +20,23 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
 
     return (
         <div className={classes.container} data-opened={!!opened}>
-            <GithubIcon />
             <Stack h="100%">
-                <Box className={classes.logoBox}>SecuriTree</Box>
                 <Button
-                    href="/home"
+                    variant="transparent"
                     component={Link}
-                    variant={pathname == "/home" ? "light" : "subtle"}
+                    href="/"
+                    title="Home"
+                    color="white"
+                    fz="2rem"
+                    mt="sm"
+                >
+                    SecuriTree
+                </Button>
+                {/* <Box className={classes.logoBox}>SecuriTree</Box> */}
+                <Button
+                    href="/"
+                    component={Link}
+                    variant={pathname == "/" ? "light" : "subtle"}
                     justify="left"
                     size="compact-md"
                     title="Home"
@@ -55,10 +65,22 @@ const NavPanel: FC<Props> = ({ opened, paths }) => {
                     </nav>
                 </ScrollArea>
                 <footer className={classes.footer}>
-                    Created by{" "}
-                    <Anchor component={Link} href={GlobalData.print3mUrl} title="Print3M's Hub" fz="sm">
-                        Print3M
-                    </Anchor>
+                    <Stack gap={5}>
+                        <Group justify="center">
+                            <SocialIcons size={20} />
+                        </Group>
+                        <Box>
+                            Created by{" "}
+                            <Anchor
+                                component={Link}
+                                href={GlobalData.print3mUrl}
+                                title="Print3M's Hub"
+                                fz="sm"
+                            >
+                                Print3M
+                            </Anchor>
+                        </Box>
+                    </Stack>
                 </footer>
             </Stack>
         </div>

@@ -3,10 +3,11 @@
 import { FC } from "react"
 import classes from "./Reader.module.css"
 import MDRenderer from "./MDRenderer/MDRenderer"
-import { Box, Button, Space, Text } from "@mantine/core"
+import { Box, Button, Space, Text, Title } from "@mantine/core"
 import { IconBinaryTree2, IconBook } from "@tabler/icons-react"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import { useDisclosure } from "@mantine/hooks"
+import ChildrenList from "./ChildrenList/ChildrenList"
 
 const Reader: FC = () => {
     const [opened, handlers] = useDisclosure(true)
@@ -26,6 +27,8 @@ const Reader: FC = () => {
                         <span> {selected.subLabel}</span>
                     </Box>
                     <MDRenderer compiledSource={selected.mdx} />
+                    <ChildrenList node={selected} />
+
                     {/* 
                     {selected?.portalSlug && (
                         <Center mt="xl">
@@ -44,18 +47,19 @@ const Reader: FC = () => {
                     )}
                     */}
                     <Space h={100} />
-                    {/* {selected && <NavButtons item={selected} />} */}
                 </div>
             </main>
-            <Button
-                onClick={handlers.toggle}
-                classNames={{ root: classes.showButton }}
-                leftSection={opened ? <IconBinaryTree2 /> : <IconBook />}
-                size="md"
-                data-opened={opened}
-            >
-                {opened ? "Show tree" : "Show article"}
-            </Button>
+            <div>
+                <Button
+                    onClick={handlers.toggle}
+                    classNames={{ root: classes.showButton }}
+                    leftSection={opened ? <IconBinaryTree2 /> : <IconBook />}
+                    size="md"
+                    data-opened={opened}
+                >
+                    {opened ? "Show tree" : "Show article"}
+                </Button>
+            </div>
         </>
     )
 }

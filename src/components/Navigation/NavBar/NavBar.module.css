@@ -11,5 +11,6 @@
         background-color: var(--mantine-color-dark-9);
         z-index: 99999;
         height: var(--navbar-height);
+        border-bottom: 1px solid var(--mantine-color-dark-6);
     }
 }

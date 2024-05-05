@@ -3,6 +3,7 @@
     top: 0;
     flex: 1;
     height: 100vh;
+    background-color: #242424;
 
     @mixin smaller-than $mantine-breakpoint-md {
         position: fixed;
@@ -39,7 +40,7 @@
 .tree {
     --line-weight: 2px;
     --line-color: #ccc;
-    
+
     position: absolute;
     min-width: max-content;
     width: max-content;

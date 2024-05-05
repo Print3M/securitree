@@ -17,10 +17,7 @@ export interface Node extends NodePath {
     subLabel: string | null
     nodeSlug: string | null
     breadcrumbs: string[]
-}
-
-export interface TreeNode extends Node {
-    children: TreeNode[]
+    children: Node[]
 }
 
 export interface SelectedNode extends Node {

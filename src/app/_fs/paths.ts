@@ -4,6 +4,7 @@ import * as dree from "dree"
 import { cache } from "react"
 import { convertTreeToFlatNodes, getTreeBySlug } from "./tree"
 import { Node } from "./types"
+import { withCoalescedInvoke } from "next/dist/lib/coalesced-function"
 
 const _getRootTreeDirs = cache(async () => {
     const root = await dree.scanAsync(`./_md/`, {
@@ -27,8 +28,7 @@ const getAllNodes = cache(async () => {
 
         for (const node of nodes) {
             // Exclude children property
-            const { children, ...data } = node
-            allNodes.push(data)
+            allNodes.push(node)
         }
     }
 

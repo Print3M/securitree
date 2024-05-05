@@ -1,12 +1,12 @@
 import { FC } from "react"
 import { SelectedNodeContextProvider } from "@/contexts/selectedNodeCtx"
 import { TreeDataContextProvider } from "@/contexts/treeDataCtx"
-import ContentLayout from "@/components/ContentLayout/ContentLayout"
 import { getTreeBySlug } from "../_fs/tree"
 import { getRootNodes } from "../_fs/paths"
 import { parseNodeMDX } from "../_fs/markdown"
 import { SelectedNode } from "../_fs/types"
 import { Metadata, ResolvingMetadata } from "next"
+import TreeLayout from "@/components/TreeLayout/TreeLayout"
 
 interface Params {
     treeSlug: string
@@ -49,7 +49,7 @@ const Page: FC<{ params: Params }> = async ({ params }) => {
     return (
         <TreeDataContextProvider tree={tree} slug={params.treeSlug}>
             <SelectedNodeContextProvider node={node}>
-                <ContentLayout />
+                <TreeLayout />
             </SelectedNodeContextProvider>
         </TreeDataContextProvider>
     )

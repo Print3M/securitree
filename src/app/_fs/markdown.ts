@@ -45,5 +45,6 @@ export const parseNode = async (mdFilePath: string, ctx: NodeCtx) => {
         subLabel: metadata?.subLabel || null,
         disabled: !!metadata.disabled,
         breadcrumbs: [...ctx.breadcrumbs, label],
+        children: [],
     } satisfies Node
 }

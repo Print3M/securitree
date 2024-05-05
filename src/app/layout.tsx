@@ -61,7 +61,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
             <head>
                 <ColorSchemeScript forceColorScheme={colorSchema} />
             </head>
-            <body style={{ backgroundColor: "#242424" }}>
+            <body style={{ backgroundColor: "#141414" }}>
                 <MantineProvider forceColorScheme={colorSchema} theme={theme}>
                     <Navigation paths={paths} />
                     {children}
@@ -70,5 +70,6 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
         </html>
     )
 }
+// "#242424"
 
 export default RootLayout

@@ -1,0 +1,17 @@
+.wrapper {
+    padding-top: 46px;
+
+    @mixin larger-than $mantine-breakpoint-md {
+        @mixin smaller-than 1350px {
+            --nav-panel-width: 115px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(calc(-50% + var(--nav-panel-width)));
+            width: 700px;
+        }
+    }
+
+    @mixin smaller-than $mantine-breakpoint-md {
+        padding-top: 65px;
+    }
+}

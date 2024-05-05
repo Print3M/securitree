@@ -12,8 +12,6 @@ interface Props {
 }
 
 const Navigation: FC<Props> = ({ paths }) => {
-    const navPaths = useMemo(() => paths.filter(i => i.treeSlug != "home"), [paths])
-
     const [navOpened, navHandlers] = useDisclosure(false)
     const pathname = usePathname()
 
@@ -25,7 +23,7 @@ const Navigation: FC<Props> = ({ paths }) => {
 
     return (
         <>
-            <NavPanel opened={navOpened} paths={navPaths} />
+            <NavPanel opened={navOpened} paths={paths} />
             <NavBar navOpened={navOpened} toggleNav={navHandlers.toggle} />
         </>
     )

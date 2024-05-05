@@ -23,7 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return [
         {
-            url: `${GlobalData.url}/home`,
+            url: `${GlobalData.url}`,
             changeFrequency: "monthly",
             priority: 1.0,
         },

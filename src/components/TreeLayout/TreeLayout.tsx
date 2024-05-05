@@ -1,12 +1,12 @@
 import Tree from "../Tree/Tree"
 import Reader from "../Reader/Reader"
-import classes from "./ContentLayout.module.css"
+import classes from "./TreeLayout.module.css"
 
-const ContentLayout = () => (
+const TreeLayout = () => (
     <div className={classes.root}>
         <Tree />
         <Reader />
     </div>
 )
 
-export default ContentLayout
+export default TreeLayout

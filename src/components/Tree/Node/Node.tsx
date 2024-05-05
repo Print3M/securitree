@@ -3,10 +3,10 @@ import { FC, useMemo } from "react"
 import classes from "./Node.module.css"
 import { useSelectedNodeCtx } from "@/contexts/selectedNodeCtx"
 import Link from "next/link"
-import { TreeNode } from "@/app/_fs/types"
+import { Node } from "@/app/_fs/types"
 
 interface Props {
-    item: TreeNode
+    item: Node
 }
 
 const Node: FC<Props> = ({ item }) => {

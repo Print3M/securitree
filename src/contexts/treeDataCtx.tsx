@@ -1,17 +1,17 @@
 "use client"
 
-import { TreeNode } from "@/app/_fs/types"
+import { Node } from "@/app/_fs/types"
 import { FC, PropsWithChildren, createContext, memo, useContext, useMemo } from "react"
 
 interface TreeCtx {
-    tree: TreeNode
+    tree: Node
     slug: string
 }
 
 const TreeDataContext = createContext<TreeCtx | null>(null)
 
 interface Props {
-    tree: TreeNode
+    tree: Node
     slug: string
 }
 

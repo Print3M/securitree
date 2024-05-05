@@ -1,9 +1,9 @@
 import { FC, memo } from "react"
 import Node from "../Node/Node"
-import { TreeNode } from "@/app/_fs/types"
+import { Node as NodeType } from "@/app/_fs/types"
 
 interface Props {
-    node: TreeNode
+    node: NodeType
 }
 
 const SubTree: FC<Props> = ({ node }) => {
