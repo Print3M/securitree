@@ -14,6 +14,7 @@ export interface Node extends NodePath {
     disabled: boolean
     treeSlug: string
     mdFilePath: string
+    order: number
     subLabel: string | null
     nodeSlug: string | null
     breadcrumbs: string[]

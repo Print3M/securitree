@@ -20,6 +20,7 @@ interface Frontmatter {
     label?: string
     subLabel?: string
     disabled?: boolean
+    order?: number
 }
 
 const _convertMdFilePathToNodePath = (mdFilePath: string) => {
@@ -42,9 +43,10 @@ export const parseNode = async (mdFilePath: string, ctx: NodeCtx) => {
         ...nodePath,
         mdFilePath,
         label,
-        subLabel: metadata?.subLabel || null,
+        subLabel: metadata.subLabel || null,
         disabled: !!metadata.disabled,
         breadcrumbs: [...ctx.breadcrumbs, label],
         children: [],
+        order: metadata.order || 0,
     } satisfies Node
 }

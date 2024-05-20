@@ -20,7 +20,7 @@ const _convertDreeToTree = async (dreeData: dree.Dree, ctx: NodeCtx) => {
 
     return {
         ...node,
-        children,
+        children: children.sort((a, b) => a.order - b.order),
     } satisfies Node
 }
 
