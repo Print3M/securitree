@@ -27,3 +27,5 @@ bloodhound
 ```
 
 Click `Upload Data` button and select `.zip` file with the collected data.
+
+{/*TODO: Raw Get-ADObject*/}
