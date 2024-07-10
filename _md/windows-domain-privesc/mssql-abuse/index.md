@@ -72,7 +72,7 @@ impacket-mssqlclient $hostname -k -no-pass -dc-ip $dc_ip
 
 ## Linked servers
 
-Any user regardless of their privilege level is allowed to use the preconfigured database links
+Any user regardless of their privilege level is allowed to use the preconfigured database links.
 
 Windows (PowerUpSQL module):
 
@@ -99,6 +99,8 @@ msfconsole
 > set username $username
 > set password $password
 ```
+
+{/*TODO: SVC hash stealing, cmd execution*/}
 
 ## References
 

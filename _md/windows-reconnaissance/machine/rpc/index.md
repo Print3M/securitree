@@ -10,7 +10,7 @@ Anonymous RPC connection means no username and no password provided. Unauthentic
 
 ```bash
 # Connect anonymously
-rpcclient -U "" $ip
+rpcclient -U "%" $ip
 ```
 
 ## Authenticated connection

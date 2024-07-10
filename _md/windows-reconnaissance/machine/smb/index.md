@@ -4,7 +4,7 @@ label: SMB
 
 # SMB (445)
 
-## Anonymous shares enumeration
+## Shares enumeration
 
 Enumeration using Guest account or Anonymous Logon. Both of these logons are quite rare. Most often only `Authenticated Users` have access to shares.
 
@@ -19,26 +19,24 @@ smbmap -H $ip -u "" -p ""
 # Guest logon
 smbclient -L //$ip/ -U "guest%"
 smbmap -H $ip -u "guest" -p ""
-```
 
-## Authenticated shares enumeraton
-
-Enumeration with credentials:
-
-```bash
+# Enumerate with credentials
 crackmapexec smb $ip -u $user -p $pass --shares
-
 smbclient -L //$ip/ -U "$domain/$user%$pass"
-
-# Enumerate with permissions
 smbmap -H $ip -u $user -p $pass -d $domain
 ```
+
+## Connect to share
 
 Connect to a specific SMB share:
 
 ```bash
-# Connect to SMB share (interactive share)
+# Connect to SMB share (interactive shell)
 smbclient //$ip/$share -U "$domain/$user%$pass"
+
+# Connect to SMB share with impacket
+impacket-smbclient $domain/$user:$password@$ip 
+> use $share_name
 
 # Mount SMB share to local filesystem
 mount -t cifs -o "user=$user,password=$pass" //$ip/$share /mnt/$target_dir

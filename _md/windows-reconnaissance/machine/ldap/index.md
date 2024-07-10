@@ -23,9 +23,14 @@ ldapsearch -H ldap://$ip:389/ -x -s sub -b "$object_DN" "(objectClass=*)" "*" +
 ## Authenticated bind
 
 ```bash
-# Enumerate AD data via LDAP
-nmap --script ldap-rootdse,ldap-search $ip
 
 # Get sub-objects of DN object
 ldapsearch -H ldap://$ip:389/ -x -D "$domain\\$user" -w $pass -s sub -b "$object_DN" "(objectClass=*)" "*" +
+```
+
+## Automatic scans
+
+```bash
+# Enumerate AD data via LDAP
+nmap --script ldap-rootdse,ldap-search $ip
 ```
