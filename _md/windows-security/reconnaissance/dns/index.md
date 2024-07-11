@@ -2,7 +2,7 @@
 label: DNS
 ---
 
-# Domain Name Service (53)
+# Recon of Domain Name Service (53)
 
 Enumerate the information held on the DNS server. These could be records about subdomains, but they could also be records with some data. Good results gives Metasploit module `msf auxiliary/gather/enum_dns`.
 

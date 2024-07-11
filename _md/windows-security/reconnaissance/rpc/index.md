@@ -2,7 +2,7 @@
 label: RPC
 ---
 
-# RPC
+# Recon of RPC
 
 ## Anonymous connection
 
@@ -41,4 +41,23 @@ enum4linux-ng -A $ip
 enum4linux-ng -A $ip -u $user -p $pass
 ```
 
-{/*TODO: Interfaces, named pipes and so on*/}
+## Interfaces
+
+Via TPC ports (`ncacn_ip_tcp` protocol):
+
+```bash
+# Enumerate RPC interfaces accessible via TCP
+msfconsole
+> use auxiliary/scanner/dcerpc/tcp_dcerpc_auditor
+```
+
+Via named pipes (`ncacn_np` protocol):
+
+```bash
+# Enumerate named pipes available via SMB
+msfconsole
+> use auxiliary/scanner/smb/pipe_auditor
+
+# Enumerate RPC interfaces accesible via named pipe
+> use auxiliary/scanner/smb/pipe_dcerpc_auditor
+```

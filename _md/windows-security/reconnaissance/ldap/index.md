@@ -2,7 +2,7 @@
 label: LDAP
 ---
 
-# LDAP
+# Recon of LDAP (389, 636)
 
 To retrieve an AD object or sub-objects so-called [Distinguished Names (DN)](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/ldap/distinguished-names) are used to identify the object.
 
@@ -23,7 +23,6 @@ ldapsearch -H ldap://$ip:389/ -x -s sub -b "$object_DN" "(objectClass=*)" "*" +
 ## Authenticated bind
 
 ```bash
-
 # Get sub-objects of DN object
 ldapsearch -H ldap://$ip:389/ -x -D "$domain\\$user" -w $pass -s sub -b "$object_DN" "(objectClass=*)" "*" +
 ```

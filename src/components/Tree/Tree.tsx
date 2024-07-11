@@ -9,7 +9,8 @@ import { useTreeStatePersistence } from "./hooks"
 
 const MovableArea: FC<PropsWithChildren> = memo(({ children }) => {
     const [isInited, setIsInited] = useState(false)
-    const [initState, onPanning, onZoom] = useTreeStatePersistence()
+    const { slug } = useTreeDataCtx()
+    const [initState, onPanning, onZoom] = useTreeStatePersistence(slug)
 
     const onInit = () => setIsInited(true)
 

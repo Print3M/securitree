@@ -15,6 +15,7 @@ Enumeration using Guest account or Anonymous Logon. Both of these logons are qui
 # Anonymous Logon
 smbclient -L //$ip/ -U "%"
 smbmap -H $ip -u "" -p ""
+impacket-smbclient ""@$ip
 
 # Guest logon
 smbclient -L //$ip/ -U "guest%"

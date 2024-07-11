@@ -1,5 +1,5 @@
 ---
-label: Windows Lateral Movement
+label: Lateral Movement
 ---
 
 # Windows Lateral Movement

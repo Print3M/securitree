@@ -1,14 +1,14 @@
 import { useSessionStorage } from "@mantine/hooks"
 import { ReactZoomPanPinchRef } from "react-zoom-pan-pinch"
 
-const useCoordinatesPersistence = () => {
+const useCoordinatesPersistence = (treeId: string) => {
     const [xCoord, setXCoord] = useSessionStorage({
-        key: "tree-x-coord",
+        key: `tree-x-coord-${treeId}`,
         defaultValue: 0,
         getInitialValueInEffect: false,
     })
     const [yCoord, setYCoord] = useSessionStorage({
-        key: "tree-y-coord",
+        key: `tree-y-coord-${treeId}`,
         defaultValue: 0,
         getInitialValueInEffect: false,
     })
@@ -27,9 +27,9 @@ const useCoordinatesPersistence = () => {
     ] as const
 }
 
-const useScalePersistence = () => {
+const useScalePersistence = (treeId: string) => {
     const [scale, setScale] = useSessionStorage({
-        key: "tree-scale",
+        key: `tree-scale-${treeId}`,
         defaultValue: 1,
         getInitialValueInEffect: false,
     })
@@ -37,9 +37,9 @@ const useScalePersistence = () => {
     return [scale, setScale] as const
 }
 
-export const useTreeStatePersistence = () => {
-    const [coords, setCoords] = useCoordinatesPersistence()
-    const [scale, setScale] = useScalePersistence()
+export const useTreeStatePersistence = (treeId: string) => {
+    const [coords, setCoords] = useCoordinatesPersistence(treeId)
+    const [scale, setScale] = useScalePersistence(treeId)
 
     const onPanning = (e: ReactZoomPanPinchRef) => {
         const { positionX, positionY } = e.state

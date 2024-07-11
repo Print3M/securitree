@@ -3,7 +3,7 @@ label: Active Directory
 disabled: false
 ---
 
-# Reconnaissance of Active Directory environment
+# Recon of Active Directory environment
 
 ## BloodHound
 
