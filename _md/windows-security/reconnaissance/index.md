@@ -1,5 +1,5 @@
 ---
-label: Windows Reconnaissance
+label: Reconnaissance
 ---
 
 # Windows Reconnaissance

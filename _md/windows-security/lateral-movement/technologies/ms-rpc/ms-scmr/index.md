@@ -3,7 +3,7 @@ label: MS-SCMR
 subLabel: (PsExec, SmbExec, ScExec)
 ---
 
-# MS-SCMR: Service Control Manager Remote Protocol
+# MS-SCMR (Service Control Manager Remote Protocol) for Lateral Movement
 
 > **Requirements**
 >

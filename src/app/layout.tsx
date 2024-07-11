@@ -45,7 +45,7 @@ export const metadata: Metadata = {
 }
 
 const theme = createTheme({
-    /** Put your mantine theme override here */
+    /* Put your mantine theme override here */
     primaryShade: 9,
     primaryColor: "orange",
     cursorType: "pointer",

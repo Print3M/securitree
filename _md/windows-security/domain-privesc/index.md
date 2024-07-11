@@ -1,5 +1,5 @@
 ---
-label: Windows Domain Privesc
+label: Domain Privesc
 ---
 
 # Windows AD Domain Privilege Escalation

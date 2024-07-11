@@ -25,10 +25,10 @@
     color: var(--mantine-color-white);
     font-weight: bold;
     border: 2px solid transparent;
-    background-color: var(--mantine-primary-color-light);
+    background-color: var(--mantine-primary-color-light-hover);
 
     &:hover {
-        background-color: var(--mantine-primary-color-light-hover);
+        background-color: var(--mantine-primary-color-light);
     }
 
     &[data-selected="true"] {

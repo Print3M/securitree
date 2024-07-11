@@ -3,7 +3,7 @@ label: WinRM
 subLabel: (winrs, PS Remoting)  
 ---
 
-# Windows Remote Managament (WinRM) for Lateral Movement
+# WinRM (Windows Remote Managament) for Lateral Movement
 
 > **Requirements**:
 >
@@ -37,7 +37,7 @@ winrs -r:$hostname -u:$domain\$username -p:$password "cmd.exe"
 winrs -r:$hostname "cmd.exe"
 ```
 
-{/* TODO: winrs /allowdelegate */}
+{/*TODO: winrs /allowdelegate*/}
 
 ## PowerShell Remoting
 
@@ -55,7 +55,7 @@ Enter-PSSession -Computername $host -Credential $credentials
 Enter-PSSession -ComputerName $host
 ```
 
-{/* TODO: Powershell Remoting with CredSSP */}
+{/*TODO: Powershell Remoting with CredSSP*/}
 
 ## Enable WinRM with PowerShell
 
@@ -68,5 +68,5 @@ Enable-PSRemoting
 
 ## Resources
 
-* [Doctor Scripto, _Enable PowerShell "Second-Hop" Functionality with CredSSP_](https://devblogs.microsoft.com/scripting/enable-powershell-second-hop-functionality-with-credssp/)
-* [Microsoft, _Making the second hop in PowerShell Remoting_](https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/ps-remoting-second-hop?view=powershell-7.4)
+* [Doctor Scripto, *Enable PowerShell "Second-Hop" Functionality with CredSSP*](https://devblogs.microsoft.com/scripting/enable-powershell-second-hop-functionality-with-credssp/)
+* [Microsoft, *Making the second hop in PowerShell Remoting*](https://learn.microsoft.com/en-us/powershell/scripting/learn/remoting/ps-remoting-second-hop?view=powershell-7.4)

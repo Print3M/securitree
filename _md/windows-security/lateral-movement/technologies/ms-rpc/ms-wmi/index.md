@@ -3,7 +3,7 @@ label: MS-WMI
 subLabel: (WmiExec)
 ---
 
-# MS-WMI: Windows Management Instrumentation Remote Protocol
+# MS-WMI (Windows Management Instrumentation Remote Protocol) for Lateral Movement
 
 > **Requirements**
 >
