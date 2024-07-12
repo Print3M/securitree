@@ -30,7 +30,8 @@ export const TreeDataContextProvider: FC<PropsWithChildren<Props>> = memo(
 )
 
 export const useTreeDataCtx = () => {
-    const ctx = useContext(TreeDataContext)
+    const _ctx = useContext(TreeDataContext)
+    const ctx = useMemo(() => _ctx, [_ctx])
 
     if (!ctx) {
         throw new Error("useTreeDataCtx has to be used within <TreeDataContextProvider>")
@@ -38,3 +39,12 @@ export const useTreeDataCtx = () => {
 
     return ctx
 }
+
+/*
+const useTreeSlug = () => {
+    const { slug } = useTreeDataCtx()
+    const memSlug = useMemo(() => slug, [slug])
+
+    return memSlug
+}
+*/
