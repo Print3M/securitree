@@ -1,5 +1,6 @@
 ---
 label: Lateral Movement
+order: 700
 ---
 
 # Windows Lateral Movement

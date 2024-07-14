@@ -1,6 +1,6 @@
 ---
 label: Access Token Manipulation
-subLabel: (RunAs, RunAsCs)
+subLabel: (RunAs, RunasCs)
 ---
 
 # Token Manipulation for Lateral Movement
@@ -48,11 +48,11 @@ mimikatz.exe
 > sekurlsa::pth /user:$target_user /domain:$domain /ntlm:$nt_hash /run:cmd.exe
 ```
 
-## RunAsCs (using password)
+## RunasCs (using password)
 
-If we don't have stable access to the machine over RDP or another more convenient method, we probably won't want to use the default `runas.exe` because it doesn't allow us to pass the password directly in the command line. Instead, we will use the specialized tool: `RunAsCs.exe` ([GitHub](https://github.com/antonioCoco/RunasCs)). This is a **custom offensive utility to run specific processes under a different user account by specifying explicit credentials**. It performs sophisticated access token manipulation under the hood.
+If we don't have stable access to the machine over RDP or another more convenient method, we probably won't want to use the default `runas.exe` because it doesn't allow us to pass the password directly in the command line. Instead, we will use the specialized tool: `RunasCs.exe` ([GitHub](https://github.com/antonioCoco/RunasCs)). This is a **custom offensive utility to run specific processes under a different user account by specifying explicit credentials**. It performs sophisticated access token manipulation under the hood.
 
-RunAsCs has many different parameters useful in red-teaming, below we present the most useful.
+RunasCs has many different parameters useful in red-teaming, below we present the most useful.
 
 > **NOTICE**: You can execute for example `nc.exe [...]` using `RunasCs` and get a reverse shell as a different user. `RunasCs` also has built-in ability (read below) to redirect standard streams of a command to a remote host.
 
