@@ -11,6 +11,8 @@ Enumeration using Guest account or Anonymous Logon. Both of these logons are qui
 - `Guest` account (no password) is disabled by default. Guest account is a member of `Everyone` group but it's not a member of `Authenticated Users` group. Also, even if Guest account is enabled, its access to SMB shares is still disabled by default. Documentation: [here](https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/guest-access-in-smb2-is-disabled-by-default).
 - Anonymous Logon (no username, no password) is a special group, not even included in the built-in `Everyone` group since Windows XP. You still need to set some options ([example](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/security-policy-settings/network-access-let-everyone-permissions-apply-to-anonymous-users)), it is quite complicated to give Anonymous Logon access to SMB share.
 
+Linux:
+
 ```bash
 # Anonymous Logon
 smbclient -L //$ip/ -U "%"
@@ -25,6 +27,13 @@ smbmap -H $ip -u "guest" -p ""
 crackmapexec smb $ip -u $user -p $pass --shares
 smbclient -L //$ip/ -U "$domain/$user%$pass"
 smbmap -H $ip -u $user -p $pass -d $domain
+```
+
+Windows:
+
+```powershell
+# List all shares available on host
+net view \\$host /all
 ```
 
 ## Connect to share
@@ -43,7 +52,7 @@ impacket-smbclient $domain/$user:$password@$ip
 mount -t cifs -o "user=$user,password=$pass" //$ip/$share /mnt/$target_dir
 ```
 
-## Internal data enumeration
+## Automated internal data enumeration
 
 ```bash
 # Enumerate internal data via SMB

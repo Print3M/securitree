@@ -1,13 +1,13 @@
 ---
 label: NetBIOS
-disabled: true
 ---
 
 # Recon of NetBIOS (139)
 
-TODO:
-
-- Information gathering
+```bash
+# Scan subnet for NetBIOS hosts
+nbtscan -r 192.168.0.0/24
+```
 
 ## Automated enumeration
 
