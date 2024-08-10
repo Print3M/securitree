@@ -1,6 +1,5 @@
 ---
 label: Subdomains Enumeration
-disabled: true
 ---
 
 # Subdomains Enumeration

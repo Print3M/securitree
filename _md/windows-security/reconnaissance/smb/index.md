@@ -2,7 +2,7 @@
 label: SMB
 ---
 
-# SMB (445)
+# Recon of SMB (445)
 
 ## Shares enumeration
 

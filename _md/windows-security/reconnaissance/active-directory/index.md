@@ -1,6 +1,5 @@
 ---
 label: Active Directory
-disabled: false
 ---
 
 # Recon of Active Directory environment

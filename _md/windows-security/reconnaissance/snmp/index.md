@@ -1,9 +1,8 @@
 ---
 label: SNMP
-disabled: true
 ---
 
-# SNMP (UDP: 161 / 162)
+# Recon of SNMP (UDP: 161 / 162)
 
 The _Simple Network Management Protocol_ (SNMP) is not well-understood by many network administrators. This might result in **SNMP misconfigurations and significant information leaks**. It's based on UDP.
 
@@ -22,12 +21,14 @@ onesixtyone 192.168.1.1/24
 
 SNMP have weak authentication schemes and are commonly left configured with default public and private community strings. **The community string is a sort of a password effectively**. `public` is the most common read-only _community string_. `private` is the most common admin _community string_. **Different community strings can give different levels of access via SNMP.**
 
+[SecLists have pretty good wordlists](https://github.com/danielmiessler/SecLists/tree/master/Discovery/SNMP) for SNMP community string bruteforcing.
+
 ```bash
-# Discover SNMP on hosts and bruteforce community strings
+# Discover SNMP on hosts and bruteforce community string
 onesixtyone -c $wordlist_file -i $hosts_file
 ```
 
-## Enumerate SNMP
+## Enumerate SNMP data
 
 > **NOTE**: MIB might contain hex values. Use `snmpwalk` with `-Oa` param to translate any hex string into ASCII.
 
@@ -42,7 +43,9 @@ snmpwalk -v 1 -c $community_string $ip -m +
 snmp-check $ip -c $community_string   
 ```
 
-## Interesting data enumeration
+## Interesting MIB OIDs
+
+_OID_ stands for _Object ID_ and it's unique identifier (key) of value in a MIB tree.
 
 ```bash
 snmpwalk -v 1 -c $community_string $ip $oid

@@ -4,8 +4,6 @@ label: ACL Abuse
 
 # Active Directory ACL misconfiguration abuse
 
-## Theory
-
 Active Directory is a complex ecosystem. There are hundreds of objects (i.e. groups, machines, users) in each domain. Each object has a list of *Access Control Entries* (ACEs). Each ACE defines:
 
 * *ACE Type* - allow or deny.
@@ -16,7 +14,7 @@ There is a lot of combinations of ACEs that create potential for abuse. E.g., wh
 
 Read about many ways to abusing Active Directory ACLs/ACEs: [Ired, *Abusing Active Directory ACLs/ACEs*](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces)
 
-## Tooling
+## Automated Tooling
 
 Of course, everything can be enumerated manually, but there are tools that make the process easier. For Example, `BloodHound` can find a lot of ACL misconfigurations in a domain by default and it's probably the best option out of the box. People create many scripts searching for certain misconfigurations, some of them below:
 

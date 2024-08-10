@@ -54,3 +54,13 @@ There are some sites that aggregate data on multiple Internet domains for variou
 * [crt.sh](https://crt.sh/) - great resource for subdomains enumeration.
 * [ViewDNS.info](https://viewdns.info/) - various tools.
 * [Shodan.io] - you know what it is ;)
+
+## Source Code Inspection
+
+Inspection of the source code sent to the front-end can give good results. Comments and framework-specific artifacts are often left behind. Back-end frameworks sometimes add their headers to the HTTP response. Inspection of HTTP requests and responses can provide answers.
+
+The names of HTML classes or libraries used may be specific to a particular framework. File extensions, default files and folder names can also be helpful in identifying a specific technology.  
+
+## Wappalyzer
+
+[Wappalyzer](https://www.wappalyzer.com/) is a free tool that aggregates information about the technologies (i.e. frameworks, libraries, servers and languages) used by websites.
