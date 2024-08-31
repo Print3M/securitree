@@ -44,6 +44,15 @@ site:<DOMAIN> -filetype:html
 intitle:"index of" "parent directory"
 ```
 
+## File metadata
+
+Check metadata of files hosted on the website:
+
+```bash
+# Show all metadata (with duplicates and unknown keys)
+exiftool -u -a $file
+```
+
 ## Web Aggregators
 
 There are some sites that aggregate data on multiple Internet domains for various reasons. They are a great source of passive knowledge about a site. With them, you can e.g. discover subdomains without enumeration.
@@ -59,8 +68,14 @@ There are some sites that aggregate data on multiple Internet domains for variou
 
 Inspection of the source code sent to the front-end can give good results. Comments and framework-specific artifacts are often left behind. Back-end frameworks sometimes add their headers to the HTTP response. Inspection of HTTP requests and responses can provide answers.
 
-The names of HTML classes or libraries used may be specific to a particular framework. File extensions, default files and folder names can also be helpful in identifying a specific technology.  
+The names of HTML classes or libraries used may be specific to a particular framework. File extensions, default files and folder names can also be helpful in identifying a specific technology. `X-` headers (non-standard HTTP headers) might reveal internal server technologies.
+
+It might be worth to check `robots.txt` file and look for sitemap files.
 
 ## Wappalyzer
 
 [Wappalyzer](https://www.wappalyzer.com/) is a free tool that aggregates information about the technologies (i.e. frameworks, libraries, servers and languages) used by websites.
+
+## Callback gathering
+
+[https://canarytokens.org/nest/](Canarytokens.org) is a great site for intercepting requests of all kinds and reading useful information from them. When the target opens the generated link in a browser, an attacker will get information about their browser, IP address, and operating system.

