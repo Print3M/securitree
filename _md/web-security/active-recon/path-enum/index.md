@@ -61,4 +61,4 @@ gobuster dir
     -r                                      # Follow redirects
 ```
 
-{/_FeroxBuster_/}
+{/**FeroxBuster**/}
