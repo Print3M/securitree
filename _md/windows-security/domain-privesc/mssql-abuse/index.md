@@ -1,6 +1,5 @@
 ---
 label: MSSQL Abuse
-disabled: true
 ---
 
 # MSSQL Abuse
