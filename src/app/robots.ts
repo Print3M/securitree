@@ -6,7 +6,7 @@ const robots = (): MetadataRoute.Robots => ({
         userAgent: "*",
         allow: "/",
     },
-    sitemap: `${GlobalData.url}/sitemap.xml`,
+    sitemap: `${GlobalData.url}/sitemap/0.xml`,
 })
 
 export default robots
