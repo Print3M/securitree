@@ -2,6 +2,11 @@ import { GlobalData } from "@/config"
 import { MetadataRoute } from "next"
 import { getContentNodes } from "./_fs/paths"
 
+export async function generateSitemaps() {
+    // Fetch the total number of products and calculate the number of sitemaps needed
+    return [{ id: 0 }]
+}
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const nodes = await getContentNodes()
     const treeNodes = nodes.filter(i => !i.nodeSlug)
