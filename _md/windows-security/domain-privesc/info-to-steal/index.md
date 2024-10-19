@@ -5,7 +5,9 @@ subLabel: (files, logs, processes, ...)
 
 # Information to steal
 
-## Users and groups
+## Local machine
+
+### Users and groups
 
 ```powershell
 # Show current user
@@ -28,7 +30,7 @@ Get-LocalGroupMember $group
 net localhroup $group 
 ```
 
-## Operating System
+### Operating System
 
 ```powershell
 # Show basic info about OS
@@ -48,7 +50,7 @@ netstat
   -o                                        # Show PID
 ```
 
-## Processes and software
+### Processes and software
 
 ```powershell
 # List 32-bit installed application
@@ -57,11 +59,24 @@ Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Un
 # List 64-bit installed applications
 Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*" | select displayname
 
+# List installed software
+wmic product get name,version,vendor
+
 # List running processes
 Get-Process | select id,name,path,description
 ```
 
-## PowerShell history
+### Services
+
+```powershell
+# Get list of running services
+Get-CimInstance -ClassName win32_service | Select Name,State,PathName | Where-Object {$_.State -like 'Running'}
+
+# Check ACLs of a file
+icacls $path
+```
+
+### PowerShell history
 
 ```powershell
 # List history of PowerShell
@@ -84,7 +99,7 @@ There's also a feature called `Script Block Logging`. If enabled, it generates e
 Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object Id -eq 4104 | %{ $_.ToXml() } | Out-File $output_path
 ```
 
-## Files to loot
+### Files to loot
 
 ```bash
 C:\Windows\System32\drivers\etc\hosts       # /etc/hosts
@@ -111,4 +126,88 @@ One interesting type of file is password manager databases. Probably the most po
 ```powershell
 # Find .kdbx files
 Get-ChildItem -Path C:\ -Include *.kdbx -File -Recurse -ErrorAction SilentlyContinue
+```
+
+### Automated scanning
+
+There are plenty of tools to automate enumeration and security scanning:
+
+- [WinPeas](https://github.com/peass-ng/PEASS-ng/tree/master)
+- [Seatbelt](https://github.com/GhostPack/Seatbelt)
+
+## Active Directory
+
+
+### Users and groups
+
+Built-in options:
+
+```powershell
+# Show info about domain user
+net user $user /domain
+
+# List domain groups
+net group /domain
+
+# Show info about domain group
+net group $group /domain
+```
+
+It's also possible to execute raw LDAP query using `LDAPSearch` but it might be difficult.
+
+> Raw LDAP queries can be difficult to understand. Here's a source on how to create your own: [_SpecterOps.io, An Introduction to Manual Active Directory Querying_](https://posts.specterops.io/an-introduction-to-manual-active-directory-querying-with-dsquery-and-ldapsearch-84943c13d7eb).
+
+```powershell
+LDAPSearch -LDAPQuery "$query"
+```
+
+Extensions:
+
+Advanced PowerShell cmdlets like `Get-ADUser` are only installed by default on domain controllers as part of the Remote Server Administration Tools (RSAT). RSAT is very rarely present on clients in a domain and we must have administrative privileges to install them. If the RSAT is present, execute `import-module ActiveDirectory` to load the AD module to PS session.
+
+However, we can download Active Directory module files from GitHub ([link](https://github.com/samratashok/ADModule)) and load them into the current session without administrator privileges.
+
+```powershell
+# Load Active Directory module
+Import-Module C:\path\Microsoft.ActiveDirectory.Management.dll
+Import-Module C:\path\ActiveDirectory\ActiveDirectory.psd1
+
+# Try if everything works
+Get-ADDomain
+```
+
+Another popular option is the `PowerView` ([link](https://github.com/PowerShellMafia/PowerSploit/blob/master/Recon/PowerView.ps1)) PowerShell script, which includes many useful functions to execute AD enumeration.
+
+```powershell
+# Import PowerView module
+Import-Module .\PowerView.ps1
+
+# Verify
+Get-NetDomain -Verbose
+```
+
+### User sessions
+
+Obtain information which user is logged in to which computer using `NetSessionEnum` WinAPI function. Most probably regular domain users are not able to execute this function anymore on Windows 11.
+
+PowerShell (PowerView):
+
+```powershell
+# Enumerate user sessions on machine
+Get-NetSession -ComputerName $machine_name -Verbose
+```
+
+Another option is to use [PsLoggedOn](https://learn.microsoft.com/en-us/sysinternals/downloads/psloggedon) executable from `SysInternals Suite`. It works calling `Remote Registry` service (via RPC named pipes) on a target machine. The Remote Registry service has not been enabled by default since Windows 8, but system administrators may enable it for administrative tasks. It is enabled by default on later Windows Servers such as Server 2012, 2016, 2019, 2022.
+
+```powershell
+.\PsLoggedon.exe \\$machine_name
+```
+
+### Machines
+
+PowerShell (PowerView):
+
+```powershell
+# List domain machines and operating systems 
+Get-NetComputer | select dnshostname,operatingsystem,operatingsystemversion
 ```
