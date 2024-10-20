@@ -30,6 +30,18 @@ Windows ([AD ACL Scanner](https://github.com/canix1/ADACLScanner) module):
 .\ADACLScan.ps1 -AccessType Allow
 ```
 
+## Manual Checking
+
+It's also possible to perform manual checking of ACLs.
+
+```powershell
+# List all identities which have GenericAll privileges on Object
+Get-ObjectAcl -Identity $object_name | ? {$_.ActiveDirectoryRights -eq "GenericAll"} | select SecurityIdentifier,ActiveDirectoryRights
+
+# Convert SID to object name
+"$sid_1","$sid_2","$sid_3" | Convert-SidToName
+```
+
 ## References
 
 * [Ired, *Abusing Active Directory ACLs/ACEs*](https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/abusing-active-directory-acls-aces)

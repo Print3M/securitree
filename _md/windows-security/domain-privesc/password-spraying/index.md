@@ -19,6 +19,12 @@ Password spraying involves trying different combinations of acquired passwords a
 netexec $protocol $target -u $domain/$username -p $password --continue-on-success
 ```
 
+**CrackMapExec** is legacy tooling but still very popular. It works mostly the same:
+
+```bash
+crackmapexec $protocol $target -u $user -p $password -d $domain --continue-on-success
+```
+
 ## Local Administrator's password reuse
 
 The password for the local `Administrator` account is very often reused and is therefore the same on multiple machines within the domain. It's quite often to see one system image that is used for all machines. It is always a good idea to check if the Administrator user password is reused across the domain.

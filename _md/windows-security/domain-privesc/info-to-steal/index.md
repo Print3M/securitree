@@ -137,7 +137,6 @@ There are plenty of tools to automate enumeration and security scanning:
 
 ## Active Directory
 
-
 ### Users and groups
 
 Built-in options:
@@ -145,6 +144,9 @@ Built-in options:
 ```powershell
 # Show info about domain user
 net user $user /domain
+
+# Show account password policies
+net accounts
 
 # List domain groups
 net group /domain
@@ -210,4 +212,38 @@ PowerShell (PowerView):
 ```powershell
 # List domain machines and operating systems 
 Get-NetComputer | select dnshostname,operatingsystem,operatingsystemversion
+```
+
+### Service accounts and Service Principal Name (SPN)
+
+Information about SPNs is stored in AD, it is present on the domain controller. Since service accounts are used to run services, we can assume that they have more privileges than regular domain user accounts. To enumerate SPNs in the domain, we have multiple options. One of them is usage of built-in Windows tool:
+
+```powershell
+# Find SPN linked to a user
+setspn -L $domain_user
+
+# Find SPN linked to a machine
+setspn -L $machine
+```
+
+PowerShell (PowerView):
+
+```powershell
+# Enumerate service users and SPNs
+Get-NetUser -SPN | select samaccountname,serviceprincipalname
+```
+
+### Domain shares
+
+PowerShell (PowerView):
+
+```powershell
+# Find all shares in the domain
+Find-DomainShare -Verbose
+
+# Find only accessible shares
+Find-DomainShare -CheckShareAccess -Verbose
+
+# List share content
+ls \\$machine\$dir\
 ```
