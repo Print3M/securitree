@@ -8,6 +8,21 @@ label: Tasks and Services Abuse
 
 A Windows Service is a background executable managed by the SCM (Service Control Manager) and is similar to daemons on Linux. Services can be managed by the Services snap-in, PowerShell, or the `sc.exe` command line tool. Windows uses the `LocalSystem`, `Network Service`, and `Local Service` user accounts to run its own services. Users or programs creating a service can choose either one of those accounts, a domain user, or a local user.
 
+How to restart a service:
+
+```powershell
+# Stop service
+net stop $service
+Stop-Service $service_name
+
+# Start service
+net start $service
+Start-Service $service_name
+
+# Reboot machine
+shutdown /r /t 0 
+```
+
 ### Binary hijacking
 
 Each Windows service has an associated binary file. These binary files are executed when the service is started. If a lower authorized user is able to swap a binary that works as a service with higher privileges, there is a privilege escalation possibility. Once the service is restarted, the attacker's binary will be executed with the privileges of the service, such as `LocalSystem`.
@@ -146,12 +161,6 @@ For the exploitation we need to have rights to copy the binary to the vulnerable
 ```powershell
 # Check path permissions
 icacls "C:\path\to\write"
-
-# Start service
-Start-Service $service_name
-
-# Stop service
-Stop-Service $service_name
 ```
 
 ## Scheduled Tasks
@@ -159,8 +168,11 @@ Stop-Service $service_name
 If the task runs periodically as `NT AUTHORITY\SYSTEM` or as an administrative user, then a successful attack could lead us to privilege escalation.
 
 ```powershell
-# Get scheduled tasks
+# Get all scheduled tasks
 schtasks /query /fo LIST /v
+
+# Get paths of scheduled task binaries
+schtasks /query /fo LIST /v | findstr /B /C:"Task To Run"
 
 # Get scheduled tasks
 Get-ScheduledTask
