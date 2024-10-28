@@ -25,6 +25,12 @@ netexec $protocol $target -u $domain/$username -p $password --continue-on-succes
 crackmapexec $protocol $target -u $user -p $password -d $domain --continue-on-success
 ```
 
+Using `smb` protocol it's worth to check possibility of RCE via one of the following methods: `wmiexec`, `atexec`, `smbexec`. Using `-X <cmd>` parameter CrackMapExec on success automatically tries to execute the command using the above methods (all are based on access to SMB shares):
+
+```bash
+crackmapexec smb [...] -X $cmd
+```
+
 ## Local Administrator's password reuse
 
 The password for the local `Administrator` account is very often reused and is therefore the same on multiple machines within the domain. It's quite often to see one system image that is used for all machines. It is always a good idea to check if the Administrator user password is reused across the domain.

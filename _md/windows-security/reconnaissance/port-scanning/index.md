@@ -24,6 +24,10 @@ nmap
     -sP                     # PING scan (host discovery)
     -sn                     # Host discovery only (without any port scan)
 
+    # Speed
+    -T4                     # Fast scanning (more detectable)
+    --max-retries 3         # Maximum number of retries per port
+
 # List all nmap scripts
 ls /usr/share/nmap/scripts/
 ```

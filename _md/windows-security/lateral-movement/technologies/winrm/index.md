@@ -17,10 +17,10 @@ Linux:
 
 ```bash
 # Using password
-evil-winrm -i $host -u $username -p $password
+evil-winrm -i $host -u "$domain\\$user" -p $password
 
 # Using NT hash
-evil-winrm -i $host -u $username -H $nt_hash
+evil-winrm -i $host -u "$domain\\$user" -H $nt_hash
 
 # TODO: Using Kerberos TGT
 ```
