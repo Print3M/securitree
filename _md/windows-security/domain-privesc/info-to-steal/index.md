@@ -101,7 +101,11 @@ Get-WinEvent Microsoft-Windows-PowerShell/Operational | Where-Object Id -eq 4104
 
 ### Files to loot
 
-```bash
+```powershell
+C:\Users\$user\Desktop                      # Desktop
+C:\Users\$user\Downloads                    # Downloads
+C:\Users\$user\Desktop                      # Documents
+
 C:\Windows\System32\drivers\etc\hosts       # /etc/hosts
 C:\inetpub\logs\LogFiles\W3SVC1\            # IIS logs
 C:\inetpub\wwwroot\web.config               # IIS config
@@ -113,10 +117,10 @@ C:\xampp\passwords.txt                      # XAMPP credentials
 
 ```powershell
 # Find .txt and .ini XAMPP files
-Get-ChildItem -Path C:\xampp -Include *.txt,*.ini -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\xampp -Include *.txt,*.ini,*.log -File -Recurse -ErrorAction SilentlyContinue
 
 # Find interesting user's files
-Get-ChildItem -Path C:\Users\ -Include *.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx,*.msg,*ini -File -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem -Path C:\Users\ -Include *.log,*.txt,*.pdf,*.xls,*.xlsx,*.doc,*.docx,*.msg,*ini -File -Recurse -ErrorAction SilentlyContinue
 ```
 
 ### Password managers
@@ -142,6 +146,9 @@ There are plenty of tools to automate enumeration and security scanning:
 Built-in options:
 
 ```powershell
+# List domain users
+net user /domain
+
 # Show info about domain user
 net user $user /domain
 

@@ -114,12 +114,12 @@ Windows:
 
 ```powershell
 # Create and start service
-sc \\$host create $svc_name binPath= "cmd.exe /c $command" start= auto
-sc \\$host start $svc_name
+sc.exe \\$host create $svc_name binPath= "cmd.exe /c $command" start= auto
+sc.exe \\$host start $svc_name
 
 # Stop and delete service
-sc \\$host stop $svc_name
-sc \\$host delete $svc_name
+sc.exe \\$host stop $svc_name
+sc.exe \\$host delete $svc_name
 ```
 
 {/*TODO: How to provide credentials to `sc.exe`.*/}

@@ -8,20 +8,24 @@ label: Tasks and Services Abuse
 
 A Windows Service is a background executable managed by the SCM (Service Control Manager) and is similar to daemons on Linux. Services can be managed by the Services snap-in, PowerShell, or the `sc.exe` command line tool. Windows uses the `LocalSystem`, `Network Service`, and `Local Service` user accounts to run its own services. Users or programs creating a service can choose either one of those accounts, a domain user, or a local user.
 
-How to restart a service:
+How to restart a service (try different methods!):
 
 ```powershell
 # Stop service
+sc.exe stop $service
 net stop $service
 Stop-Service $service_name
 
 # Start service
+sc.exe start $service
 net start $service
 Start-Service $service_name
 
 # Reboot machine
 shutdown /r /t 0 
 ```
+
+> **IMPORTANT**: `sc.exe` (the `.exe` suffix is important!) 
 
 ### Binary hijacking
 

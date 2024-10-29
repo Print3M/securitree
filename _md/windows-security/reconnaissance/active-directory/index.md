@@ -18,6 +18,11 @@ bloodhound
 
 Click `Upload Data` button and select `.zip` file with the collected data.
 
+If your project is not empty you have to clear the database:
+
+1. Go to neo4j GUI: `http://localhost:7474/browser/`
+2. Execute command: `MATCH (n) DETACH DELETE n`
+
 > **IMPORTANT**: When you use collectors pay special attention to run all data collection methods!
 
 ## SharpHound
