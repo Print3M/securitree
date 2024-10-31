@@ -13,6 +13,8 @@ The _Simple Network Management Protocol_ (SNMP) is not well-understood by many n
 ## SNMP Discovery
 
 ```bash
+sudo nmap -sU -p161,162,10161,10162 -vv 192.168.193.145
+
 # Scan a subnet for SNMP services 
 onesixtyone 192.168.1.1/24
 ```

@@ -66,6 +66,8 @@ wmic product get name,version,vendor
 Get-Process | select id,name,path,description
 ```
 
+> **IMPORTANT**: The installed software may save sensitive data in logs, configuration files or the Windows registry. Look closely. Password managers, SSH clients (e.g. Putty), FTP clients, RDP clients often store credentials somewhere.
+
 ### Services
 
 ```powershell

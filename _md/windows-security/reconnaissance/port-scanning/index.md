@@ -7,6 +7,7 @@ label: Port Scanning
 ```bash
 nmap
     192.168.0.1-255         # Scan range of IPs
+    -iL $file               # Hosts from file
     -p $ports               # Specify ports (range: 1-1000, single: 1,2,3)
     --top-ports=20          # Scan 20 most common ports
     -O                      # Enable OS detection
