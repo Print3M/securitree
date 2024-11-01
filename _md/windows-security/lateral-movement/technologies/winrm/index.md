@@ -7,7 +7,7 @@ subLabel: (winrs, PS Remoting)
 
 > **Requirements**:
 >
-> * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** group on the target machine.
+> * Credentials (password, NT hash, Kerberos TGT) of a member of the local **Administrators** or **Remote Management Users** group on the target machine.
 > * WinRM enabled on target host (enabled by default on Windows Server, disabled by default on client Windows).
 > * WinRM allowed on firewall (allowed by default).
 

@@ -29,6 +29,9 @@ nmap
     -T4                     # Fast scanning (more detectable)
     --max-retries 3         # Maximum number of retries per port
 
+# Common snippet
+sudo nmap -sS -p- -sV -sC -T4 --max-retries 3 -vv $ip
+
 # List all nmap scripts
 ls /usr/share/nmap/scripts/
 ```

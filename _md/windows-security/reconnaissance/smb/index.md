@@ -46,7 +46,11 @@ smbclient //$ip/$share -U "$domain/$user%$pass"
 
 # Connect to SMB share with impacket
 impacket-smbclient $domain/$user:$password@$ip 
+> shares
 > use $share_name
+
+# Connect using NT hash
+impacket-smbclient $domain/$user@$ip -hashes :$nt_hash 
 
 # Mount SMB share to local filesystem
 mount -t cifs -o "user=$user,password=$pass" //$ip/$share /mnt/$target_dir

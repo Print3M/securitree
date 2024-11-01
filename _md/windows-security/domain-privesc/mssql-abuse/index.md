@@ -15,6 +15,8 @@ There are two options of authentication settings possible to set in SQL Server:
 
 In **Windows authentication**, the user should first authenticate himself within AD domain. SQL Server authenticates users through the Windows security token. It doesn't require to provide credentials explicitly. Windows Authentication is the **default authentication method** when an SQL Server is installed.
 
+{/*TODO: sa vs dbo accounts vs MSSQL Service Account*/}
+
 ## Enumeration
 
 Windows (PowerUpSQL module):
@@ -65,6 +67,25 @@ impacket-mssqlclient -windows-auth $domain/$user@$host -hashes :$nt_hash
 # Using Kerberos TGT
 export KRB5CCNAME=$tgt_ccache_file
 impacket-mssqlclient $hostname -k -no-pass -dc-ip $dc_ip
+```
+
+## Basic queries
+
+```bash
+# Show current DB user
+select user_name();
+
+# Show databases. Default: master, model, msdb, tempdb
+select name from sys.databases;
+
+# Switch database context
+use $db;
+
+# Show all tables from database
+select table_name from information_schema.tables;
+
+# Show all DB users (SQL_LOGIN type)
+select sp.name as login, sp.type_desc as login_type, sl.password_hash, sp.create_date, sp.modify_date, sp.is_disabled from sys.server_principals sp left join sys.sql_logins sl on sp.principal_id = sl.principal_id order by sp.name
 ```
 
 ## Security checks

