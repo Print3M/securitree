@@ -31,6 +31,18 @@ Using `smb` protocol it's worth to check possibility of RCE via one of the follo
 crackmapexec smb [...] -X $cmd
 ```
 
+`Hydra` is a versatile tool to perform online password attacks. It's able to crack usernames and passwords to many different services: `ftp`, `smtp`, `ssh`, `http`.
+
+```bash
+# Brute-force default services
+hydra $service://$ip
+  -l $username | -L $user_file    # Username(s)
+  -p $password | -P $pass_file    # Password(s)
+  -s $port                        # Port
+  -t $tasks_number                # Number of concurrent tasks
+  -V                              # Show all attempts
+```
+
 ## Local Administrator's password reuse
 
 The password for the local `Administrator` account is very often reused and is therefore the same on multiple machines within the domain. It's quite often to see one system image that is used for all machines. It is always a good idea to check if the Administrator user password is reused across the domain.

